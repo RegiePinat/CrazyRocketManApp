@@ -11,10 +11,10 @@
 
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
 {
+  
+    NSTimer *timerRocket;
+    
     NSTimer *timerBounce;
-    NSTimer *timerPlatformMove;
-    
-    
     NSTimer *timerdelay;
     NSTimer *timerMovePlatform;
     UIImageView *rocketMan;
@@ -28,6 +28,7 @@
 -(BOOL)CheckifJump:(UIImageView *)platform;
 -(void)startbouncing;
 -(IBAction)moveCharbutton:(UIButton *)sender;
+-(IBAction)rocketOnMode:(UIButton *)sender;
 -(void)movePlatforms;
 -(void)resetPlatform:(UIImageView*)platform;
 @end

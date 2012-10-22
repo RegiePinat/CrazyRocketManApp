@@ -21,18 +21,23 @@ float ypos;
 
 float maxDistanceBetweenStep ;
 float minDistanceBetweenStep ;
-float distanceBetweenSteps=300,distanceyBetweenSteps = 50;
+float distanceBetweenSteps=200,distanceyBetweenSteps = 50;
 float accelmoveX=0,deltaX=0;
+
+int rocketDuration = 10;
 
 BOOL delayTime = YES;
 BOOL NeedsTojump = NO;
 BOOL mainJumping = NO;
 BOOL gameSuspended = NO;
 
+BOOL rocketOn =NO;
 //how quickly should the jump start off
 float jumpSpeedLimit = 15;
 //the current speed of the jump;
 float jumpSpeed;
+//platform speed;
+float platformSpeedmove;
 
 CGPoint rocketManNewPosition;
 
@@ -66,13 +71,12 @@ CGPoint rocketManNewPosition;
                
                if (maxDistanceBetweenStep > [self view].frame.size.width - (stepRect.width)-10)
                {
-                   xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].frame.size.width - (stepRect.width)-10) ];
+                   xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].frame.size.width - (stepRect.width/2)-10) ];
                }
                
                else if(minDistanceBetweenStep <= 10)
                {
                    xpos = [self getRandomNumber:0+stepRect.width to:maxDistanceBetweenStep];
-                   NSLog(@"wafa" );
                }
                
                else
@@ -82,16 +86,33 @@ CGPoint rocketManNewPosition;
                }
                
                //Out of bounds xpos
-               if (xpos <0 )
+               if (xpos < 0 + stepRect.width/2 )
                {
-                   xpos =10;
-                   NSLog(@"x min");
+                   
+                   if (xpos <= 0)
+                   {
+                       xpos = (xpos * -1)+stepRect.width/2 ;
+                   }
+                   else
+                       
+                   {
+                       xpos = 0 + stepRect.width/2 ;
+                   }
+                   
+                   
+                   
                }
                
-               if (xpos >320 )
+               if (xpos >320 - stepRect.width/2 )
                {
-                   xpos =310;
-                     NSLog(@"x max");
+                   if (xpos > 320)
+                   {
+                       xpos = (xpos - 200) - stepRect.width/2;
+                   }
+                   else
+                   {
+                       xpos =320 - stepRect.width/2;
+                   }
                }
            }
            
@@ -168,9 +189,9 @@ CGPoint rocketManNewPosition;
     
    
     
-    
-    [timerPlatformMove invalidate];
-    timerPlatformMove =nil;
+    [timerRocket invalidate];
+    timerRocket = nil;
+   
     
         
     [self setArrayOfPlatforms:nil];
@@ -179,6 +200,39 @@ CGPoint rocketManNewPosition;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
+
+
+
+-(void )dealloc
+{
+    
+    accelerometer.delegate = nil;
+    [timerdelay invalidate];
+    timerdelay = nil;
+    
+    [timerBounce invalidate];
+    timerBounce =nil;
+    
+    [timerMovePlatform invalidate];
+    timerMovePlatform = nil;
+    
+    [timerRocket invalidate];
+    timerRocket = nil;
+    
+    
+    [self setArrayOfPlatforms:nil];
+    
+    
+}
+
+
+
+
+
+
+
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -200,11 +254,13 @@ CGPoint rocketManNewPosition;
 {
      //rocketManNewPosition.x += 2;
 
-    if (rocketManNewPosition.x + deltaX*40 >= 0 + rocketMan.frame.size.width/2 || rocketManNewPosition.x + deltaX*40 <= 320 ) {
+    if (rocketManNewPosition.x + deltaX*40 >= 0 + rocketMan.frame.size.width/2 && rocketManNewPosition.x + deltaX*40 <= 320 -rocketMan.frame.size.width/2  )
+    {
           rocketManNewPosition.x += deltaX*40;
     }
        else
-       {
+    {
+         //restrict movement with bounds
            if (rocketManNewPosition.x + deltaX*40 < 0 + rocketMan.frame.size.width/2)
            {
                rocketManNewPosition.x = 0 +rocketMan.frame.size.width/2;
@@ -213,22 +269,32 @@ CGPoint rocketManNewPosition;
            {
                rocketManNewPosition.x = 320 - rocketMan.frame.size.width/2;
            }
-       }
+       
+    }
 
-   
+   //jumping && Rocket on
     
-    if(!mainJumping){
+    if (rocketOn)
+    {
+        
+    }
+    
+       //jump
+    else
+    {
+        
+     
+        if(!mainJumping)
+        {
 		//then start jumping
 		mainJumping = YES;
 		jumpSpeed = jumpSpeedLimit*-1;
 		rocketManNewPosition.y += jumpSpeed;
-      
-        rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
-	}
+        }
     
     
-    else
-    {
+        else
+        {
         //if  paakyat n
         if(jumpSpeed < 0)
         {
@@ -237,9 +303,10 @@ CGPoint rocketManNewPosition;
           
 			 //Determine if pababa n
         
-            if(jumpSpeed > -jumpSpeedLimit/5){
-				jumpSpeed *= -1;
-			    }
+        if(jumpSpeed > -jumpSpeedLimit/5 || rocketMan.center.y  <= 0 + rocketMan.frame.size.height/2)
+            {
+        jumpSpeed *= -1;
+            }
 		}
         
         //speed up gradually but much faster 
@@ -298,6 +365,15 @@ CGPoint rocketManNewPosition;
             }
     
     }
+    }
+    
+    
+    
+    
+    
+    
+    //move rocketman
+     rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
 }
 
 
@@ -305,8 +381,10 @@ CGPoint rocketManNewPosition;
 
 
 -(void)movePlatforms{
+    
+    
     for (UIImageView *steps in arrayOfPlatforms) {
-        steps.center = CGPointMake(steps.center.x, steps.center.y + .1);
+        steps.center = CGPointMake(steps.center.x, steps.center.y + platformSpeedmove);
         
         if (steps.frame.origin.y > self.view.bounds.size.height) {
                        [self resetPlatform:steps];
@@ -350,11 +428,13 @@ CGPoint rocketManNewPosition;
 
 -(void)startbouncing
 {
+    platformSpeedmove =1;
+    
     if (!delayTime) {
         timerBounce = [NSTimer scheduledTimerWithTimeInterval:.07 target:self selector:@selector(jump) userInfo:nil repeats:YES];
         
         
-        timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
+        timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
         
         
         [timerdelay invalidate];
@@ -376,26 +456,7 @@ CGPoint rocketManNewPosition;
 
 
 
--(void )dealloc
-{
 
-    accelerometer.delegate = nil;
-    [timerdelay invalidate];
-    timerdelay = nil;
-    
-    [timerBounce invalidate];
-    timerBounce =nil;
-    
-    [timerMovePlatform invalidate];
-    timerMovePlatform = nil;
-    
-    
-    
-    
-    [timerPlatformMove invalidate];
-    timerPlatformMove =nil;
-
-}
 
 
 
@@ -420,7 +481,7 @@ CGPoint rocketManNewPosition;
     
     if (maxDistanceBetweenStep >  [self view].frame.size.width - (stepRect.width)-10)
     {
-        xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].bounds.size.width - (stepRect.width)-10) ];
+        xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].bounds.size.width - (stepRect.width/2)-10) ];
     }
     
     else if(minDistanceBetweenStep <= 0)
@@ -438,17 +499,73 @@ CGPoint rocketManNewPosition;
     //Out of bounds xpos
     if (xpos < 0 + stepRect.width/2 )
     {
+        
+        if (xpos <= 0)
+        {
+        xpos = (xpos * -1)+stepRect.width/2 ;
+        }
+        else
+            
+        {
         xpos = 0 + stepRect.width/2 ;
+        }
+        
+       
+
     }
     
     if (xpos >320 - stepRect.width/2 )
     {
+        if (xpos > 320)
+        {
+            xpos = xpos - 50 - stepRect.width/2;
+        }
+        else
+        {
         xpos =320 - stepRect.width/2;
+        }
     }
     
     ypos = 0;
     
     platform.center = CGPointMake (xpos , ypos);
+}
+
+
+
+
+
+
+
+-(void)checkRocketDuration
+{
+if (rocketDuration <=0) {
+    [timerRocket invalidate];
+    timerRocket = nil;
+    rocketOn = NO;
+    platformSpeedmove = 1;
+    }
+    rocketDuration--;
+}
+
+
+
+-(IBAction)rocketOnMode:(id)sender
+{
+    if (rocketOn)
+    {
+    rocketOn = NO;
+    platformSpeedmove = 1;
+    }
+    else
+    {
+        rocketDuration =10;
+    rocketOn = YES;
+    timerRocket = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkRocketDuration) userInfo:nil repeats:YES];
+        
+    platformSpeedmove = 3;
+        
+    }
 }
 
 
