@@ -21,7 +21,7 @@ float ypos;
 
 float maxDistanceBetweenStep ;
 float minDistanceBetweenStep ;
-float distanceBetweenSteps=200,distanceyBetweenSteps = 50;
+float distanceBetweenSteps=300,distanceyBetweenSteps = 50;
 float accelmoveX=0,deltaX=0;
 
 BOOL delayTime = YES;
@@ -51,7 +51,7 @@ CGPoint rocketManNewPosition;
     arrayOfPlatforms= [NSMutableArray array];
     CGSize stepRect = CGSizeMake(100, 35);
     ypos= (self.view.bounds.size.height)-stepRect.height;  
-       for (int i=0; i<9 ; i++)
+       for (int i=0; i<kNumOfPlatforms ; i++)
        {
        
            if ([arrayOfPlatforms count]>0)
@@ -62,16 +62,16 @@ CGPoint rocketManNewPosition;
                
                
                maxDistanceBetweenStep = before.center.x + distanceBetweenSteps;
-               minDistanceBetweenStep = before.center.x -distanceBetweenSteps;
+               minDistanceBetweenStep = before.center.x - distanceBetweenSteps;
                
                if (maxDistanceBetweenStep > [self view].frame.size.width - (stepRect.width)-10)
                {
                    xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].frame.size.width - (stepRect.width)-10) ];
                }
                
-               else if(minDistanceBetweenStep <= 0)
+               else if(minDistanceBetweenStep <= 10)
                {
-                   xpos = [self getRandomNumber:10+stepRect.width to:maxDistanceBetweenStep];
+                   xpos = [self getRandomNumber:0+stepRect.width to:maxDistanceBetweenStep];
                    NSLog(@"wafa" );
                }
                
@@ -85,11 +85,13 @@ CGPoint rocketManNewPosition;
                if (xpos <0 )
                {
                    xpos =10;
+                   NSLog(@"x min");
                }
                
                if (xpos >320 )
                {
                    xpos =310;
+                     NSLog(@"x max");
                }
            }
            
@@ -104,8 +106,10 @@ CGPoint rocketManNewPosition;
            //Add image object to Array of platforms
            [arrayOfPlatforms addObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"platform.png"]]];
            //platform Object rect
+         
            [[arrayOfPlatforms objectAtIndex:i] setFrame:CGRectMake(xpos, ypos, stepRect.width, stepRect.height)];
-          // [[arrayOfPlatforms objectAtIndex:i] setBackgroundColor:[UIColor redColor]];
+       
+           // [[arrayOfPlatforms objectAtIndex:i] setBackgroundColor:[UIColor redColor]];
            
            ypos = ypos - distanceyBetweenSteps;
        }
@@ -158,9 +162,17 @@ CGPoint rocketManNewPosition;
     
     [timerBounce invalidate];    
     timerBounce =nil;
+    
+    [timerMovePlatform invalidate];
+    timerMovePlatform = nil;
+    
+   
+    
+    
     [timerPlatformMove invalidate];
     timerPlatformMove =nil;
     
+        
     [self setArrayOfPlatforms:nil];
     
     [super viewDidUnload];
@@ -187,8 +199,23 @@ CGPoint rocketManNewPosition;
 -(void)jump
 {
      //rocketManNewPosition.x += 2;
-    
-     //rocketManNewPosition.x += deltaX*40;
+
+    if (rocketManNewPosition.x + deltaX*40 >= 0 + rocketMan.frame.size.width/2 || rocketManNewPosition.x + deltaX*40 <= 320 ) {
+          rocketManNewPosition.x += deltaX*40;
+    }
+       else
+       {
+           if (rocketManNewPosition.x + deltaX*40 < 0 + rocketMan.frame.size.width/2)
+           {
+               rocketManNewPosition.x = 0 +rocketMan.frame.size.width/2;
+           }
+           else if (rocketManNewPosition.x + deltaX*40 > 320 - rocketMan.frame.size.width/2)
+           {
+               rocketManNewPosition.x = 320 - rocketMan.frame.size.width/2;
+           }
+       }
+
+   
     
     if(!mainJumping){
 		//then start jumping
@@ -206,12 +233,13 @@ CGPoint rocketManNewPosition;
         if(jumpSpeed < 0)
         {
             //Speed up gradually
-			jumpSpeed *= 1 - jumpSpeedLimit/125;
+			jumpSpeed *= 1 - jumpSpeedLimit/75;
           
 			 //Determine if pababa n
+        
             if(jumpSpeed > -jumpSpeedLimit/5){
 				jumpSpeed *= -1;
-			}
+			    }
 		}
         
         //speed up gradually but much faster 
@@ -233,11 +261,12 @@ CGPoint rocketManNewPosition;
         //Check Each Platform if hit
         
      
- if(jumpSpeed >0)
-{
-  //  UIImageView *checkplatform = [arrayOfPlatforms objectAtIndex:2];
-        for (UIImageView *checkplatform in arrayOfPlatforms)
-        {
+            if(jumpSpeed >0)
+            {
+        
+    //Jump Again If Collided and moving Down
+                for (UIImageView *checkplatform in arrayOfPlatforms)
+                {
         
             
             if(rocketManNewPosition.y >=  checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10  && [self CheckifJump:checkplatform]  &&  jumpSpeed  >0 )
@@ -251,13 +280,43 @@ CGPoint rocketManNewPosition;
             }
         }
     
-}
+            }
+        
+        //Check if on Ground
+            if (rocketMan.frame.origin.y   > self.view.frame.size.height)
+            {
+                NSLog(@"aw");
+            
+                [timerBounce invalidate];
+                timerBounce =nil;
+            
+                [timerMovePlatform invalidate];
+                timerMovePlatform = nil;
+            
+            
+            
+            }
     
     }
 }
 
 
 
+
+
+-(void)movePlatforms{
+    for (UIImageView *steps in arrayOfPlatforms) {
+        steps.center = CGPointMake(steps.center.x, steps.center.y + .1);
+        
+        if (steps.frame.origin.y > self.view.bounds.size.height) {
+                       [self resetPlatform:steps];
+        }
+    
+    }
+
+    
+    
+}
 
 
 
@@ -271,6 +330,8 @@ CGPoint rocketManNewPosition;
         return YES;
       
     }
+    
+
     
     return NO;
 }
@@ -291,6 +352,11 @@ CGPoint rocketManNewPosition;
 {
     if (!delayTime) {
         timerBounce = [NSTimer scheduledTimerWithTimeInterval:.07 target:self selector:@selector(jump) userInfo:nil repeats:YES];
+        
+        
+        timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.005 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
+        
+        
         [timerdelay invalidate];
         timerdelay = nil;
     }
@@ -314,24 +380,110 @@ CGPoint rocketManNewPosition;
 {
 
     accelerometer.delegate = nil;
+    [timerdelay invalidate];
+    timerdelay = nil;
     
+    [timerBounce invalidate];
+    timerBounce =nil;
+    
+    [timerMovePlatform invalidate];
+    timerMovePlatform = nil;
+    
+    
+    
+    
+    [timerPlatformMove invalidate];
+    timerPlatformMove =nil;
 
 }
 
+
+
+-(void)resetPlatform:(UIImageView*)platform
+{
+    CGSize stepRect = CGSizeMake(100, 35);
+    NSUInteger index;
+    if ([arrayOfPlatforms indexOfObject:platform]== 0) {
+        index = kNumOfPlatforms-1;
+    }
+    else
+    {
+        index = [arrayOfPlatforms indexOfObject:platform]-1;
+    }
+    UIImageView *before= [arrayOfPlatforms objectAtIndex:index];
+    
+    maxDistanceBetweenStep = 0;
+    minDistanceBetweenStep = 0;
+    
+    maxDistanceBetweenStep = before.center.x + distanceBetweenSteps;
+    minDistanceBetweenStep = before.center.x -distanceBetweenSteps;
+    
+    if (maxDistanceBetweenStep >  [self view].frame.size.width - (stepRect.width)-10)
+    {
+        xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].bounds.size.width - (stepRect.width)-10) ];
+    }
+    
+    else if(minDistanceBetweenStep <= 0)
+    {
+        xpos = [self getRandomNumber:10 + stepRect.width to:maxDistanceBetweenStep];
+     
+    }
+    
+    else
+    {
+        xpos = [self getRandomNumber:minDistanceBetweenStep to:maxDistanceBetweenStep ];
+        
+    }
+    
+    //Out of bounds xpos
+    if (xpos < 0 + stepRect.width/2 )
+    {
+        xpos = 0 + stepRect.width/2 ;
+    }
+    
+    if (xpos >320 - stepRect.width/2 )
+    {
+        xpos =320 - stepRect.width/2;
+    }
+    
+    ypos = 0;
+    
+    platform.center = CGPointMake (xpos , ypos);
+}
 
 
 
 
 -(IBAction)moveCharbutton:(UIButton *)sender
 {
-    if (sender.tag==1)
-    {
-    rocketManNewPosition.x-= 5;
-    }
-    else
-    {
-    rocketManNewPosition.x+=5;
-    }
 
+
+        if (sender.tag==1)
+        {
+            if (rocketManNewPosition.x - 25 >=0 +rocketMan.frame.size.width/2)
+            {
+                rocketManNewPosition.x-= 25;
+            }
+            else
+            {
+                rocketManNewPosition.x=0 + rocketMan.frame.size.width/2;
+            }
+            
+        }
+    
+        else
+        {
+            if (rocketManNewPosition.x + 25 <=320 - rocketMan.frame.size.width/2)
+            {
+                rocketManNewPosition.x+= 25;
+            }
+            else
+            {
+                rocketManNewPosition.x=320 - rocketMan.frame.size.width/2;
+            }
+        }
+    
+    
+      
 }
 @end

@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#define kNumOfPlatforms 9
 
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
 {
     NSTimer *timerBounce;
     NSTimer *timerPlatformMove;
-    NSTimer *timerdelay;
     
+    
+    NSTimer *timerdelay;
+    NSTimer *timerMovePlatform;
     UIImageView *rocketMan;
     UIAccelerometer *accelerometer;
 }
@@ -25,5 +28,6 @@
 -(BOOL)CheckifJump:(UIImageView *)platform;
 -(void)startbouncing;
 -(IBAction)moveCharbutton:(UIButton *)sender;
-
+-(void)movePlatforms;
+-(void)resetPlatform:(UIImageView*)platform;
 @end
