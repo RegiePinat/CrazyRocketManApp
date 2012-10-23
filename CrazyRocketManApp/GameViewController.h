@@ -12,8 +12,8 @@
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
 {
   
+    NSTimer *GameTimer;
     NSTimer *timerRocket;
-    
     NSTimer *timerBounce;
     NSTimer *timerdelay;
     NSTimer *timerMovePlatform;
@@ -22,13 +22,17 @@
 }
 
 @property (nonatomic,strong) NSMutableArray *arrayOfPlatforms;
+@property  (nonatomic,strong) NSMutableArray *arrayOfCoins;
 
 -(int)getRandomNumber:(int)from to:(int)to;
 -(void)jump;
 -(BOOL)CheckifJump:(UIImageView *)platform;
+-(BOOL)CheckifCoinGet:(UIImageView *)coins;
+
 -(void)startbouncing;
 -(IBAction)moveCharbutton:(UIButton *)sender;
 -(IBAction)rocketOnMode:(UIButton *)sender;
 -(void)movePlatforms;
 -(void)resetPlatform:(UIImageView*)platform;
+
 @end

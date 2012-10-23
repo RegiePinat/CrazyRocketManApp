@@ -14,6 +14,8 @@
 
 @implementation GameViewController
 @synthesize arrayOfPlatforms;
+@synthesize arrayOfCoins;
+
 
 //G vars
 float xpos =0;
@@ -23,6 +25,10 @@ float maxDistanceBetweenStep ;
 float minDistanceBetweenStep ;
 float distanceBetweenSteps=200,distanceyBetweenSteps = 50;
 float accelmoveX=0,deltaX=0;
+float score=0;
+
+int coinsCounts;
+int platformsFinished;
 
 int rocketDuration = 10;
 
@@ -127,10 +133,10 @@ CGPoint rocketManNewPosition;
            //Add image object to Array of platforms
            [arrayOfPlatforms addObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"platform.png"]]];
            //platform Object rect
-         
            [[arrayOfPlatforms objectAtIndex:i] setFrame:CGRectMake(xpos, ypos, stepRect.width, stepRect.height)];
        
-           // [[arrayOfPlatforms objectAtIndex:i] setBackgroundColor:[UIColor redColor]];
+                    
+           
            
            ypos = ypos - distanceyBetweenSteps;
        }
@@ -139,9 +145,39 @@ CGPoint rocketManNewPosition;
         for ( UIImageView *steps in  arrayOfPlatforms)
         {
             
+            
             [[self view] addSubview: steps];
             
         }
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        //coins
+        arrayOfCoins = [NSMutableArray array];
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         //ADD Character
         UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
@@ -195,7 +231,7 @@ CGPoint rocketManNewPosition;
     
         
     [self setArrayOfPlatforms:nil];
-    
+    [self setArrayOfCoins:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -223,7 +259,7 @@ CGPoint rocketManNewPosition;
     
     [self setArrayOfPlatforms:nil];
     
-    
+    [self setArrayOfCoins:nil];
 }
 
 
@@ -272,6 +308,33 @@ CGPoint rocketManNewPosition;
        
     }
 
+    
+    
+    
+    
+    
+    //HITS coin
+    for (UIImageView *coins in arrayOfCoins)
+    {
+        if ([self CheckifCoinGet:coins])
+        {
+            NSLog(@"Coin Get");
+            
+         
+            [arrayOfCoins removeObject:coins];
+            NSLog(@"%d",[arrayOfCoins count]);
+            [self.view setNeedsDisplay];
+            [coins removeFromSuperview];
+            score = score +10;
+            NSLog(@"Score:%.0f",score);
+            break;
+        }
+    }
+    
+    
+    
+    
+    
    //jumping && Rocket on
     
     if (rocketOn)
@@ -315,14 +378,15 @@ CGPoint rocketManNewPosition;
 			jumpSpeed *= 1 + jumpSpeedLimit/50;
 		}
       
-        
+
 		rocketManNewPosition.y += jumpSpeed;
         rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
         
         
-		
+
        
-        
+ 
+            
         
 	  //if main hits the platform, then stop jumping
         //Check Each Platform if hit
@@ -338,14 +402,33 @@ CGPoint rocketManNewPosition;
             
             if(rocketManNewPosition.y >=  checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10  && [self CheckifJump:checkplatform]  &&  jumpSpeed  >0 )
             {
-                         mainJumping = NO;
+                mainJumping = NO;
                 rocketManNewPosition.y = checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10;
                 rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
                   
+              
+   
+                //For moving sana
+//                
+//                if (rocketMan.center.y < self.view.bounds.size.height/2 )
+//                {
+//                    
+//                    float movePlatformonstep =  jumpSpeed*5 ;
+//                    // move on jump
+//                    for (UIImageView * steps in arrayOfPlatforms) {
+//                        
+//                        
+//                        steps.center = CGPointMake(steps.center.x, steps.center.y + movePlatformonstep);
+//                    }
+//                }
+                
+                
+                
+                
                  break;
              
             }
-        }
+                 }
     
             }
         
@@ -360,8 +443,27 @@ CGPoint rocketManNewPosition;
                 [timerMovePlatform invalidate];
                 timerMovePlatform = nil;
             
+                [timerRocket invalidate];
+                timerRocket = nil;
+                
+                [timerdelay invalidate];
+                timerdelay = nil;
             
-            
+                
+                accelerometer.delegate = nil;
+                [timerdelay invalidate];
+                timerdelay = nil;
+                
+                [timerBounce invalidate];
+                timerBounce =nil;
+                
+                [timerMovePlatform invalidate];
+                timerMovePlatform = nil;
+                
+                [timerRocket invalidate];
+                timerRocket = nil;
+                
+                
             }
     
     }
@@ -380,16 +482,49 @@ CGPoint rocketManNewPosition;
 
 
 
--(void)movePlatforms{
+-(void)movePlatforms
+{
     
+   
     
-    for (UIImageView *steps in arrayOfPlatforms) {
-        steps.center = CGPointMake(steps.center.x, steps.center.y + platformSpeedmove);
+
+    for (UIImageView   *coins in arrayOfCoins)
+    {
+        coins.center = CGPointMake(coins.center.x, coins.center.y + platformSpeedmove);
         
-        if (steps.frame.origin.y > self.view.bounds.size.height) {
-                       [self resetPlatform:steps];
-        }
+        
     
+
+    }
+    
+    for (UIImageView  *coins in arrayOfCoins)
+    {
+        if (coins.frame.origin.y > self.view.bounds.size.height)
+        {
+            
+            [arrayOfCoins removeObject:coins];
+            break;
+            
+        }
+        
+        
+    }
+    
+    for (UIImageView *steps in arrayOfPlatforms)
+    {
+        steps.center = CGPointMake(steps.center.x, steps.center.y + platformSpeedmove);
+    
+        
+        
+        if (steps.frame.origin.y > self.view.bounds.size.height)
+        {
+            platformsFinished++;
+            NSLog(@"%d", platformsFinished);
+            [self resetPlatform:steps];
+            
+        }
+        
+        
     }
 
     
@@ -399,7 +534,8 @@ CGPoint rocketManNewPosition;
 
 
 
--(BOOL)CheckifJump:(UIImageView *)platform{
+-(BOOL)CheckifJump:(UIImageView *)platform
+{
    
  
     if (rocketMan.center.x >= platform.frame.origin.x && rocketMan.center.x <= (platform.frame.origin.x + platform.bounds.size.width) && CGRectIntersectsRect(platform.frame,rocketMan.frame))
@@ -413,6 +549,23 @@ CGPoint rocketManNewPosition;
     
     return NO;
 }
+
+
+
+
+
+
+-(BOOL)CheckifCoinGet:(UIImageView *)coins
+{
+    if (CGRectIntersectsRect(rocketMan.frame, coins.frame)) {
+    return YES;
+    }
+
+    return NO;
+}
+
+
+
 
 -(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
@@ -464,13 +617,18 @@ CGPoint rocketManNewPosition;
 {
     CGSize stepRect = CGSizeMake(100, 35);
     NSUInteger index;
-    if ([arrayOfPlatforms indexOfObject:platform]== 0) {
+    
+    //get Index of previous Object
+    if ([arrayOfPlatforms indexOfObject:platform]== 0)
+    {
         index = kNumOfPlatforms-1;
     }
     else
     {
         index = [arrayOfPlatforms indexOfObject:platform]-1;
     }
+    
+    
     UIImageView *before= [arrayOfPlatforms objectAtIndex:index];
     
     maxDistanceBetweenStep = 0;
@@ -479,6 +637,8 @@ CGPoint rocketManNewPosition;
     maxDistanceBetweenStep = before.center.x + distanceBetweenSteps;
     minDistanceBetweenStep = before.center.x -distanceBetweenSteps;
     
+    
+    //set Coordinate based on previous object
     if (maxDistanceBetweenStep >  [self view].frame.size.width - (stepRect.width)-10)
     {
         xpos = [self getRandomNumber:minDistanceBetweenStep to:([self view].bounds.size.width - (stepRect.width/2)-10) ];
@@ -495,6 +655,7 @@ CGPoint rocketManNewPosition;
         xpos = [self getRandomNumber:minDistanceBetweenStep to:maxDistanceBetweenStep ];
         
     }
+    
     
     //Out of bounds xpos
     if (xpos < 0 + stepRect.width/2 )
@@ -526,9 +687,45 @@ CGPoint rocketManNewPosition;
         }
     }
     
-    ypos = 0;
     
-    platform.center = CGPointMake (xpos , ypos);
+
+    ypos = -10;
+    
+    
+
+
+    platform.center = CGPointMake (xpos,ypos);
+
+    
+    if (platformsFinished < 20) {
+        coinsCounts = 1;
+    }
+    else if (platformsFinished > 20)
+    {
+        coinsCounts = 5;
+    
+    }
+    
+    if ([arrayOfCoins count]< coinsCounts) {
+        if ((arc4random() %2)+1 == 1)
+        {
+            
+            CGRect coinsRect = CGRectMake(0, 0, 20, 20);
+            UIImageView  *coinsView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goldcoin.png"]];
+            [coinsView setFrame:coinsRect];
+            
+            coinsView.center = CGPointMake(xpos,platform.frame.origin.y);
+            
+            [arrayOfCoins addObject:coinsView];
+            
+            [self.view addSubview:coinsView];
+            
+            
+       }
+    }
+      
+    
+
 }
 
 
