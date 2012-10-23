@@ -19,10 +19,12 @@
     NSTimer *timerMovePlatform;
     UIImageView *rocketMan;
     UIAccelerometer *accelerometer;
+    int timeCounter;
 }
 
 @property (nonatomic,strong) NSMutableArray *arrayOfPlatforms;
 @property  (nonatomic,strong) NSMutableArray *arrayOfCoins;
+@property (nonatomic,strong) NSMutableArray *arrayOfEnemies;
 
 -(int)getRandomNumber:(int)from to:(int)to;
 -(void)jump;
@@ -34,5 +36,5 @@
 -(IBAction)rocketOnMode:(UIButton *)sender;
 -(void)movePlatforms;
 -(void)resetPlatform:(UIImageView*)platform;
-
+-(void)gameTimeMethod;
 @end

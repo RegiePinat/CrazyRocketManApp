@@ -15,6 +15,7 @@
 @implementation GameViewController
 @synthesize arrayOfPlatforms;
 @synthesize arrayOfCoins;
+@synthesize arrayOfEnemies;
 
 
 //G vars
@@ -44,6 +45,9 @@ float jumpSpeedLimit = 15;
 float jumpSpeed;
 //platform speed;
 float platformSpeedmove;
+//Enemy Respawn time
+float enemyRespawnTime;
+
 
 CGPoint rocketManNewPosition;
 
@@ -53,6 +57,12 @@ CGPoint rocketManNewPosition;
     if (self) {
         // Custom initialization
      
+        
+        
+        timeCounter = 0;
+        
+        
+        
 //Accelerometer
         accelerometer = [UIAccelerometer sharedAccelerometer];
         accelerometer.delegate = self;
@@ -162,7 +172,8 @@ CGPoint rocketManNewPosition;
         arrayOfCoins = [NSMutableArray array];
         
         
-
+        //enemy
+        arrayOfEnemies = [NSMutableArray array];
         
         
         
@@ -472,6 +483,9 @@ CGPoint rocketManNewPosition;
                 [timerdelay invalidate];
                 timerdelay = nil;
                 
+                [gameTimer invalidate];
+                gameTimer = nil;
+                
             }
     
     }
@@ -496,21 +510,46 @@ CGPoint rocketManNewPosition;
    
     
 
+//ENEMY
+    for (UIImageView   *enemy in arrayOfEnemies)
+    {
+        enemy.center = CGPointMake(enemy.center.x, enemy.center.y + platformSpeedmove);
+        
+        
+    }
+    
+    
+    
+    for (UIImageView  *enemy in arrayOfEnemies)
+    {
+        if (enemy.frame.origin.y > self.view.bounds.size.height)
+        {
+            
+            [arrayOfEnemies removeObject:enemy];
+            [enemy removeFromSuperview];
+            break;
+            
+        }
+        
+        
+    }
+    
+    
+//COINS
+    
     for (UIImageView   *coins in arrayOfCoins)
     {
         coins.center = CGPointMake(coins.center.x, coins.center.y + platformSpeedmove);
         
         
-    
-
     }
-    
     for (UIImageView  *coins in arrayOfCoins)
     {
         if (coins.frame.origin.y > self.view.bounds.size.height)
         {
             
             [arrayOfCoins removeObject:coins];
+            [coins removeFromSuperview];
             break;
             
         }
@@ -596,6 +635,8 @@ CGPoint rocketManNewPosition;
         
         
         timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
+        
+    gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameTimeMethod) userInfo:nil repeats:YES];
         
         
         [timerdelay invalidate];
@@ -808,4 +849,31 @@ if (rocketDuration <=0) {
     
       
 }
+
+
+
+
+-(void)gameTimeMethod
+{
+    timeCounter ++;
+
+    NSLog(@"%d",timeCounter);
+
+    
+    if (timeCounter %3 == 0)
+    {
+    
+        CGRect EnemyRect = CGRectMake(0, 0, 20, 20);
+        UIImageView  *enemyView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
+        [enemyView setFrame:EnemyRect];
+        
+        enemyView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+        
+        [arrayOfEnemies addObject:enemyView];
+        
+        [self.view addSubview:enemyView];
+    }
+    
+}
+
 @end
