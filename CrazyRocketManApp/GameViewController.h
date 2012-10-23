@@ -12,7 +12,7 @@
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
 {
   
-    NSTimer *GameTimer;
+    NSTimer *gameTimer;
     NSTimer *timerRocket;
     NSTimer *timerBounce;
     NSTimer *timerdelay;

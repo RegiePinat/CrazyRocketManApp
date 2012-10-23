@@ -182,7 +182,7 @@ CGPoint rocketManNewPosition;
         //ADD Character
         UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
         rocketMan = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
-        NSLog(@"%f",rocketMan.bounds.size.height);
+        
         
         rocketMan.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
        rocketManNewPosition.x = rocketMan.center.x;
@@ -228,8 +228,9 @@ CGPoint rocketManNewPosition;
     [timerRocket invalidate];
     timerRocket = nil;
    
+    [gameTimer invalidate];
+    gameTimer =nil;
     
-        
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
     [super viewDidUnload];
@@ -256,6 +257,8 @@ CGPoint rocketManNewPosition;
     [timerRocket invalidate];
     timerRocket = nil;
     
+    [gameTimer invalidate];
+    gameTimer =nil;
     
     [self setArrayOfPlatforms:nil];
     
@@ -316,8 +319,11 @@ CGPoint rocketManNewPosition;
     //HITS coin
     for (UIImageView *coins in arrayOfCoins)
     {
+        
+        //Remove if hit and add score
         if ([self CheckifCoinGet:coins])
         {
+            
             NSLog(@"Coin Get");
             
          
@@ -342,9 +348,14 @@ CGPoint rocketManNewPosition;
         
     }
     
-       //jump
+    
+    
+    
+    //jump
     else
     {
+        
+        
         
      
         if(!mainJumping)
@@ -358,15 +369,16 @@ CGPoint rocketManNewPosition;
     
         else
         {
+            
         //if  paakyat n
         if(jumpSpeed < 0)
         {
-            //Speed up gradually
-			jumpSpeed *= 1 - jumpSpeedLimit/75;
+        //Speed up gradually
+        jumpSpeed *= 1 - jumpSpeedLimit/75;
           
-			 //Determine if pababa n
+        //Determine if pababa n
         
-        if(jumpSpeed > -jumpSpeedLimit/5 || rocketMan.center.y  <= 0 + rocketMan.frame.size.height/2)
+             if(jumpSpeed > -jumpSpeedLimit/5 || rocketMan.center.y  <= 0 + rocketMan.frame.size.height/2)
             {
         jumpSpeed *= -1;
             }
@@ -379,75 +391,69 @@ CGPoint rocketManNewPosition;
 		}
       
 
-		rocketManNewPosition.y += jumpSpeed;
+      
+        rocketManNewPosition.y += jumpSpeed;
         rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
         
-        
-
+          
        
  
             
         
 	  //if main hits the platform, then stop jumping
-        //Check Each Platform if hit
+     //Check Each Platform if hit
         
      
             if(jumpSpeed >0)
             {
         
-    //Jump Again If Collided and moving Down
+               //Jump Again If Collided and moving Down
                 for (UIImageView *checkplatform in arrayOfPlatforms)
                 {
         
+                    //speed up when
+                    if (rocketMan.center.y < self.view.bounds.size.height/2 - 70)
+                    {
+                        platformSpeedmove =4;
+                        
+                    }
+                    
+                    else
+                    {
+                        platformSpeedmove =1;
+                    }
+                    
+                    
+                 if(rocketManNewPosition.y >=  checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10  && [self CheckifJump:checkplatform]  &&  jumpSpeed  >0  )
+                      {
+                          
+                          if (platformSpeedmove !=4) {
+                              mainJumping = NO;
+                              rocketManNewPosition.y = checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10;
+                              rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
+                          }
             
-            if(rocketManNewPosition.y >=  checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10  && [self CheckifJump:checkplatform]  &&  jumpSpeed  >0 )
-            {
-                mainJumping = NO;
-                rocketManNewPosition.y = checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10;
-                rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
                   
               
    
-                //For moving sana
-//                
-//                if (rocketMan.center.y < self.view.bounds.size.height/2 )
-//                {
-//                    
-//                    float movePlatformonstep =  jumpSpeed*5 ;
-//                    // move on jump
-//                    for (UIImageView * steps in arrayOfPlatforms) {
-//                        
-//                        
-//                        steps.center = CGPointMake(steps.center.x, steps.center.y + movePlatformonstep);
-//                    }
-//                }
+        
                 
-                
-                
-                
-                 break;
+                break;
              
             }
                  }
     
             }
         
+            
+            
         //Check if on Ground
             if (rocketMan.frame.origin.y   > self.view.frame.size.height)
             {
                 NSLog(@"aw");
             
-                [timerBounce invalidate];
-                timerBounce =nil;
-            
-                [timerMovePlatform invalidate];
-                timerMovePlatform = nil;
-            
-                [timerRocket invalidate];
-                timerRocket = nil;
-                
-                [timerdelay invalidate];
-                timerdelay = nil;
+
+              
             
                 
                 accelerometer.delegate = nil;
@@ -463,6 +469,8 @@ CGPoint rocketManNewPosition;
                 [timerRocket invalidate];
                 timerRocket = nil;
                 
+                [timerdelay invalidate];
+                timerdelay = nil;
                 
             }
     
@@ -519,7 +527,7 @@ CGPoint rocketManNewPosition;
         if (steps.frame.origin.y > self.view.bounds.size.height)
         {
             platformsFinished++;
-            NSLog(@"%d", platformsFinished);
+           
             [self resetPlatform:steps];
             
         }
