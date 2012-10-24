@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Coins.h"
+
 #define kNumOfPlatforms 9
 
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
@@ -30,6 +32,8 @@
     UILabel *numberOfRef;
     UILabel *numberOfCoil;
     UILabel *numberOfbattery;
+    UILabel *labelScore;
+    
     
     UIImageView *gasImage;
     UIImageView *refineImage;
@@ -66,6 +70,8 @@
 -(BOOL)CheckifOilGet:(UIImageView *)oil;
 -(BOOL)CheckifRefineryGet:(UIImageView *)ref;
 -(BOOL)CheckifCoilGet:(UIImageView *)coil;
+-(BOOL)CheckifBatteryGet:(UIImageView *)bat;
+-(BOOL)CheckifEnemyHit:(UIImageView *)enemy;
 
 
 -(void)startbouncing;
@@ -78,7 +84,21 @@
 
 -(void)movePlatforms;
 -(void)resetPlatform:(UIImageView*)platform;
+
+
 -(void)gameTimeMethod;
+
+
+-(void)excuteMoveAndRemoveFromArray:(NSMutableArray *)array;
+
+-(void) createOil;
+-(void) createRefinery;
+-(void) createCoil;
+-(void) createBattery;
+
+
+-(void)checkRocketDuration;
+-(void)checkMagnetDuration;
 
 
 -(void) getFuel;

@@ -45,8 +45,9 @@ float score=0;
 int coinsCounts;
 int platformsFinished;
 
-int rocketDuration = 10;
+int rocketDuration = 10,magnetDuration=10;
 
+float life;
 
 int gasNum;
 int refNum;
@@ -59,6 +60,7 @@ BOOL mainJumping = NO;
 BOOL gameSuspended = NO;
 
 BOOL rocketOn =NO;
+BOOL magnetOn = NO;
 //how quickly should the jump start off
 float jumpSpeedLimit = 15;
 //the current speed of the jump;
@@ -81,8 +83,21 @@ CGPoint rocketManNewPosition;
         // Custom initialization
      
         
-        
+        life =100;
         timeCounter = 0;
+        
+        
+        
+        [self labelsCreate];
+        
+        //INITIALIZE button Alpha zero
+        [rocketOnButton setAlpha:0];
+        [magnetOnButton setAlpha:0];
+        
+        
+        
+        
+        
         
         
         
@@ -199,6 +214,8 @@ CGPoint rocketManNewPosition;
         //enemy
         arrayOfEnemies = [NSMutableArray array];
         
+        
+        
         //oil
         arrayOfOil =  [NSMutableArray array];
         
@@ -237,21 +254,30 @@ CGPoint rocketManNewPosition;
         jumpSpeed = jumpSpeedLimit;
         
         
-        
-        
-        
-        
-        
-        
-        
-        [self labelsCreate];
+        numberOfGas = [[UILabel alloc]init];
+        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum];
+        [numberOfGas setFrame:CGRectMake(30, 35, 10, 10)];
+        [numberOfGas setFont: [UIFont boldSystemFontOfSize:10]];
+        [numberOfGas setTextColor:[UIColor whiteColor]];
+        numberOfGas.textAlignment = UITextAlignmentCenter;
+        [numberOfGas setBackgroundColor:[UIColor blackColor]];
+        [numberOfGas setAlpha:.5];
+        [[self view] addSubview:numberOfGas];
 
         
         
-        //INITIALIZE button Alpha zero
-        [rocketOnButton setAlpha:0];
-        [magnetOnButton setAlpha:0];
+        labelScore = [[UILabel alloc]init];
+        labelScore.text = [NSString stringWithFormat:@"Score:%.0f",score];
+        [labelScore setFrame:CGRectMake(self.view.bounds.size.width-200, self.view.bounds.size.height-30, 100, 20)];
+        [labelScore setFont: [UIFont boldSystemFontOfSize:14]];
+         [labelScore setTextColor:[UIColor blackColor]];
+         labelScore.textAlignment = UITextAlignmentCenter;
+        [labelScore setBackgroundColor:[UIColor redColor]];
+        [[self view] addSubview:labelScore];
+
         
+        
+
         
     }
     return self;
@@ -481,7 +507,7 @@ CGPoint rocketManNewPosition;
     
     
     //HITS coin
-    for (UIImageView *coins in arrayOfCoins)
+    for (Coins *coins in arrayOfCoins)
     {
         
         //Remove if hit and add score
@@ -496,14 +522,38 @@ CGPoint rocketManNewPosition;
 
             [coins removeFromSuperview];
             
-            score = score +10;
+            score = score + [coins value];
             NSLog(@"Score:%.0f",score);
+             labelScore.text = [NSString stringWithFormat:@"SCORE:%.0f",score];
+            [labelScore setNeedsDisplay];
             break;
         }
     }
     
     
 
+    
+    //HITS enemy
+    for (UIImageView *enemy in arrayOfEnemies)
+    {
+        
+        //Remove if hit and add score
+        if ([self CheckifEnemyHit:enemy])
+        {
+            
+            NSLog(@"Enemy Get");
+            
+            
+            [arrayOfEnemies removeObject:enemy];
+            NSLog(@"%d",[arrayOfEnemies count]);
+            
+            [enemy removeFromSuperview];
+            
+            
+           
+            break;
+        }
+    }
     
     
     
@@ -583,7 +633,7 @@ CGPoint rocketManNewPosition;
                     if (rocketMan.center.y < self.view.bounds.size.height/2 - 70)
                     {
                         platformSpeedmove =4;
-             rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y + 1);
+                         //rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y + 1);
                     
                     }
                     
@@ -693,17 +743,25 @@ CGPoint rocketManNewPosition;
     }
     
     
-//COINS
     
-    for (UIImageView   *coins in arrayOfCoins)
+    
+    
+    
+//COINS
+    for (Coins   *coins in arrayOfCoins)
     {
+        
+        if (magnetOn) {
+            NSLog(@"Magnet ON");
+        }
+        else
+        {
         coins.center = CGPointMake(coins.center.x, coins.center.y + platformSpeedmove);
-        
-        
+        }
     }
     
     //if off screen remove
-    for (UIImageView  *coins in arrayOfCoins)
+    for (Coins   *coins in arrayOfCoins)
     {
         if (coins.frame.origin.y > self.view.bounds.size.height)
         {
@@ -721,60 +779,14 @@ CGPoint rocketManNewPosition;
     
     
     
-    //OIL
     
-    for (UIImageView   *oil in arrayOfOil)
-    {
-        oil.center = CGPointMake(oil.center.x, oil.center.y + platformSpeedmove);
-        
-        
-    }
+      
+
     
-    //if off screen remove
-    for (UIImageView  *oil in arrayOfOil)
-    {
-        if (oil.frame.origin.y > self.view.bounds.size.height)
-        {
-            
-            [arrayOfOil removeObject:oil];
-            [oil removeFromSuperview];
-            break;
-            
-        }
-        
-        
-    }
-    
-    
-    
-    
-    //REFINERY
-    
-    for (UIImageView   *ref in arrayOfRefinery)
-    {
-        ref.center = CGPointMake(ref.center.x, ref.center.y + platformSpeedmove);
-        
-        
-    }
-    
-    //if off screen remove
-    for (UIImageView  *ref in arrayOfRefinery)
-    {
-        if (ref.frame.origin.y > self.view.bounds.size.height)
-        {
-            
-            [arrayOfOil removeObject:ref];
-            [ref removeFromSuperview];
-            break;
-            
-        }
-        
-        
-    }
-    
-    
-    
-    
+        [self excuteMoveAndRemoveFromArray:arrayOfOil];
+        [self excuteMoveAndRemoveFromArray:arrayOfRefinery];
+        [self excuteMoveAndRemoveFromArray:arrayOfCoil];
+        [self excuteMoveAndRemoveFromArray:arrayOfBattery];
     
     
     
@@ -798,6 +810,9 @@ CGPoint rocketManNewPosition;
         
     }
 
+    
+    
+    
     
     
 }
@@ -826,7 +841,7 @@ CGPoint rocketManNewPosition;
 
 
 
--(BOOL)CheckifCoinGet:(UIImageView *)coins
+-(BOOL)CheckifCoinGet:(Coins *)coins
 {
     if (CGRectIntersectsRect(rocketMan.frame, coins.frame)) {
     return YES;
@@ -862,6 +877,23 @@ CGPoint rocketManNewPosition;
     return NO;
 }
 
+-(BOOL)CheckifBatteryGet:(UIImageView *)bat
+{
+    if (CGRectIntersectsRect(rocketMan.frame, bat.frame)) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(BOOL)CheckifEnemyHit:(UIImageView *)enemy
+{
+    if (CGRectIntersectsRect(rocketMan.frame, enemy.frame)) {
+        return YES;
+    }
+    
+    return NO;
+}
 
 
 
@@ -905,7 +937,34 @@ CGPoint rocketManNewPosition;
 
 
 
+-(void)excuteMoveAndRemoveFromArray:(NSMutableArray *)array
+{
 
+    for (UIImageView   *imgViewObject in array)
+    {
+        
+  
+        
+    imgViewObject.center = CGPointMake(imgViewObject.center.x, imgViewObject.center.y + platformSpeedmove);
+        
+        
+    }
+    
+    //if off screen remove
+    for (UIImageView   *imgViewObject in array)
+    {
+        if (imgViewObject.frame.origin.y > self.view.bounds.size.height)
+        {
+            
+            [array removeObject:imgViewObject];
+            [imgViewObject removeFromSuperview];
+            break;
+            
+        }
+        
+        
+    }
+}
 
 
 
@@ -997,23 +1056,66 @@ CGPoint rocketManNewPosition;
     platform.center = CGPointMake (xpos,ypos);
 
     
+    
+    
+    
+    //CREATE COINS
+    
     if (platformsFinished < 20) {
         coinsCounts = 1;
     }
-    else if (platformsFinished > 20)
+    else if (platformsFinished < 50)
     {
-        coinsCounts = 5;
+        coinsCounts = 3;
     
     }
     
+    else if (platformsFinished < 200)
+    {
+        coinsCounts = 5;
+        
+    }
+    
+    else if (platformsFinished > 200)
+    {
+        coinsCounts = 7;
+        
+    }
+    
+    
     if ([arrayOfCoins count]< coinsCounts) {
-        if ((arc4random() %2)+1 == 1)
+        if ((arc4random() %3)+1 == 1)
         {
             
             CGRect coinsRect = CGRectMake(0, 0, 20, 20);
-            UIImageView  *coinsView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goldcoin.png"]];
+            Coins  *coinsView =[[Coins alloc] init];
             [coinsView setFrame:coinsRect];
             
+            
+            NSString *imageStr;
+            
+            switch ((arc4random()%3)+1) {
+                case 1:
+                    imageStr =@"bronzecoin.png";
+                    [coinsView setValue:100];
+                    break;
+                    
+                case 2:
+                    imageStr =@"silvercoin.png";
+                    [coinsView setValue:200];
+                    
+                    break;
+                case 3:
+                    imageStr =@"goldcoin.png";
+                    [coinsView setValue:500];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+
+            coinsView.image = [UIImage imageNamed:imageStr];
             coinsView.center = CGPointMake(xpos,platform.frame.origin.y);
             
             [arrayOfCoins addObject:coinsView];
@@ -1036,7 +1138,8 @@ CGPoint rocketManNewPosition;
 
 -(void)checkRocketDuration
 {
-if (rocketDuration <=0) {
+if (rocketDuration <=0)
+    {
     [timerRocket invalidate];
     timerRocket = nil;
     rocketOn = NO;
@@ -1115,6 +1218,9 @@ if (rocketDuration <=0) {
 {
     timeCounter ++;
 
+    [self checkMagnetDuration];
+    
+    
     NSLog(@"%d",timeCounter);
 
     
@@ -1136,53 +1242,40 @@ if (rocketDuration <=0) {
 
 if (timeCounter % 3 ==0)
     {
+       
+        int randomNumForUps = 0;
         
-            //add gas
-        CGRect oilRect = CGRectMake(0, 0, 30, 30);
+        randomNumForUps = [self getRandomNumber:1 to:4];
         
-        UIImageView  *oilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
+        switch (randomNumForUps)
+        {
+            case 1:
+                [self createOil];
+                break;
+                
+             case 2:
+                [self createRefinery];
+                break;
+                
+             case 3:
+                [self createCoil];
+                break;
+                
+            case 4:
+                [self createBattery];
+                break;
+                
+            default:
+                break;
+        }
         
-        [oilView setFrame:oilRect];
-        
-        oilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
-        
-        [arrayOfOil addObject:oilView];
-        [self.view addSubview:oilView];
-        
-        
-        
-    
-
-        
-        
-        //add refinery
-        CGRect refRect = CGRectMake(0, 0, 35, 30);
-        
-        UIImageView  *refView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.jpg"]];
-        
-        [refView setFrame:refRect];
-        
-        refView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
-        
-        [arrayOfRefinery addObject:refView];
-        [self.view addSubview:refView];
         
         
         
         
         
 
-//        //add coil
-//        CGRect coilRect = CGRectMake(0, 0, 30, 30);
-//        
-//        UIImageView  *coilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.png"]];
-//        
-//        [coilView setFrame:coilRect];
-//        
-//        coilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
-//        
-//        [arrayOfCoil addObject:coilView];
-//        [self.view addSubview:coilView];
+
         
         
      
@@ -1201,7 +1294,7 @@ if (timeCounter % 3 ==0)
 
 
 
--(void) getFuel
+-(void)getFuel
 {
     
     //HITS oil
@@ -1287,60 +1380,182 @@ if (timeCounter % 3 ==0)
 
 
 
--(void) getElectroMagnet
+-(void)getElectroMagnet
 {
-//    if (CGRectIntersectsRect(rocketMan.frame, coil.frame))
-//    {
-//        [numberOfCoil setAlpha:1];
-//        [coilImage setAlpha:1];
-//        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum+1];
-//        
-//        [coil removeFromSuperview];
-//      
-//        
-//    } else if (CGRectIntersectsRect(rocketMan.frame, battery.frame))
-//    {
-//        [numberOfbattery setAlpha:1];
-//        [batteryImage setAlpha:1];
-//        numberOfbattery.text = [NSString stringWithFormat: @"%i", batteryNum = batteryNum + 1];
-//        
-//        [battery removeFromSuperview];
-//        
-//    }
-//    
-//    if (coilNum >= 1 && batteryNum >= 1)
-//    {
-//        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum - 1];
-//        numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum = batteryNum - 1];
-//        [magnetOnButton setAlpha:1];
-//        
-//    }
-//    
-//    if (batteryNum == 0)
-//    {
-//        numberOfbattery.alpha = 0.5;
-//        [batteryImage setAlpha:0.5];
-//    }
-//    
-//    if (coilNum == 0)
-//    {
-//        [numberOfCoil setAlpha:0.5];
-//        [coilImage setAlpha:0.5];
-//    }
+    
+    //HITS COIL
+    for (UIImageView *coil in arrayOfCoil)
+    {
+        
+        //Remove if hit and add score
+        if ([self CheckifCoilGet:coil])
+        {
+            
+            NSLog(@"coil Get");
+            [numberOfCoil setAlpha:1];
+            [coilImage setAlpha:1];
+            numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum+1];
+            
+            [arrayOfCoil removeObject:coil];
+            NSLog(@"%d",[arrayOfCoil count]);
+            
+            [coil removeFromSuperview];
+            
+            NSLog(@"COIL");
+            break;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //HITS Battery
+    for (UIImageView *bat in arrayOfBattery)
+    {
+        
+        //Remove if hit and add score
+        if ([self CheckifBatteryGet:bat])
+        {
+            
+            NSLog(@"battery Get");
+            [numberOfbattery setAlpha:1];
+            [batteryImage setAlpha:1];
+            numberOfbattery.text = [NSString stringWithFormat: @"%i", batteryNum = batteryNum + 1];
+            
+            [arrayOfBattery removeObject:bat];
+            NSLog(@"%d",[arrayOfBattery count]);
+            
+            [bat removeFromSuperview];
+            
+            NSLog(@"BATTERY");
+            break;
+        }
+    }
+    
+
+    
+    
+    
+    
+    
+    if (coilNum >= 1 && batteryNum >= 1)
+    {
+        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum - 1];
+        numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum = batteryNum - 1];
+        [magnetOnButton setAlpha:1];
+        
+    }
+    
+    if (batteryNum == 0)
+    {
+        numberOfbattery.alpha = 0.5;
+        [batteryImage setAlpha:0.5];
+    }
+    
+    if (coilNum == 0)
+    {
+        [numberOfCoil setAlpha:0.5];
+        [coilImage setAlpha:0.5];
+    }
     
 }
 
 
 
 
+-(void)createOil
+{
+    //add gas
+    CGRect oilRect = CGRectMake(0, 0, 30, 30);
+    
+    UIImageView  *oilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
+    
+    [oilView setFrame:oilRect];
+    
+    oilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+    
+    [arrayOfOil addObject:oilView];
+    [self.view addSubview:oilView];
+    
+}
+
+-(void)createRefinery
+{
+    //add refinery
+    CGRect refRect = CGRectMake(0, 0, 35, 30);
+    
+    UIImageView  *refView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.jpg"]];
+    
+    [refView setFrame:refRect];
+    
+    refView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+    
+    [arrayOfRefinery addObject:refView];
+    [self.view addSubview:refView];
+    
+}
+
+-(void) createCoil
+{
+    
+
+          //add coil
+          CGRect coilRect = CGRectMake(0, 0, 30, 30);
+    
+           UIImageView  *coilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"coil.png"]];
+    
+           [coilView setFrame:coilRect];
+    
+           coilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+    
+           [arrayOfCoil addObject:coilView];
+            [self.view addSubview:coilView];
+}
+
+-(void) createBattery
+{
+
+            //add battery
+           CGRect batRect = CGRectMake(0, 0, 30, 30);
+
+            UIImageView  *batteryView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"battery.png"]];
+   
+           [batteryView setFrame:batRect];
+  
+            batteryView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+    
+           [arrayOfBattery addObject:batteryView];
+           [self.view addSubview:batteryView];
+}
 
 
 
-
-
+-(void)checkMagnetDuration
+{
+    if (magnetDuration <=0)
+    {
+ 
+        magnetOn= NO;
+     
+    }
+    magnetDuration--;
+    
+}
 
 -(IBAction)magnetOnMode:(UIButton *)sender
 {
-    NSLog (@"Magnet On!");
+    if (!magnetOn)
+    {
+        magnetOn = YES;
+        magnetDuration =10;
+    }
+    
+    else
+    {
+        magnetOn = NO;
+    
+    }
 }
 @end
