@@ -15,6 +15,11 @@
 		DB2CB165162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CB164162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.m */; };
 		DB2CB16E162FF0A300A4BF8B /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CB16C162FF0A300A4BF8B /* GameViewController.m */; };
 		DB2CB16F162FF0A300A4BF8B /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */; };
+		DB41E50B1637791900C0B82D /* refinery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DB41E5071637791900C0B82D /* refinery.jpg */; };
+		DB41E50C1637791900C0B82D /* gas.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E5081637791900C0B82D /* gas.png */; };
+		DB41E50D1637791900C0B82D /* battery.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E5091637791900C0B82D /* battery.png */; };
+		DB41E50E1637791900C0B82D /* coil.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E50A1637791900C0B82D /* coil.png */; };
+		DB41E511163780CD00C0B82D /* crudeoil.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E510163780CD00C0B82D /* crudeoil.png */; };
 		DB48FAD616363DC800AD2C0B /* goldcoin.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FAD516363DC800AD2C0B /* goldcoin.png */; };
 		DB48FAD916363DFE00AD2C0B /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FAD816363DFE00AD2C0B /* platform.png */; };
 		DB48FADB16363E0B00AD2C0B /* BH2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FADA16363E0B00AD2C0B /* BH2.png */; };
@@ -34,6 +39,11 @@
 		DB2CB16B162FF0A300A4BF8B /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		DB2CB16C162FF0A300A4BF8B /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		DB41E5071637791900C0B82D /* refinery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = refinery.jpg; sourceTree = "<group>"; };
+		DB41E5081637791900C0B82D /* gas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas.png; sourceTree = "<group>"; };
+		DB41E5091637791900C0B82D /* battery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battery.png; sourceTree = "<group>"; };
+		DB41E50A1637791900C0B82D /* coil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coil.png; sourceTree = "<group>"; };
+		DB41E510163780CD00C0B82D /* crudeoil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crudeoil.png; sourceTree = "<group>"; };
 		DB48FAD516363DC800AD2C0B /* goldcoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldcoin.png; sourceTree = "<group>"; };
 		DB48FAD816363DFE00AD2C0B /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
 		DB48FADA16363E0B00AD2C0B /* BH2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BH2.png; sourceTree = "<group>"; };
@@ -89,6 +99,11 @@
 				DB2CB16C162FF0A300A4BF8B /* GameViewController.m */,
 				DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */,
 				DB48FAD516363DC800AD2C0B /* goldcoin.png */,
+				DB41E5071637791900C0B82D /* refinery.jpg */,
+				DB41E5081637791900C0B82D /* gas.png */,
+				DB41E5091637791900C0B82D /* battery.png */,
+				DB41E50A1637791900C0B82D /* coil.png */,
+				DB41E510163780CD00C0B82D /* crudeoil.png */,
 				DB48FAD816363DFE00AD2C0B /* platform.png */,
 				DB48FADA16363E0B00AD2C0B /* BH2.png */,
 				DB2CB15B162FF04300A4BF8B /* Supporting Files */,
@@ -164,6 +179,11 @@
 				DB48FAD616363DC800AD2C0B /* goldcoin.png in Resources */,
 				DB48FAD916363DFE00AD2C0B /* platform.png in Resources */,
 				DB48FADB16363E0B00AD2C0B /* BH2.png in Resources */,
+				DB41E50B1637791900C0B82D /* refinery.jpg in Resources */,
+				DB41E50C1637791900C0B82D /* gas.png in Resources */,
+				DB41E50D1637791900C0B82D /* battery.png in Resources */,
+				DB41E50E1637791900C0B82D /* coil.png in Resources */,
+				DB41E511163780CD00C0B82D /* crudeoil.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define kNumOfPlatforms 9
+#define kNumOfPlatforms 8
 
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
 {
@@ -20,11 +20,35 @@
     UIImageView *rocketMan;
     UIAccelerometer *accelerometer;
     int timeCounter;
+    
+    
+    
+    
+
+    
+    UILabel *numberOfGas;
+    UILabel *numberOfRef;
+    UILabel *numberOfCoil;
+    UILabel *numberOfbattery;
+    
+    UIImageView *gasImage;
+    UIImageView *refineImage;
+    UIImageView *coilImage;
+    UIImageView *batteryImage;
+    
+    
+    
 }
 
 @property (nonatomic,strong) NSMutableArray *arrayOfPlatforms;
 @property  (nonatomic,strong) NSMutableArray *arrayOfCoins;
 @property (nonatomic,strong) NSMutableArray *arrayOfEnemies;
+
+@property (weak, nonatomic) IBOutlet UIButton *rocketOnButton;
+@property (weak, nonatomic) IBOutlet UIButton *magnetOnButton;
+
+
+
 
 -(int)getRandomNumber:(int)from to:(int)to;
 -(void)jump;
@@ -32,9 +56,19 @@
 -(BOOL)CheckifCoinGet:(UIImageView *)coins;
 
 -(void)startbouncing;
+
+
 -(IBAction)moveCharbutton:(UIButton *)sender;
 -(IBAction)rocketOnMode:(UIButton *)sender;
+-(IBAction)magnetOnMode:(UIButton *)sender;
+
+
 -(void)movePlatforms;
 -(void)resetPlatform:(UIImageView*)platform;
 -(void)gameTimeMethod;
+
+
+-(void) getFuel;
+-(void) getElectroMagnet;
+
 @end

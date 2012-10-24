@@ -16,7 +16,17 @@
 @synthesize arrayOfPlatforms;
 @synthesize arrayOfCoins;
 @synthesize arrayOfEnemies;
+@synthesize rocketOnButton;
+@synthesize magnetOnButton;
 
+
+
+
+
+UIImageView *oil;
+UIImageView *refinery;
+UIImageView *coil;
+UIImageView *battery;
 
 //G vars
 float xpos =0;
@@ -32,6 +42,12 @@ int coinsCounts;
 int platformsFinished;
 
 int rocketDuration = 10;
+
+
+int gasNum;
+int refNum;
+int coilNum;
+int batteryNum;
 
 BOOL delayTime = YES;
 BOOL NeedsTojump = NO;
@@ -205,6 +221,109 @@ CGPoint rocketManNewPosition;
         jumpSpeed = jumpSpeedLimit;
         
         
+        
+        
+        
+        
+        
+        //add gas
+        
+        oil = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
+        CGSize oilRect = CGSizeMake(30, 30);
+        [oil setFrame:CGRectMake(150, 300,  oilRect.width,  oilRect.height)];
+        [[self view] addSubview:oil];
+        
+        //add refinery
+        refinery = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"refinery.jpg"]];
+        CGSize refRect = CGSizeMake(35, 30);
+        [refinery setFrame:CGRectMake(150, 100, refRect.width, refRect.height)];
+        [[self view] addSubview:refinery];
+        
+        
+        //add coil
+        coil = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"coil.png"]];
+        CGSize coilRect = CGSizeMake(30, 30);
+        [coil setFrame: CGRectMake(150, 200, coilRect.width, coilRect.height)];
+        [[self view] addSubview:coil];
+        
+        
+        //initialization
+        gasNum = 0;
+        refNum = 0;
+        coilNum = 0;
+        batteryNum = 0;
+        
+        //gas image
+        gasImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
+        [gasImage setFrame:CGRectMake(10, 10, 30, 35)];
+        [gasImage setAlpha:.5];
+        [[self view] addSubview:gasImage];
+        
+        //Gas number label
+        numberOfGas = [[UILabel alloc]init];
+        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum];
+        [numberOfGas setFrame:CGRectMake(30, 35, 10, 10)];
+        [numberOfGas setFont: [UIFont boldSystemFontOfSize:10]];
+        [numberOfGas setTextColor:[UIColor whiteColor]];
+        numberOfGas.textAlignment = UITextAlignmentCenter;
+        [numberOfGas setBackgroundColor:[UIColor blackColor]];
+        [numberOfGas setAlpha:.5];
+        [[self view] addSubview:numberOfGas];
+        
+        //refinery image
+        refineImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.jpg"]];
+        [refineImage setFrame:CGRectMake(60, 10, 40, 35)];
+        [refineImage setAlpha:.5];
+        [[self view] addSubview:refineImage];
+        
+        //Refinery number label
+        numberOfRef = [[UILabel alloc]init];
+        numberOfRef.text = [NSString stringWithFormat:@"%i", refNum];
+        [numberOfRef setFrame:CGRectMake(90, 35, 10, 10)];
+        [numberOfRef setFont:[UIFont boldSystemFontOfSize:10]];
+        [numberOfRef setTextColor:[UIColor whiteColor]];
+        numberOfRef.textAlignment = UITextAlignmentCenter;
+        [numberOfRef setBackgroundColor:[UIColor blackColor]];
+        [numberOfRef setAlpha:.5];
+        [[self view] addSubview:numberOfRef];
+        
+        coilImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"coil.png"]];
+        [coilImage setFrame:CGRectMake(120, 10, 30, 35)];
+        [coilImage setAlpha:0.5];
+        [[self view] addSubview:coilImage];
+        
+        numberOfCoil = [[UILabel alloc]init];
+        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum];
+        [numberOfCoil setFrame:CGRectMake(140, 35, 10, 10)];
+        [numberOfCoil setFont:[UIFont boldSystemFontOfSize:10]];
+        [numberOfCoil setTextColor:[UIColor whiteColor]];
+        numberOfCoil.textAlignment = UITextAlignmentCenter;
+        [numberOfCoil setBackgroundColor:[UIColor blackColor]];
+        [numberOfCoil setAlpha:.5];
+        [[self view] addSubview:numberOfCoil];
+        
+        batteryImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"battery.png"]];
+        [batteryImage setFrame:CGRectMake(170, 10, 30, 35)];
+        [batteryImage setAlpha:0.5];
+        [[self view] addSubview:batteryImage];
+        
+        numberOfbattery = [[UILabel alloc]init];
+        numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum];
+        [numberOfbattery setFrame:CGRectMake(190, 35, 10, 10)];
+        [numberOfbattery setFont:[UIFont boldSystemFontOfSize:10]];
+        [numberOfbattery setTextColor:[UIColor whiteColor]];
+        numberOfbattery.textAlignment = UITextAlignmentCenter;
+        [numberOfbattery setBackgroundColor:[UIColor blackColor]];
+        [numberOfbattery setAlpha:.5];
+        [[self view] addSubview:numberOfbattery];
+
+        
+        
+        //INITIALIZE button Alpha zero
+        [rocketOnButton setAlpha:0];
+        [magnetOnButton setAlpha:0];
+        
+        
     }
     return self;
 }
@@ -244,6 +363,8 @@ CGPoint rocketManNewPosition;
     
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
+    [self setRocketOnButton:nil];
+    [self setMagnetOnButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -302,8 +423,16 @@ CGPoint rocketManNewPosition;
 
 -(void)jump
 {
+    
      //rocketManNewPosition.x += 2;
 
+
+    [self getFuel];
+    [self getElectroMagnet];
+    
+    
+    
+    
     if (rocketManNewPosition.x + deltaX*40 >= 0 + rocketMan.frame.size.width/2 && rocketManNewPosition.x + deltaX*40 <= 320 -rocketMan.frame.size.width/2  )
     {
           rocketManNewPosition.x += deltaX*40;
@@ -340,8 +469,9 @@ CGPoint rocketManNewPosition;
          
             [arrayOfCoins removeObject:coins];
             NSLog(@"%d",[arrayOfCoins count]);
-            [self.view setNeedsDisplay];
+
             [coins removeFromSuperview];
+            
             score = score +10;
             NSLog(@"Score:%.0f",score);
             break;
@@ -514,12 +644,10 @@ CGPoint rocketManNewPosition;
     for (UIImageView   *enemy in arrayOfEnemies)
     {
         enemy.center = CGPointMake(enemy.center.x, enemy.center.y + platformSpeedmove);
-        
-        
     }
     
     
-    
+    //if off screen remove
     for (UIImageView  *enemy in arrayOfEnemies)
     {
         if (enemy.frame.origin.y > self.view.bounds.size.height)
@@ -543,6 +671,8 @@ CGPoint rocketManNewPosition;
         
         
     }
+    
+    //if off screen remove
     for (UIImageView  *coins in arrayOfCoins)
     {
         if (coins.frame.origin.y > self.view.bounds.size.height)
@@ -557,6 +687,9 @@ CGPoint rocketManNewPosition;
         
     }
     
+    
+    
+    //move platform and reuse if off screen
     for (UIImageView *steps in arrayOfPlatforms)
     {
         steps.center = CGPointMake(steps.center.x, steps.center.y + platformSpeedmove);
@@ -798,6 +931,10 @@ if (rocketDuration <=0) {
 
 -(IBAction)rocketOnMode:(id)sender
 {
+[rocketOnButton setAlpha:0];
+    
+    
+    
     if (rocketOn)
     {
     rocketOn = NO;
@@ -805,7 +942,8 @@ if (rocketDuration <=0) {
     }
     else
     {
-        rocketDuration =10;
+    
+    rocketDuration =10;
     rocketOn = YES;
     timerRocket = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkRocketDuration) userInfo:nil repeats:YES];
         
@@ -813,6 +951,8 @@ if (rocketDuration <=0) {
         
     }
 }
+
+
 
 
 
@@ -876,4 +1016,120 @@ if (rocketDuration <=0) {
     
 }
 
+
+
+
+-(void) getFuel
+{
+    
+    if (CGRectIntersectsRect(rocketMan.frame, oil.frame))
+    {
+        [numberOfGas setAlpha:1];
+        [gasImage setAlpha:1];
+        
+
+        [oil setAlpha:1];
+        [oil removeFromSuperview];
+        
+        
+        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum = gasNum+1];
+        
+    }
+    
+    
+    else if (CGRectIntersectsRect(rocketMan.frame, refinery.frame)) {
+        [numberOfRef setAlpha:1];
+        [refineImage setAlpha:1];
+       
+        [refinery setAlpha:1];
+        [refinery removeFromSuperview];
+        
+        
+         numberOfRef.text = [NSString stringWithFormat: @"%i", refNum = refNum + 1];
+    }
+    
+    
+    if (gasNum >= 1 && refNum >= 1)
+    {
+        numberOfRef.text = [NSString stringWithFormat:@"%i", refNum = refNum - 1];
+        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum = gasNum - 1];
+        [rocketOnButton setAlpha:1];
+        
+    }
+    
+    
+    if (gasNum == 0)
+    {
+        numberOfGas.alpha = 0.5;
+        [gasImage setAlpha:0.5];
+    }
+    
+    if (refNum == 0)
+    {
+        [numberOfRef setAlpha:0.5];
+        [refineImage setAlpha:0.5];
+    }
+    
+}
+
+
+
+
+
+-(void) getElectroMagnet
+{
+    if (CGRectIntersectsRect(rocketMan.frame, coil.frame))
+    {
+        [numberOfCoil setAlpha:1];
+        [coilImage setAlpha:1];
+        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum+1];
+        
+        [coil removeFromSuperview];
+      
+        
+    } else if (CGRectIntersectsRect(rocketMan.frame, battery.frame))
+    {
+        [numberOfbattery setAlpha:1];
+        [batteryImage setAlpha:1];
+        numberOfbattery.text = [NSString stringWithFormat: @"%i", batteryNum = batteryNum + 1];
+        
+        [battery removeFromSuperview];
+        
+    }
+    
+    if (coilNum >= 1 && batteryNum >= 1)
+    {
+        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum - 1];
+        numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum = batteryNum - 1];
+        [magnetOnButton setAlpha:1];
+        
+    }
+    
+    if (batteryNum == 0)
+    {
+        numberOfbattery.alpha = 0.5;
+        [batteryImage setAlpha:0.5];
+    }
+    
+    if (coilNum == 0)
+    {
+        [numberOfCoil setAlpha:0.5];
+        [coilImage setAlpha:0.5];
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+-(IBAction)magnetOnMode:(UIButton *)sender
+{
+    NSLog (@"Magnet On!");
+}
 @end
