@@ -247,13 +247,15 @@ CGPoint rocketManNewPosition;
         
         
         
-        rocketOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270, 340, 40, 60)];
+        rocketOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-110, 390, 40, 60)];
         [rocketOnButtonBG setImage:[UIImage imageNamed:@"gas.png"]];
         [rocketOnButtonBG setAlpha:0.3];
         [[self view] addSubview:rocketOnButtonBG];
+        
         // 320x480
         rocketOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        rocketOnButton.frame =CGRectMake(270, 340, 40, 60);
+        rocketOnButton.frame =CGRectMake(270-110, 390, 40, 60
+                                         );
         rocketOnButton.backgroundColor = [UIColor clearColor];
         [rocketOnButton setBackgroundImage:[UIImage imageNamed:@"gas.png"] forState:UIControlStateNormal];
         [rocketOnButton setAlpha:0.3];
@@ -262,13 +264,13 @@ CGPoint rocketManNewPosition;
         
         
         
-        magnetOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-40, 340, 40, 60)];
+        magnetOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-50, 390, 40, 60)];
         [magnetOnButtonBG setImage:[UIImage imageNamed:@"battery.png"]];
         [magnetOnButtonBG setAlpha:0.3];
         [[self view] addSubview:magnetOnButtonBG];
         // 320x480
         magnetOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        magnetOnButton.frame =CGRectMake(270-40, 340, 40, 60);
+        magnetOnButton.frame =CGRectMake(270-50, 390, 40, 60);
         magnetOnButton.backgroundColor = [UIColor clearColor];
         [magnetOnButton setBackgroundImage:[UIImage imageNamed:@"battery.png"] forState:UIControlStateNormal];
         [magnetOnButton setAlpha:0.3];
@@ -278,18 +280,19 @@ CGPoint rocketManNewPosition;
         
         
         
-        shieldOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-80, 340, 40, 60)];
+        shieldOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270, 390, 40, 60)];
         [shieldOnButtonBG setImage:[UIImage imageNamed:@"tesla.png"]];
         [shieldOnButtonBG setAlpha:0.3];
         [[self view] addSubview:shieldOnButtonBG];
         // 320x480
         shieldOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        shieldOnButton.frame =CGRectMake(270-80, 340, 40, 60);
+        shieldOnButton.frame =CGRectMake(290, 390, 40, 60);
         shieldOnButton.backgroundColor = [UIColor clearColor];
         [shieldOnButton setBackgroundImage:[UIImage imageNamed:@"tesla.png"] forState:UIControlStateNormal];
         [shieldOnButton setAlpha:0.3];
         [shieldOnButton addTarget:self action:@selector(shieldOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:shieldOnButton];
+        
         
         
         
@@ -305,9 +308,9 @@ CGPoint rocketManNewPosition;
             
             
              
-            lives[i] = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+            lives[i] = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
             [lives[i] setImage:[UIImage imageNamed:@"BH2.png"]];
-            lives[i].center = CGPointMake(i*50+25,480-50);
+            lives[i].center = CGPointMake(i*20+25,480-50);
             // every life is a subview - show it
             [[self view] addSubview:lives[i]];
         }
@@ -340,11 +343,11 @@ CGPoint rocketManNewPosition;
         
         labelScore = [[UILabel alloc]init];
         labelScore.text = [NSString stringWithFormat:@"Score:%.0f",score];
-        [labelScore setFrame:CGRectMake(self.view.bounds.size.width-200, self.view.bounds.size.height-30, 100, 20)];
+        [labelScore setFrame:CGRectMake(self.view.bounds.size.width-200, self.view.bounds.size.height-20, 100, 20)];
         [labelScore setFont: [UIFont boldSystemFontOfSize:14]];
          [labelScore setTextColor:[UIColor blackColor]];
          labelScore.textAlignment = UITextAlignmentCenter;
-        [labelScore setBackgroundColor:[UIColor redColor]];
+        [labelScore setBackgroundColor:[UIColor clearColor]];
         [[self view] addSubview:labelScore];
 
         
@@ -760,7 +763,7 @@ CGPoint rocketManNewPosition;
         //speed up gradually but much faster 
 		if(jumpSpeed > 0 && jumpSpeed <= jumpSpeedLimit)
         {
-			jumpSpeed *= 1 + jumpSpeedLimit/50;
+			jumpSpeed *= 1 + jumpSpeedLimit/30;
 		}
       
 
@@ -788,7 +791,7 @@ CGPoint rocketManNewPosition;
                     if (rocketMan.center.y < self.view.bounds.size.height/2 - 70)
                     {
                         platformSpeedmove =4;
-                        rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y);
+                        rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y-4);
                     
                     }
                     
