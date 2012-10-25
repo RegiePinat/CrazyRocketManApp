@@ -20,7 +20,11 @@
     NSTimer *timerBounce;
     NSTimer *timerdelay;
     NSTimer *timerMovePlatform;
+    
+    
     UIImageView *rocketMan;
+    UIImageView *electroShield;
+    
     UIAccelerometer *accelerometer;
     int timeCounter;
     

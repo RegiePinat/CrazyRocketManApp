@@ -315,14 +315,30 @@ CGPoint rocketManNewPosition;
             [[self view] addSubview:lives[i]];
         }
         
-        //ADD Character
-       UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
+        
+        
+          UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
+    
+        
+      
+    
+        
+        //ADD Character & shield
+       electroShield = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ElectricOrb.png"]];
+       
+      
+        
+        
         rocketMan = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
-        
-        
         rocketMan.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
+         electroShield.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
+      
+        
        rocketManNewPosition.x = rocketMan.center.x;
        rocketManNewPosition.y = rocketMan.center.y;
+        
+        [electroShield setAlpha:0];
+       [[self view] addSubview:electroShield];
         [[self view] addSubview:rocketMan ];
         
         
@@ -847,6 +863,7 @@ CGPoint rocketManNewPosition;
     
     //move rocketman
      rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
+    electroShield.center =CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
 }
 
 
@@ -1851,7 +1868,7 @@ if (rocketDuration <=0)
     {
         
         shieldOn= NO;
-        
+        [electroShield setAlpha:0];
     }
     shieldDuration--;
     
@@ -1864,6 +1881,7 @@ if (rocketDuration <=0)
         shieldOn = YES;
         shieldDuration=10;
         [shieldOnButton setAlpha:0];
+        [electroShield setAlpha:1];
     }
     
     else
