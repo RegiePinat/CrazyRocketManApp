@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Coins.h"
+#import "GameOverViewController.h"
 
 #define kNumOfPlatforms 8
 
@@ -39,8 +40,15 @@
     UIImageView *refineImage;
     UIImageView *coilImage;
     UIImageView *batteryImage;
+    UIView *viewPanelFormItems;
     
     
+    
+    UIButton *rocketOnButton;
+    UIButton *magnetOnButton;
+    
+    UIImageView *rocketOnButtonBG;
+    UIImageView *magnetOnButtonBG;
     
 }
 
@@ -52,21 +60,7 @@
 @property (nonatomic,strong) NSMutableArray *arrayOfRefinery;
 @property (nonatomic,strong) NSMutableArray *arrayOfCoil;
 @property (nonatomic,strong) NSMutableArray *arrayOfBattery;
-
-
-
-
-
-@property (weak, nonatomic) IBOutlet UIButton *rocketOnButton;
-@property (weak, nonatomic) IBOutlet UIButton *magnetOnButton;
-
-
-
-
-
-
-
-
+@property (nonatomic,strong) NSMutableArray *arrayOfTesla;
 
 
 
@@ -92,9 +86,14 @@
 
 
 -(IBAction)moveCharbutton:(UIButton *)sender;
--(IBAction)rocketOnMode:(UIButton *)sender;
--(IBAction)magnetOnMode:(UIButton *)sender;
 
+
+
+
+
+-(void)rocketOnMode;
+-(void)magnetOnMode;
+-(void)shieldOnMode;
 
 -(void)movePlatforms;
 -(void)resetPlatform:(UIImageView*)platform;
@@ -113,9 +112,12 @@
 
 -(void)checkRocketDuration;
 -(void)checkMagnetDuration;
-
+-(void)checkShieldDuration;
 
 -(void) getFuel;
 -(void) getElectroMagnet;
+
+
+-(void)movetoGameOverScene;
 
 @end

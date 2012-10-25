@@ -21,10 +21,9 @@
 @synthesize arrayOfRefinery;
 @synthesize arrayOfCoil;
 @synthesize arrayOfBattery;
+@synthesize arrayOfTesla;
 
 
-@synthesize rocketOnButton;
-@synthesize magnetOnButton;
 
 
 
@@ -39,20 +38,20 @@ float ypos;
 float maxDistanceBetweenStep ;
 float minDistanceBetweenStep ;
 float distanceBetweenSteps=100, distanceyBetweenSteps = 60;
-float accelmoveX=0,deltaX=0;
+float accelmoveX=0,deltaX=0,deltaY=0;
 float score=0;
 
 int coinsCounts;
 int platformsFinished;
-
-int rocketDuration = 10,magnetDuration=10;
-
+int rocketDuration = 10,magnetDuration=10,shieldDuration=10;
 float life;
 
 int gasNum;
 int refNum;
 int coilNum;
 int batteryNum;
+int teslaNum;
+
 
 int randomizeCoin=1;
 int level=3;
@@ -61,9 +60,13 @@ BOOL delayTime = YES;
 BOOL NeedsTojump = NO;
 BOOL mainJumping = NO;
 BOOL gameSuspended = NO;
-
+//Power Ups
 BOOL rocketOn =NO;
 BOOL magnetOn = NO;
+BOOL shieldOn = NO;
+
+
+
 //how quickly should the jump start off
 float jumpSpeedLimit = 15;
 //the current speed of the jump;
@@ -86,18 +89,9 @@ CGPoint rocketManNewPosition;
         // Custom initialization
      
         
-        life =100;
-        timeCounter = 0;
-       
-        randomizeCoin = randomizeCoin *level;
+ 
         
-        
-        
-        [self labelsCreate];
-        
-        //INITIALIZE button Alpha zero
-        [rocketOnButton setAlpha:0];
-        [magnetOnButton setAlpha:0];
+   
         
         
         
@@ -208,9 +202,22 @@ CGPoint rocketManNewPosition;
         
         
         
+        //Labels
+        [self labelsCreate];
         
+        
+        //INITIALIZE button Alpha zero
+        [rocketOnButton setAlpha:1];
+        [magnetOnButton setAlpha:1];
         
     
+        
+        
+        
+        
+        
+        
+        
         
         //coins
         arrayOfCoins = [NSMutableArray array];
@@ -239,7 +246,33 @@ CGPoint rocketManNewPosition;
         
         
         
+        rocketOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270, 340, 40, 60)];
+        [rocketOnButtonBG setImage:[UIImage imageNamed:@"gas.png"]];
+        [rocketOnButtonBG setAlpha:0.3];
+        [[self view] addSubview:rocketOnButtonBG];
+        // 320x480
+        rocketOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        rocketOnButton.frame =CGRectMake(270, 340, 40, 60);
+        rocketOnButton.backgroundColor = [UIColor clearColor];
+        [rocketOnButton setBackgroundImage:[UIImage imageNamed:@"gas.png"] forState:UIControlStateNormal];
+        [rocketOnButton setAlpha:0.3];
+        [rocketOnButton addTarget:self action:@selector(rocketOnMode) forControlEvents:UIControlEventTouchUpInside];
+        [[self view]addSubview:rocketOnButton];
         
+        
+        
+        magnetOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-40, 340, 40, 60)];
+        [magnetOnButtonBG setImage:[UIImage imageNamed:@"battery.png"]];
+        [magnetOnButtonBG setAlpha:0.3];
+        [[self view] addSubview:magnetOnButtonBG];
+        // 320x480
+        magnetOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        magnetOnButton.frame =CGRectMake(270-40, 340, 40, 60);
+        magnetOnButton.backgroundColor = [UIColor clearColor];
+        [magnetOnButton setBackgroundImage:[UIImage imageNamed:@"battery.png"] forState:UIControlStateNormal];
+        [magnetOnButton setAlpha:0.3];
+        [magnetOnButton addTarget:self action:@selector(magnetOnMode) forControlEvents:UIControlEventTouchUpInside];
+        [[self view]addSubview:magnetOnButton];
         
         
         
@@ -255,8 +288,7 @@ CGPoint rocketManNewPosition;
         [[self view] addSubview:rocketMan ];
         
         
-        //Jump Speed
-        jumpSpeed = jumpSpeedLimit;
+       
         
         
         numberOfGas = [[UILabel alloc]init];
@@ -281,9 +313,10 @@ CGPoint rocketManNewPosition;
         [[self view] addSubview:labelScore];
 
         
-        
 
         
+        
+
     }
     return self;
 }
@@ -291,6 +324,20 @@ CGPoint rocketManNewPosition;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
+    life = 3;
+    timeCounter = 0;
+    
+    randomizeCoin = randomizeCoin *level;
+    
+    
+    //Jump Speed
+    jumpSpeed = jumpSpeedLimit;
+    
+    
+    
     
     
    timerdelay = [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(startbouncing) userInfo:nil repeats:YES];
@@ -323,8 +370,8 @@ CGPoint rocketManNewPosition;
     
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
-    [self setRocketOnButton:nil];
-    [self setMagnetOnButton:nil];
+  
+    
     
     
     [self setArrayOfOil:nil];
@@ -361,8 +408,8 @@ CGPoint rocketManNewPosition;
     gameTimer =nil;
     
     
-    [self setRocketOnButton:nil];
-    [self setMagnetOnButton:nil];
+ 
+    
     
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
@@ -398,6 +445,13 @@ CGPoint rocketManNewPosition;
     refNum = 0;
     coilNum = 0;
     batteryNum = 0;
+    
+    
+    
+    viewPanelFormItems = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    viewPanelFormItems.backgroundColor = [UIColor grayColor]; 
+    [[self view] addSubview:viewPanelFormItems];
+    
     
     //gas image
     gasImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
@@ -494,7 +548,7 @@ CGPoint rocketManNewPosition;
     }
        else
     {
-         //restrict movement with bounds
+         //restrict movement with bounds Left Right
            if (rocketManNewPosition.x + deltaX*40 < 0 + rocketMan.frame.size.width/2)
            {
                rocketManNewPosition.x = 0 +rocketMan.frame.size.width/2;
@@ -506,6 +560,10 @@ CGPoint rocketManNewPosition;
        
     }
 
+    
+    
+
+    
     
     
     
@@ -546,7 +604,7 @@ CGPoint rocketManNewPosition;
         if ([self CheckifEnemyHit:enemy])
         {
             
-            NSLog(@"Enemy Get");
+            
             
             
             [arrayOfEnemies removeObject:enemy];
@@ -554,8 +612,17 @@ CGPoint rocketManNewPosition;
             
             [enemy removeFromSuperview];
             
+            if (!shieldOn) {
+                life--;
+
+            }
             
-           
+            if (life ==0) {
+                [self movetoGameOverScene];
+            }
+            
+            
+            
             break;
         }
     }
@@ -568,6 +635,25 @@ CGPoint rocketManNewPosition;
     
     if (rocketOn)
     {
+     
+        
+        if (rocketManNewPosition.y + deltaY*40 >= 50 + rocketMan.frame.size.height/2 && rocketManNewPosition.y + deltaY*40 <= 480 -rocketMan.frame.size.height/2  )
+        {
+            rocketManNewPosition.y += deltaY*40;
+        }
+        else
+        {
+            //restrict movement with bounds
+            if (rocketManNewPosition.y + deltaY*40 < 50 + rocketMan.frame.size.height/2)
+            {
+                rocketManNewPosition.y = 50 +rocketMan.frame.size.height/2;
+            }
+            else if (rocketManNewPosition.y + deltaY*40 > 480 - rocketMan.frame.size.height/2)
+            {
+                rocketManNewPosition.y = 480 - rocketMan.frame.size.height/2;
+            }
+            
+        }
         
     }
     
@@ -601,7 +687,7 @@ CGPoint rocketManNewPosition;
           
         //Determine if pababa n
         
-             if(jumpSpeed > -jumpSpeedLimit/5 || rocketMan.center.y  <= 0 + rocketMan.frame.size.height/2)
+             if(jumpSpeed > -jumpSpeedLimit/5 || rocketMan.center.y  <= 50 + rocketMan.frame.size.height/2)
             {
         jumpSpeed *= -1;
             }
@@ -638,7 +724,7 @@ CGPoint rocketManNewPosition;
                     if (rocketMan.center.y < self.view.bounds.size.height/2 - 70)
                     {
                         platformSpeedmove =4;
-                         //rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y + 1);
+                        rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y);
                     
                     }
                     
@@ -678,27 +764,8 @@ CGPoint rocketManNewPosition;
             
 
               
-            
-                
-                accelerometer.delegate = nil;
-                [timerdelay invalidate];
-                timerdelay = nil;
-                
-                [timerBounce invalidate];
-                timerBounce =nil;
-                
-                [timerMovePlatform invalidate];
-                timerMovePlatform = nil;
-                
-                [timerRocket invalidate];
-                timerRocket = nil;
-                
-                [timerdelay invalidate];
-                timerdelay = nil;
-                
-                [gameTimer invalidate];
-                gameTimer = nil;
-                
+                [self movetoGameOverScene];
+                              
                 
                 
             }
@@ -728,6 +795,13 @@ CGPoint rocketManNewPosition;
 //ENEMY
     for (UIImageView   *enemy in arrayOfEnemies)
     {
+        if (enemy.center.y <50) {
+            enemy.alpha = 0;
+        }
+        else
+        {
+            enemy.alpha =1;
+        }
         enemy.center = CGPointMake(enemy.center.x, enemy.center.y + platformSpeedmove);
     }
     
@@ -755,12 +829,31 @@ CGPoint rocketManNewPosition;
 //COINS
     for (Coins   *coins in arrayOfCoins)
     {
+        
         float mainDistance = [coins getDistanceFrom:rocketMan].mainDistance;
         float xDistance =[coins getDistanceFrom:rocketMan].xdistance;
         float yDistance =[coins getDistanceFrom:rocketMan].ydistance;
         
-        float xMoveMagnetized =10;
-        float yMoveMagnetized =10;
+        float xMoveMagnetized =4;
+        float yMoveMagnetized =4;
+        
+        
+        
+        if (coins.center.y <50) {
+            coins.alpha = 0;
+        }
+        else
+        {
+            coins.alpha =1;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
         
         if (magnetOn && mainDistance < 200)
         {
@@ -945,11 +1038,10 @@ CGPoint rocketManNewPosition;
 {
 	if(gameSuspended) return;
 	float accel_filter = 0.1f;
-	//rocketManNewPosition.x = rocketManNewPosition.x * accel_filter + acceleration.x * (1.0f - accel_filter) * 500.0f;
-
+	
     
          deltaX=(acceleration.x *accel_filter ) + (deltaX * (1.0 - accel_filter));
-    
+         deltaY=(acceleration.y *accel_filter ) + (deltaY * (1.0 - accel_filter));
 }
 
 
@@ -987,7 +1079,13 @@ CGPoint rocketManNewPosition;
     for (UIImageView   *imgViewObject in array)
     {
         
-  
+        if (imgViewObject.center.y <50) {
+            imgViewObject.alpha = 0;
+        }
+        else
+        {
+            imgViewObject.alpha =1;
+        }
         
     imgViewObject.center = CGPointMake(imgViewObject.center.x, imgViewObject.center.y + platformSpeedmove);
         
@@ -1202,7 +1300,7 @@ if (rocketDuration <=0)
 
 
 
--(IBAction)rocketOnMode:(id)sender
+-(void)rocketOnMode
 {
 [rocketOnButton setAlpha:0];
     
@@ -1271,10 +1369,17 @@ if (rocketDuration <=0)
     timeCounter ++;
 
     [self checkMagnetDuration];
-    
+    [self checkShieldDuration];
     
     NSLog(@"%d",timeCounter);
 
+   
+    
+    
+    
+    
+    
+    
     
     if (timeCounter %10 == 0)
     {
@@ -1291,8 +1396,12 @@ if (rocketDuration <=0)
     }
     
 
+    
+    
+    
+    
 
-if (timeCounter % 3 ==0)
+    if (timeCounter % 3 ==0)
     {
        
         int randomNumForUps = 0;
@@ -1492,7 +1601,7 @@ if (timeCounter % 3 ==0)
     
     
     
-    if (coilNum >= 1 && batteryNum >= 1)
+    if (coilNum >= 1 && batteryNum >= 1 && magnetOnButton.alpha != 1 && !magnetOn)
     {
         numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum - 1];
         numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum = batteryNum - 1];
@@ -1514,6 +1623,89 @@ if (timeCounter % 3 ==0)
     
 }
 
+
+
+-(void)getElectroShield
+{
+    
+    //HITS COIL
+    for (UIImageView *coil in arrayOfCoil)
+    {
+        
+        //Remove if hit and add score
+        if ([self CheckifCoilGet:coil])
+        {
+            
+            NSLog(@"coil Get");
+            [numberOfCoil setAlpha:1];
+            [coilImage setAlpha:1];
+            numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum+1];
+            
+            [arrayOfCoil removeObject:coil];
+            NSLog(@"%d",[arrayOfCoil count]);
+            
+            [coil removeFromSuperview];
+            
+            NSLog(@"COIL");
+            break;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //HITS Battery
+    for (UIImageView *bat in arrayOfBattery)
+    {
+        
+        //Remove if hit and add score
+        if ([self CheckifBatteryGet:bat])
+        {
+            
+            NSLog(@"battery Get");
+            [numberOfbattery setAlpha:1];
+            [batteryImage setAlpha:1];
+            numberOfbattery.text = [NSString stringWithFormat: @"%i", batteryNum = batteryNum + 1];
+            
+            [arrayOfBattery removeObject:bat];
+            NSLog(@"%d",[arrayOfBattery count]);
+            
+            [bat removeFromSuperview];
+            
+            NSLog(@"BATTERY");
+            break;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    if (coilNum >= 1 && batteryNum >= 1 && magnetOnButton.alpha != 1 && !magnetOn)
+    {
+        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum - 1];
+        numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum = batteryNum - 1];
+        [magnetOnButton setAlpha:1];
+        
+    }
+    
+    if (batteryNum == 0)
+    {
+        numberOfbattery.alpha = 0.5;
+        [batteryImage setAlpha:0.5];
+    }
+    
+    if (coilNum == 0)
+    {
+        [numberOfCoil setAlpha:0.5];
+        [coilImage setAlpha:0.5];
+    }
+    
+}
 
 
 
@@ -1596,12 +1788,13 @@ if (timeCounter % 3 ==0)
     
 }
 
--(IBAction)magnetOnMode:(UIButton *)sender
+-(void)magnetOnMode
 {
     if (!magnetOn)
     {
         magnetOn = YES;
-        magnetDuration =10;
+        magnetDuration=10;
+        [magnetOnButton setAlpha:0];
     }
     
     else
@@ -1609,5 +1802,65 @@ if (timeCounter % 3 ==0)
         magnetOn = NO;
     
     }
+}
+
+
+
+-(void)checkShieldDuration
+{
+    if (shieldDuration <=0)
+    {
+        
+        shieldOn= NO;
+        
+    }
+    shieldDuration--;
+    
+}
+
+-(void)shieldOnMode
+{
+    if (!shieldOn)
+    {
+        shieldOn = YES;
+        shieldDuration=10;
+       // [magnetOnButton setAlpha:0];
+    }
+    
+    else
+    {
+        shieldOn = NO;
+        
+    }
+}
+
+
+
+-(void)movetoGameOverScene
+{
+    
+    accelerometer.delegate = nil;
+    [timerdelay invalidate];
+    timerdelay = nil;
+    
+    [timerBounce invalidate];
+    timerBounce =nil;
+    
+    [timerMovePlatform invalidate];
+    timerMovePlatform = nil;
+    
+    [timerRocket invalidate];
+    timerRocket = nil;
+    
+    [timerdelay invalidate];
+    timerdelay = nil;
+    
+    [gameTimer invalidate];
+    gameTimer = nil;
+    
+    GameOverViewController *gameOverScene = [[GameOverViewController alloc] init];
+    [gameOverScene finishedScore:score];
+    gameOverScene.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentModalViewController:gameOverScene animated:YES];
 }
 @end
