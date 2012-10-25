@@ -24,7 +24,7 @@
     UIAccelerometer *accelerometer;
     int timeCounter;
     
-    
+    float score;
     
     
 
@@ -33,6 +33,8 @@
     UILabel *numberOfRef;
     UILabel *numberOfCoil;
     UILabel *numberOfbattery;
+    UILabel *numberOftesla;
+    
     UILabel *labelScore;
     
     
@@ -40,16 +42,21 @@
     UIImageView *refineImage;
     UIImageView *coilImage;
     UIImageView *batteryImage;
+    UIImageView *teslaImage;
+    
+    
+    
     UIView *viewPanelFormItems;
     
     
     
     UIButton *rocketOnButton;
     UIButton *magnetOnButton;
+    UIButton *shieldOnButton;
     
     UIImageView *rocketOnButtonBG;
     UIImageView *magnetOnButtonBG;
-    
+    UIImageView *shieldOnButtonBG;
 }
 
 @property (nonatomic,strong) NSMutableArray *arrayOfPlatforms;
@@ -85,7 +92,7 @@
 -(void)startbouncing;
 
 
--(IBAction)moveCharbutton:(UIButton *)sender;
+
 
 
 

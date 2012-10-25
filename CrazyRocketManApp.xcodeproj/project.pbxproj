@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB142B3B1639158200B3E1F6 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB142B391639158200B3E1F6 /* GameOverViewController.m */; };
 		DB142B3C1639158200B3E1F6 /* GameOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */; };
+		DB142B47163924B000B3E1F6 /* tesla.png in Resources */ = {isa = PBXBuildFile; fileRef = DB142B46163924AF00B3E1F6 /* tesla.png */; };
 		DB2CB155162FF04300A4BF8B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB154162FF04300A4BF8B /* UIKit.framework */; };
 		DB2CB157162FF04300A4BF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB156162FF04300A4BF8B /* Foundation.framework */; };
 		DB2CB159162FF04300A4BF8B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB158162FF04300A4BF8B /* CoreGraphics.framework */; };
@@ -34,6 +35,7 @@
 		DB142B381639158200B3E1F6 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
 		DB142B391639158200B3E1F6 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
 		DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameOverViewController.xib; sourceTree = "<group>"; };
+		DB142B46163924AF00B3E1F6 /* tesla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tesla.png; sourceTree = "<group>"; };
 		DB2CB150162FF04300A4BF8B /* CrazyRocketManApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyRocketManApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2CB154162FF04300A4BF8B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DB2CB156162FF04300A4BF8B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,14 +111,15 @@
 				DB2CB164162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.m */,
 				DB2CB16B162FF0A300A4BF8B /* GameViewController.h */,
 				DB2CB16C162FF0A300A4BF8B /* GameViewController.m */,
+				DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */,
 				DB142B381639158200B3E1F6 /* GameOverViewController.h */,
 				DB142B391639158200B3E1F6 /* GameOverViewController.m */,
 				DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */,
-				DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */,
 				DB41E5121637E1A800C0B82D /* Coins.h */,
 				DB41E5131637E1A800C0B82D /* Coins.m */,
 				DB41E5071637791900C0B82D /* refinery.jpg */,
 				DB41E51C1637E5DA00C0B82D /* bronzecoin.png */,
+				DB142B46163924AF00B3E1F6 /* tesla.png */,
 				DB48FAD516363DC800AD2C0B /* goldcoin.png */,
 				DB41E51A1637E5C600C0B82D /* silvercoin.png */,
 				DB41E5081637791900C0B82D /* gas.png */,
@@ -206,6 +209,7 @@
 				DB41E51B1637E5C600C0B82D /* silvercoin.png in Resources */,
 				DB41E51D1637E5DA00C0B82D /* bronzecoin.png in Resources */,
 				DB142B3C1639158200B3E1F6 /* GameOverViewController.xib in Resources */,
+				DB142B47163924B000B3E1F6 /* tesla.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,7 +29,7 @@
 
 
 
-
+UIImageView *lives[3];
 
 //G vars
 float xpos =0;
@@ -39,7 +39,7 @@ float maxDistanceBetweenStep ;
 float minDistanceBetweenStep ;
 float distanceBetweenSteps=100, distanceyBetweenSteps = 60;
 float accelmoveX=0,deltaX=0,deltaY=0;
-float score=0;
+
 
 int coinsCounts;
 int platformsFinished;
@@ -240,7 +240,8 @@ CGPoint rocketManNewPosition;
         //battery
         arrayOfBattery =  [NSMutableArray array];
         
-        
+        //tesla
+        arrayOfTesla =  [NSMutableArray array];
         
         
         
@@ -277,6 +278,40 @@ CGPoint rocketManNewPosition;
         
         
         
+        shieldOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-80, 340, 40, 60)];
+        [shieldOnButtonBG setImage:[UIImage imageNamed:@"tesla.png"]];
+        [shieldOnButtonBG setAlpha:0.3];
+        [[self view] addSubview:shieldOnButtonBG];
+        // 320x480
+        shieldOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        shieldOnButton.frame =CGRectMake(270-80, 340, 40, 60);
+        shieldOnButton.backgroundColor = [UIColor clearColor];
+        [shieldOnButton setBackgroundImage:[UIImage imageNamed:@"tesla.png"] forState:UIControlStateNormal];
+        [shieldOnButton setAlpha:0.3];
+        [shieldOnButton addTarget:self action:@selector(shieldOnMode) forControlEvents:UIControlEventTouchUpInside];
+        [[self view]addSubview:shieldOnButton];
+        
+        
+        
+        //Lives
+        for (int i=0; i<life; i++) {
+            CGRect oilRect = CGRectMake(0, 0, 30, 30);
+            
+            UIImageView  *oilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
+            
+            [oilView setFrame:oilRect];
+            
+            oilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+            
+            
+             
+            lives[i] = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+            [lives[i] setImage:[UIImage imageNamed:@"BH2.png"]];
+            lives[i].center = CGPointMake(i*50+25,480-50);
+            // every life is a subview - show it
+            [[self view] addSubview:lives[i]];
+        }
+        
         //ADD Character
        UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
         rocketMan = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
@@ -291,15 +326,15 @@ CGPoint rocketManNewPosition;
        
         
         
-        numberOfGas = [[UILabel alloc]init];
-        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum];
-        [numberOfGas setFrame:CGRectMake(30, 35, 10, 10)];
-        [numberOfGas setFont: [UIFont boldSystemFontOfSize:10]];
-        [numberOfGas setTextColor:[UIColor whiteColor]];
-        numberOfGas.textAlignment = UITextAlignmentCenter;
-        [numberOfGas setBackgroundColor:[UIColor blackColor]];
-        [numberOfGas setAlpha:.5];
-        [[self view] addSubview:numberOfGas];
+//        numberOfGas = [[UILabel alloc]init];
+//        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum];
+//        [numberOfGas setFrame:CGRectMake(30, 35, 10, 10)];
+//        [numberOfGas setFont: [UIFont boldSystemFontOfSize:10]];
+//        [numberOfGas setTextColor:[UIColor whiteColor]];
+//        numberOfGas.textAlignment = UITextAlignmentCenter;
+//        [numberOfGas setBackgroundColor:[UIColor blackColor]];
+//        [numberOfGas setAlpha:.5];
+//        [[self view] addSubview:numberOfGas];
 
         
         
@@ -445,7 +480,7 @@ CGPoint rocketManNewPosition;
     refNum = 0;
     coilNum = 0;
     batteryNum = 0;
-    
+    teslaNum =0;
     
     
     viewPanelFormItems = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -518,6 +553,23 @@ CGPoint rocketManNewPosition;
     [[self view] addSubview:numberOfbattery];
     
     
+    
+    teslaImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tesla.png"]];
+    [teslaImage setFrame:CGRectMake(170+50 , 10, 30, 35)];
+    [teslaImage setAlpha:0.5];
+    [[self view] addSubview:teslaImage];
+    
+    numberOftesla= [[UILabel alloc]init];
+    numberOftesla.text = [NSString stringWithFormat:@"%i", teslaNum];
+    [numberOftesla setFrame:CGRectMake(190+50, 35, 10, 10)];
+    [numberOftesla setFont:[UIFont boldSystemFontOfSize:10]];
+    [numberOftesla setTextColor:[UIColor whiteColor]];
+    numberOftesla.textAlignment = UITextAlignmentCenter;
+    [numberOftesla setBackgroundColor:[UIColor blackColor]];
+    [numberOftesla setAlpha:.5];
+    [[self view] addSubview:numberOftesla];
+    
+    
 }
 
 
@@ -537,8 +589,19 @@ CGPoint rocketManNewPosition;
 
 
     [self getFuel];
-    [self getElectroMagnet];
     
+    if ([self getRandomNumber:1 to:2] ==1) {
+        [self getElectroMagnet];
+        [self getElectroShield];
+    }
+    else
+    {
+        [self getElectroShield];
+        [self getElectroMagnet];
+        
+    }
+
+   
     
     
     
@@ -614,7 +677,8 @@ CGPoint rocketManNewPosition;
             
             if (!shieldOn) {
                 life--;
-
+                
+                [lives[(int)life] removeFromSuperview];
             }
             
             if (life ==0) {
@@ -789,8 +853,7 @@ CGPoint rocketManNewPosition;
 -(void)movePlatforms
 {
     
-   
-    
+
 
 //ENEMY
     for (UIImageView   *enemy in arrayOfEnemies)
@@ -924,7 +987,7 @@ CGPoint rocketManNewPosition;
         [self excuteMoveAndRemoveFromArray:arrayOfRefinery];
         [self excuteMoveAndRemoveFromArray:arrayOfCoil];
         [self excuteMoveAndRemoveFromArray:arrayOfBattery];
-    
+        [self excuteMoveAndRemoveFromArray:arrayOfTesla];
     
     
     
@@ -1016,12 +1079,25 @@ CGPoint rocketManNewPosition;
 
 -(BOOL)CheckifBatteryGet:(UIImageView *)bat
 {
-    if (CGRectIntersectsRect(rocketMan.frame, bat.frame)) {
+    if (CGRectIntersectsRect(rocketMan.frame, bat.frame))
+    {
         return YES;
     }
     
     return NO;
 }
+
+
+-(BOOL)CheckifTeslaGet:(UIImageView *)tesla
+{
+    if (CGRectIntersectsRect(rocketMan.frame, tesla.frame))
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
 
 -(BOOL)CheckifEnemyHit:(UIImageView *)enemy
 {
@@ -1328,38 +1404,6 @@ if (rocketDuration <=0)
 
 
 
--(IBAction)moveCharbutton:(UIButton *)sender
-{
-
-
-        if (sender.tag==1)
-        {
-            if (rocketManNewPosition.x - 25 >=0 +rocketMan.frame.size.width/2)
-            {
-                rocketManNewPosition.x-= 25;
-            }
-            else
-            {
-                rocketManNewPosition.x=0 + rocketMan.frame.size.width/2;
-            }
-            
-        }
-    
-        else
-        {
-            if (rocketManNewPosition.x + 25 <=320 - rocketMan.frame.size.width/2)
-            {
-                rocketManNewPosition.x+= 25;
-            }
-            else
-            {
-                rocketManNewPosition.x=320 - rocketMan.frame.size.width/2;
-            }
-        }
-    
-    
-      
-}
 
 
 
@@ -1406,7 +1450,7 @@ if (rocketDuration <=0)
        
         int randomNumForUps = 0;
         
-        randomNumForUps = [self getRandomNumber:1 to:4];
+        randomNumForUps = [self getRandomNumber:1 to:5];
         
         switch (randomNumForUps)
         {
@@ -1426,6 +1470,9 @@ if (rocketDuration <=0)
                 [self createBattery];
                 break;
                 
+            case 5:
+                [self createTesla];
+                break;
             default:
                 break;
         }
@@ -1629,67 +1676,40 @@ if (rocketDuration <=0)
 {
     
     //HITS COIL
-    for (UIImageView *coil in arrayOfCoil)
+    for (UIImageView *tesla in arrayOfTesla)
     {
-        
+       
         //Remove if hit and add score
-        if ([self CheckifCoilGet:coil])
-        {
+       if ([self CheckifTeslaGet:tesla])
+       {
             
-            NSLog(@"coil Get");
-            [numberOfCoil setAlpha:1];
-            [coilImage setAlpha:1];
-            numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum+1];
+            NSLog(@"tesla Get");
+            [numberOftesla setAlpha:1];
+            [teslaImage setAlpha:1];
+            numberOftesla.text = [NSString stringWithFormat:@"%i",teslaNum = teslaNum+1];
             
-            [arrayOfCoil removeObject:coil];
-            NSLog(@"%d",[arrayOfCoil count]);
+            [arrayOfTesla removeObject:tesla];
+            NSLog(@"%d",[arrayOfTesla count]);
             
-            [coil removeFromSuperview];
+            [tesla removeFromSuperview];
             
-            NSLog(@"COIL");
+            NSLog(@"Tesla");
             break;
-        }
+       }
     }
     
     
+
     
     
     
     
-    //HITS Battery
-    for (UIImageView *bat in arrayOfBattery)
+    
+    if (teslaNum >= 1 && batteryNum >= 1 && shieldOnButton.alpha != 1 && !shieldOn)
     {
-        
-        //Remove if hit and add score
-        if ([self CheckifBatteryGet:bat])
-        {
-            
-            NSLog(@"battery Get");
-            [numberOfbattery setAlpha:1];
-            [batteryImage setAlpha:1];
-            numberOfbattery.text = [NSString stringWithFormat: @"%i", batteryNum = batteryNum + 1];
-            
-            [arrayOfBattery removeObject:bat];
-            NSLog(@"%d",[arrayOfBattery count]);
-            
-            [bat removeFromSuperview];
-            
-            NSLog(@"BATTERY");
-            break;
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    if (coilNum >= 1 && batteryNum >= 1 && magnetOnButton.alpha != 1 && !magnetOn)
-    {
-        numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum - 1];
+        numberOftesla.text = [NSString stringWithFormat:@"%i", teslaNum = teslaNum - 1];
         numberOfbattery.text = [NSString stringWithFormat:@"%i", batteryNum = batteryNum - 1];
-        [magnetOnButton setAlpha:1];
+        [shieldOnButton setAlpha:1];
         
     }
     
@@ -1699,11 +1719,11 @@ if (rocketDuration <=0)
         [batteryImage setAlpha:0.5];
     }
     
-    if (coilNum == 0)
+    if (teslaNum == 0)
     {
-        [numberOfCoil setAlpha:0.5];
-        [coilImage setAlpha:0.5];
-    }
+        [numberOftesla setAlpha:0.5];
+        [teslaImage setAlpha:0.5];
+   }
     
 }
 
@@ -1775,6 +1795,22 @@ if (rocketDuration <=0)
 }
 
 
+-(void)createTesla
+{
+    
+    //add tesla
+    CGRect teslaRect = CGRectMake(0, 0, 30, 30);
+    
+    UIImageView  *teslaView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tesla.png"]];
+    
+    [teslaView setFrame:teslaRect];
+    
+    teslaView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+    
+    [arrayOfTesla addObject:teslaView];
+    [self.view addSubview:teslaView];
+}
+
 
 -(void)checkMagnetDuration
 {
@@ -1824,7 +1860,7 @@ if (rocketDuration <=0)
     {
         shieldOn = YES;
         shieldDuration=10;
-       // [magnetOnButton setAlpha:0];
+        [shieldOnButton setAlpha:0];
     }
     
     else
