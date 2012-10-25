@@ -11,4 +11,14 @@
 @interface Coins : UIImageView
 @property  float value;
 
+
+
+typedef struct {
+    float xdistance;
+    float ydistance;
+    float mainDistance;
+} distance;
+
+
+-(distance)getDistanceFrom:(UIImageView *)character;
 @end

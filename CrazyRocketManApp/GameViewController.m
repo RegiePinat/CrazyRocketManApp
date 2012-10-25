@@ -38,7 +38,7 @@ float ypos;
 
 float maxDistanceBetweenStep ;
 float minDistanceBetweenStep ;
-float distanceBetweenSteps=200,distanceyBetweenSteps = 50;
+float distanceBetweenSteps=100, distanceyBetweenSteps = 60;
 float accelmoveX=0,deltaX=0;
 float score=0;
 
@@ -53,6 +53,9 @@ int gasNum;
 int refNum;
 int coilNum;
 int batteryNum;
+
+int randomizeCoin=1;
+int level=3;
 
 BOOL delayTime = YES;
 BOOL NeedsTojump = NO;
@@ -85,6 +88,8 @@ CGPoint rocketManNewPosition;
         
         life =100;
         timeCounter = 0;
+       
+        randomizeCoin = randomizeCoin *level;
         
         
         
@@ -158,15 +163,15 @@ CGPoint rocketManNewPosition;
                    
                }
                
-               if (xpos >320 - stepRect.width/2 )
+               if (xpos > 320 - stepRect.width/2 )
                {
                    if (xpos > 320)
                    {
-                       xpos = (xpos - 200) - stepRect.width/2;
+                       xpos =  320 - (xpos-320) - stepRect.width/2;
                    }
                    else
                    {
-                       xpos =320 - stepRect.width/2;
+                       xpos = 320 - stepRect.width/2;
                    }
                }
            }
@@ -240,7 +245,7 @@ CGPoint rocketManNewPosition;
         
         
         //ADD Character
-        UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
+       UIImageView *first = [arrayOfPlatforms objectAtIndex:0];
         rocketMan = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
         
         
@@ -382,7 +387,7 @@ CGPoint rocketManNewPosition;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
+ 
 
 
 -(void)labelsCreate
@@ -750,9 +755,48 @@ CGPoint rocketManNewPosition;
 //COINS
     for (Coins   *coins in arrayOfCoins)
     {
+        float mainDistance = [coins getDistanceFrom:rocketMan].mainDistance;
+        float xDistance =[coins getDistanceFrom:rocketMan].xdistance;
+        float yDistance =[coins getDistanceFrom:rocketMan].ydistance;
         
-        if (magnetOn) {
-            NSLog(@"Magnet ON");
+        float xMoveMagnetized =10;
+        float yMoveMagnetized =10;
+        
+        if (magnetOn && mainDistance < 200)
+        {
+            
+            
+            if (xDistance < 0)
+            {
+                xMoveMagnetized =xMoveMagnetized * 1;
+            }
+            else if (xDistance > 0)
+            {
+                xMoveMagnetized = (xMoveMagnetized) *(-1);
+               
+            }
+            else
+            {
+                xMoveMagnetized = xMoveMagnetized * 0;
+            }
+        
+    
+            if (yDistance < 0)
+            {
+                yMoveMagnetized = yMoveMagnetized * 1;
+            }
+            else if (xDistance > 0)
+            {
+                yMoveMagnetized =  (yMoveMagnetized)*(-1);
+                
+            }
+            else
+            {
+                yMoveMagnetized = yMoveMagnetized * 0;
+            }
+    
+             coins.center = CGPointMake(coins.center.x + xMoveMagnetized, coins.center.y + yMoveMagnetized );
+            
         }
         else
         {
@@ -1038,17 +1082,20 @@ CGPoint rocketManNewPosition;
     {
         if (xpos > 320)
         {
-            xpos = xpos - 50 - stepRect.width/2;
+            xpos =  320 - (xpos-320) - stepRect.width/2;
         }
         else
         {
-        xpos =320 - stepRect.width/2;
+            
+        xpos = 320 - stepRect.width/2;
         }
     }
     
     
 
-    ypos = -10;
+    
+    ypos =0;
+ 
     
     
 
@@ -1083,6 +1130,7 @@ CGPoint rocketManNewPosition;
     }
     
     
+    
     if ([arrayOfCoins count]< coinsCounts) {
         if ((arc4random() %3)+1 == 1)
         {
@@ -1094,18 +1142,22 @@ CGPoint rocketManNewPosition;
             
             NSString *imageStr;
             
-            switch ((arc4random()%3)+1) {
+            switch ((arc4random()%(randomizeCoin+3))+1) {
                 case 1:
+                case 2:
+                case 3:
                     imageStr =@"bronzecoin.png";
                     [coinsView setValue:100];
+                    
                     break;
                     
-                case 2:
+                case 4:
+                case 5:
                     imageStr =@"silvercoin.png";
                     [coinsView setValue:200];
                     
                     break;
-                case 3:
+                case 6:
                     imageStr =@"goldcoin.png";
                     [coinsView setValue:500];
                     break;
@@ -1116,7 +1168,7 @@ CGPoint rocketManNewPosition;
             
 
             coinsView.image = [UIImage imageNamed:imageStr];
-            coinsView.center = CGPointMake(xpos,platform.frame.origin.y);
+            coinsView.center = CGPointMake(xpos,platform.frame.origin.y-3);
             
             [arrayOfCoins addObject:coinsView];
             

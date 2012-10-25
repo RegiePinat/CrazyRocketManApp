@@ -24,6 +24,16 @@
     return self;
 }
 
+-(distance) getDistanceFrom:(UIImageView *)character
+{
+    distance distancevar;
+    distancevar.xdistance = self.center.x - character.center.x;
+    distancevar.ydistance = self.center.y - character.center.y;
+ distancevar.mainDistance = (float) sqrt(pow(distancevar.xdistance, 2) + pow(distancevar.ydistance, 2));
+    
+    return distancevar;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -32,5 +42,8 @@
     // Drawing code
 }
 */
+
+
+
 
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Coins.h"
 
-#define kNumOfPlatforms 9
+#define kNumOfPlatforms 8
 
 @interface GameViewController : UIViewController <UIAccelerometerDelegate>
 {
@@ -59,6 +59,20 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *rocketOnButton;
 @property (weak, nonatomic) IBOutlet UIButton *magnetOnButton;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
