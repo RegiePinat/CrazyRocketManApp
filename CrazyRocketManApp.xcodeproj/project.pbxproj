@@ -29,6 +29,19 @@
 		DB48FAD616363DC800AD2C0B /* goldcoin.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FAD516363DC800AD2C0B /* goldcoin.png */; };
 		DB48FAD916363DFE00AD2C0B /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FAD816363DFE00AD2C0B /* platform.png */; };
 		DB48FADB16363E0B00AD2C0B /* BH2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FADA16363E0B00AD2C0B /* BH2.png */; };
+		DBB6111216393D06004ED475 /* HighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB6110916393D05004ED475 /* HighScoreViewController.m */; };
+		DBB6111316393D06004ED475 /* HighScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110A16393D05004ED475 /* HighScoreViewController.xib */; };
+		DBB6111416393D06004ED475 /* homebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110B16393D05004ED475 /* homebutton.png */; };
+		DBB6111516393D06004ED475 /* howtobutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110C16393D05004ED475 /* howtobutton.png */; };
+		DBB6111616393D06004ED475 /* iconbg.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110D16393D05004ED475 /* iconbg.png */; };
+		DBB6111716393D06004ED475 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB6110F16393D05004ED475 /* MainViewController.m */; };
+		DBB6111816393D06004ED475 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBB6111016393D06004ED475 /* MainViewController.xib */; };
+		DBB6111916393D06004ED475 /* startbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6111116393D06004ED475 /* startbutton.png */; };
+		DBB6112316394083004ED475 /* HowToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB6112116394083004ED475 /* HowToViewController.m */; };
+		DBB6112416394083004ED475 /* HowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBB6112216394083004ED475 /* HowToViewController.xib */; };
+		DBB61126163940DE004ED475 /* highscore.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB61125163940DE004ED475 /* highscore.png */; };
+		DBB6112916394181004ED475 /* backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6112716394180004ED475 /* backarrow.png */; };
+		DBB6112A16394181004ED475 /* goarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6112816394180004ED475 /* goarrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +74,22 @@
 		DB48FAD516363DC800AD2C0B /* goldcoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldcoin.png; sourceTree = "<group>"; };
 		DB48FAD816363DFE00AD2C0B /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
 		DB48FADA16363E0B00AD2C0B /* BH2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BH2.png; sourceTree = "<group>"; };
+		DBB6110816393D05004ED475 /* HighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreViewController.h; sourceTree = "<group>"; };
+		DBB6110916393D05004ED475 /* HighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreViewController.m; sourceTree = "<group>"; };
+		DBB6110A16393D05004ED475 /* HighScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoreViewController.xib; sourceTree = "<group>"; };
+		DBB6110B16393D05004ED475 /* homebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homebutton.png; sourceTree = "<group>"; };
+		DBB6110C16393D05004ED475 /* howtobutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = howtobutton.png; sourceTree = "<group>"; };
+		DBB6110D16393D05004ED475 /* iconbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconbg.png; sourceTree = "<group>"; };
+		DBB6110E16393D05004ED475 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		DBB6110F16393D05004ED475 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		DBB6111016393D06004ED475 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		DBB6111116393D06004ED475 /* startbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startbutton.png; sourceTree = "<group>"; };
+		DBB6112016394083004ED475 /* HowToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowToViewController.h; sourceTree = "<group>"; };
+		DBB6112116394083004ED475 /* HowToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HowToViewController.m; sourceTree = "<group>"; };
+		DBB6112216394083004ED475 /* HowToViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HowToViewController.xib; sourceTree = "<group>"; };
+		DBB61125163940DE004ED475 /* highscore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscore.png; sourceTree = "<group>"; };
+		DBB6112716394180004ED475 /* backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrow.png; sourceTree = "<group>"; };
+		DBB6112816394180004ED475 /* goarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goarrow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +143,24 @@
 				DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */,
 				DB142B381639158200B3E1F6 /* GameOverViewController.h */,
 				DB142B391639158200B3E1F6 /* GameOverViewController.m */,
+				DBB6112016394083004ED475 /* HowToViewController.h */,
+				DBB6112116394083004ED475 /* HowToViewController.m */,
+				DBB6112216394083004ED475 /* HowToViewController.xib */,
 				DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */,
 				DB41E5121637E1A800C0B82D /* Coins.h */,
+				DBB6110816393D05004ED475 /* HighScoreViewController.h */,
+				DBB6110916393D05004ED475 /* HighScoreViewController.m */,
+				DBB6110A16393D05004ED475 /* HighScoreViewController.xib */,
+				DBB6110B16393D05004ED475 /* homebutton.png */,
+				DBB6110C16393D05004ED475 /* howtobutton.png */,
+				DBB6112716394180004ED475 /* backarrow.png */,
+				DBB6112816394180004ED475 /* goarrow.png */,
+				DBB6110D16393D05004ED475 /* iconbg.png */,
+				DBB6110E16393D05004ED475 /* MainViewController.h */,
+				DBB6110F16393D05004ED475 /* MainViewController.m */,
+				DBB6111016393D06004ED475 /* MainViewController.xib */,
+				DBB61125163940DE004ED475 /* highscore.png */,
+				DBB6111116393D06004ED475 /* startbutton.png */,
 				DB41E5131637E1A800C0B82D /* Coins.m */,
 				DB41E5071637791900C0B82D /* refinery.jpg */,
 				DB41E51C1637E5DA00C0B82D /* bronzecoin.png */,
@@ -210,6 +255,16 @@
 				DB41E51D1637E5DA00C0B82D /* bronzecoin.png in Resources */,
 				DB142B3C1639158200B3E1F6 /* GameOverViewController.xib in Resources */,
 				DB142B47163924B000B3E1F6 /* tesla.png in Resources */,
+				DBB6111316393D06004ED475 /* HighScoreViewController.xib in Resources */,
+				DBB6111416393D06004ED475 /* homebutton.png in Resources */,
+				DBB6111516393D06004ED475 /* howtobutton.png in Resources */,
+				DBB6111616393D06004ED475 /* iconbg.png in Resources */,
+				DBB6111816393D06004ED475 /* MainViewController.xib in Resources */,
+				DBB6111916393D06004ED475 /* startbutton.png in Resources */,
+				DBB6112416394083004ED475 /* HowToViewController.xib in Resources */,
+				DBB61126163940DE004ED475 /* highscore.png in Resources */,
+				DBB6112916394181004ED475 /* backarrow.png in Resources */,
+				DBB6112A16394181004ED475 /* goarrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +280,9 @@
 				DB2CB16E162FF0A300A4BF8B /* GameViewController.m in Sources */,
 				DB41E5141637E1A800C0B82D /* Coins.m in Sources */,
 				DB142B3B1639158200B3E1F6 /* GameOverViewController.m in Sources */,
+				DBB6111216393D06004ED475 /* HighScoreViewController.m in Sources */,
+				DBB6111716393D06004ED475 /* MainViewController.m in Sources */,
+				DBB6112316394083004ED475 /* HowToViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

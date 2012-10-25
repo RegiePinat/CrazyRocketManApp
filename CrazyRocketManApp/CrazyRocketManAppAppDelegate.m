@@ -7,7 +7,7 @@
 //
 
 #import "CrazyRocketManAppAppDelegate.h"
-#import "GameViewController.h"
+#import "MainViewController.h"
 @implementation CrazyRocketManAppAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -15,7 +15,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    GameViewController  *gV = [[GameViewController  alloc] init];
+    MainViewController  *gV = [[MainViewController  alloc] init];
     
     [self.window setRootViewController:gV];
     
