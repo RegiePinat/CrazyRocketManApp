@@ -10,6 +10,8 @@
 		DB142B3B1639158200B3E1F6 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB142B391639158200B3E1F6 /* GameOverViewController.m */; };
 		DB142B3C1639158200B3E1F6 /* GameOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */; };
 		DB142B47163924B000B3E1F6 /* tesla.png in Resources */ = {isa = PBXBuildFile; fileRef = DB142B46163924AF00B3E1F6 /* tesla.png */; };
+		DB27D9B3163E248B0016E277 /* GameFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB27D9B1163E248A0016E277 /* GameFinishedViewController.m */; };
+		DB27D9B4163E248B0016E277 /* GameFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9B2163E248B0016E277 /* GameFinishedViewController.xib */; };
 		DB2CB155162FF04300A4BF8B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB154162FF04300A4BF8B /* UIKit.framework */; };
 		DB2CB157162FF04300A4BF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB156162FF04300A4BF8B /* Foundation.framework */; };
 		DB2CB159162FF04300A4BF8B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB158162FF04300A4BF8B /* CoreGraphics.framework */; };
@@ -50,6 +52,9 @@
 		DB142B391639158200B3E1F6 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
 		DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameOverViewController.xib; sourceTree = "<group>"; };
 		DB142B46163924AF00B3E1F6 /* tesla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tesla.png; sourceTree = "<group>"; };
+		DB27D9B0163E248A0016E277 /* GameFinishedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFinishedViewController.h; sourceTree = "<group>"; };
+		DB27D9B1163E248A0016E277 /* GameFinishedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFinishedViewController.m; sourceTree = "<group>"; };
+		DB27D9B2163E248B0016E277 /* GameFinishedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFinishedViewController.xib; sourceTree = "<group>"; };
 		DB2CB150162FF04300A4BF8B /* CrazyRocketManApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyRocketManApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2CB154162FF04300A4BF8B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DB2CB156162FF04300A4BF8B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,6 +113,101 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB27D9A9163E221D0016E277 /* GameOver */ = {
+			isa = PBXGroup;
+			children = (
+				DB142B381639158200B3E1F6 /* GameOverViewController.h */,
+				DB142B391639158200B3E1F6 /* GameOverViewController.m */,
+				DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */,
+			);
+			name = GameOver;
+			sourceTree = "<group>";
+		};
+		DB27D9AA163E222E0016E277 /* howTO */ = {
+			isa = PBXGroup;
+			children = (
+				DBB6112016394083004ED475 /* HowToViewController.h */,
+				DBB6112116394083004ED475 /* HowToViewController.m */,
+				DBB6112216394083004ED475 /* HowToViewController.xib */,
+			);
+			name = howTO;
+			sourceTree = "<group>";
+		};
+		DB27D9AB163E224D0016E277 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				DBB6110E16393D05004ED475 /* MainViewController.h */,
+				DBB6110F16393D05004ED475 /* MainViewController.m */,
+				DBB6111016393D06004ED475 /* MainViewController.xib */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		DB27D9AC163E22590016E277 /* GameView */ = {
+			isa = PBXGroup;
+			children = (
+				DB2CB16B162FF0A300A4BF8B /* GameViewController.h */,
+				DB2CB16C162FF0A300A4BF8B /* GameViewController.m */,
+				DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */,
+			);
+			name = GameView;
+			sourceTree = "<group>";
+		};
+		DB27D9AD163E22620016E277 /* High Score */ = {
+			isa = PBXGroup;
+			children = (
+				DBB6110816393D05004ED475 /* HighScoreViewController.h */,
+				DBB6110916393D05004ED475 /* HighScoreViewController.m */,
+				DBB6110A16393D05004ED475 /* HighScoreViewController.xib */,
+			);
+			name = "High Score";
+			sourceTree = "<group>";
+		};
+		DB27D9AE163E226C0016E277 /* Coins */ = {
+			isa = PBXGroup;
+			children = (
+				DB41E5121637E1A800C0B82D /* Coins.h */,
+				DB41E5131637E1A800C0B82D /* Coins.m */,
+			);
+			name = Coins;
+			sourceTree = "<group>";
+		};
+		DB27D9AF163E227E0016E277 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DBB6110B16393D05004ED475 /* homebutton.png */,
+				DBB6112B16394C3B004ED475 /* ElectricOrb.png */,
+				DBB6110C16393D05004ED475 /* howtobutton.png */,
+				DBB6112716394180004ED475 /* backarrow.png */,
+				DBB6112816394180004ED475 /* goarrow.png */,
+				DBB6110D16393D05004ED475 /* iconbg.png */,
+				DBB61125163940DE004ED475 /* highscore.png */,
+				DBB6111116393D06004ED475 /* startbutton.png */,
+				DB41E5071637791900C0B82D /* refinery.jpg */,
+				DB41E51C1637E5DA00C0B82D /* bronzecoin.png */,
+				DB142B46163924AF00B3E1F6 /* tesla.png */,
+				DB48FAD516363DC800AD2C0B /* goldcoin.png */,
+				DB41E51A1637E5C600C0B82D /* silvercoin.png */,
+				DB41E5081637791900C0B82D /* gas.png */,
+				DB41E5091637791900C0B82D /* battery.png */,
+				DB41E50A1637791900C0B82D /* coil.png */,
+				DB41E510163780CD00C0B82D /* crudeoil.png */,
+				DB48FAD816363DFE00AD2C0B /* platform.png */,
+				DB48FADA16363E0B00AD2C0B /* BH2.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		DB27D9B5163E253D0016E277 /* finish */ = {
+			isa = PBXGroup;
+			children = (
+				DB27D9B0163E248A0016E277 /* GameFinishedViewController.h */,
+				DB27D9B1163E248A0016E277 /* GameFinishedViewController.m */,
+				DB27D9B2163E248B0016E277 /* GameFinishedViewController.xib */,
+			);
+			name = finish;
+			sourceTree = "<group>";
+		};
 		DB2CB145162FF04300A4BF8B = {
 			isa = PBXGroup;
 			children = (
@@ -140,42 +240,14 @@
 			children = (
 				DB2CB163162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.h */,
 				DB2CB164162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.m */,
-				DB2CB16B162FF0A300A4BF8B /* GameViewController.h */,
-				DB2CB16C162FF0A300A4BF8B /* GameViewController.m */,
-				DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */,
-				DB142B381639158200B3E1F6 /* GameOverViewController.h */,
-				DB142B391639158200B3E1F6 /* GameOverViewController.m */,
-				DBB6112016394083004ED475 /* HowToViewController.h */,
-				DBB6112116394083004ED475 /* HowToViewController.m */,
-				DBB6112216394083004ED475 /* HowToViewController.xib */,
-				DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */,
-				DB41E5121637E1A800C0B82D /* Coins.h */,
-				DBB6110816393D05004ED475 /* HighScoreViewController.h */,
-				DBB6110916393D05004ED475 /* HighScoreViewController.m */,
-				DBB6110A16393D05004ED475 /* HighScoreViewController.xib */,
-				DBB6110B16393D05004ED475 /* homebutton.png */,
-				DBB6112B16394C3B004ED475 /* ElectricOrb.png */,
-				DBB6110C16393D05004ED475 /* howtobutton.png */,
-				DBB6112716394180004ED475 /* backarrow.png */,
-				DBB6112816394180004ED475 /* goarrow.png */,
-				DBB6110D16393D05004ED475 /* iconbg.png */,
-				DBB6110E16393D05004ED475 /* MainViewController.h */,
-				DBB6110F16393D05004ED475 /* MainViewController.m */,
-				DBB6111016393D06004ED475 /* MainViewController.xib */,
-				DBB61125163940DE004ED475 /* highscore.png */,
-				DBB6111116393D06004ED475 /* startbutton.png */,
-				DB41E5131637E1A800C0B82D /* Coins.m */,
-				DB41E5071637791900C0B82D /* refinery.jpg */,
-				DB41E51C1637E5DA00C0B82D /* bronzecoin.png */,
-				DB142B46163924AF00B3E1F6 /* tesla.png */,
-				DB48FAD516363DC800AD2C0B /* goldcoin.png */,
-				DB41E51A1637E5C600C0B82D /* silvercoin.png */,
-				DB41E5081637791900C0B82D /* gas.png */,
-				DB41E5091637791900C0B82D /* battery.png */,
-				DB41E50A1637791900C0B82D /* coil.png */,
-				DB41E510163780CD00C0B82D /* crudeoil.png */,
-				DB48FAD816363DFE00AD2C0B /* platform.png */,
-				DB48FADA16363E0B00AD2C0B /* BH2.png */,
+				DB27D9B5163E253D0016E277 /* finish */,
+				DB27D9AC163E22590016E277 /* GameView */,
+				DB27D9AB163E224D0016E277 /* Main */,
+				DB27D9A9163E221D0016E277 /* GameOver */,
+				DB27D9AA163E222E0016E277 /* howTO */,
+				DB27D9AE163E226C0016E277 /* Coins */,
+				DB27D9AD163E22620016E277 /* High Score */,
+				DB27D9AF163E227E0016E277 /* Resources */,
 				DB2CB15B162FF04300A4BF8B /* Supporting Files */,
 			);
 			path = CrazyRocketManApp;
@@ -269,6 +341,7 @@
 				DBB6112916394181004ED475 /* backarrow.png in Resources */,
 				DBB6112A16394181004ED475 /* goarrow.png in Resources */,
 				DBB6112C16394C3B004ED475 /* ElectricOrb.png in Resources */,
+				DB27D9B4163E248B0016E277 /* GameFinishedViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +360,7 @@
 				DBB6111216393D06004ED475 /* HighScoreViewController.m in Sources */,
 				DBB6111716393D06004ED475 /* MainViewController.m in Sources */,
 				DBB6112316394083004ED475 /* HowToViewController.m in Sources */,
+				DB27D9B3163E248B0016E277 /* GameFinishedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

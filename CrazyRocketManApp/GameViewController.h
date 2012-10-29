@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Coins.h"
 #import "GameOverViewController.h"
+#import "GameFinishedViewController.h"
+
 
 #define kNumOfPlatforms 8
 
@@ -54,6 +56,8 @@
     
     
     
+    UIButton *pauseButton;
+    
     UIButton *rocketOnButton;
     UIButton *magnetOnButton;
     UIButton *shieldOnButton;
@@ -91,7 +95,7 @@
 -(BOOL)CheckifCoilGet:(UIImageView *)coil;
 -(BOOL)CheckifBatteryGet:(UIImageView *)bat;
 -(BOOL)CheckifEnemyHit:(UIImageView *)enemy;
-
+-(BOOL)CheckifEnemyHitShield:(UIImageView *)enemy;
 
 -(void)startbouncing;
 
@@ -130,5 +134,7 @@
 
 
 -(void)movetoGameOverScene;
+-(void)movetoGameFinishScene;
 
+-(void)pauseGame;
 @end

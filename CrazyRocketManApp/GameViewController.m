@@ -54,7 +54,9 @@ int teslaNum;
 
 
 int randomizeCoin=1;
-int level=3;
+int level=1;
+int gameFinishLevel=4;
+
 
 BOOL delayTime = YES;
 BOOL NeedsTojump = NO;
@@ -65,6 +67,9 @@ BOOL rocketOn =NO;
 BOOL magnetOn = NO;
 BOOL shieldOn = NO;
 
+
+//Pause
+BOOL pauseOn = NO;
 
 
 //how quickly should the jump start off
@@ -258,7 +263,7 @@ CGPoint rocketManNewPosition;
                                          );
         rocketOnButton.backgroundColor = [UIColor clearColor];
         [rocketOnButton setBackgroundImage:[UIImage imageNamed:@"gas.png"] forState:UIControlStateNormal];
-        [rocketOnButton setAlpha:0.3];
+        [rocketOnButton setAlpha:0];
         [rocketOnButton addTarget:self action:@selector(rocketOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:rocketOnButton];
         
@@ -273,7 +278,7 @@ CGPoint rocketManNewPosition;
         magnetOnButton.frame =CGRectMake(270-50, 390, 40, 60);
         magnetOnButton.backgroundColor = [UIColor clearColor];
         [magnetOnButton setBackgroundImage:[UIImage imageNamed:@"battery.png"] forState:UIControlStateNormal];
-        [magnetOnButton setAlpha:0.3];
+        [magnetOnButton setAlpha:0];
         [magnetOnButton addTarget:self action:@selector(magnetOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:magnetOnButton];
         
@@ -286,10 +291,10 @@ CGPoint rocketManNewPosition;
         [[self view] addSubview:shieldOnButtonBG];
         // 320x480
         shieldOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        shieldOnButton.frame =CGRectMake(290, 390, 40, 60);
+        shieldOnButton.frame =CGRectMake(270, 390, 40, 60);
         shieldOnButton.backgroundColor = [UIColor clearColor];
         [shieldOnButton setBackgroundImage:[UIImage imageNamed:@"tesla.png"] forState:UIControlStateNormal];
-        [shieldOnButton setAlpha:0.3];
+        [shieldOnButton setAlpha:0];
         [shieldOnButton addTarget:self action:@selector(shieldOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:shieldOnButton];
         
@@ -357,6 +362,17 @@ CGPoint rocketManNewPosition;
 
         
         
+        
+        pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        pauseButton.frame =CGRectMake(290, 0, 40, 60);
+        pauseButton.backgroundColor = [UIColor clearColor];
+        [pauseButton setBackgroundImage:[UIImage imageNamed:@"homebutton.png"] forState:UIControlStateNormal];
+        [pauseButton setAlpha:1];
+        [pauseButton addTarget:self action:@selector(pauseGame) forControlEvents:UIControlEventTouchUpInside];
+        [[self view]addSubview:pauseButton];
+        
+        
+        
         labelScore = [[UILabel alloc]init];
         labelScore.text = [NSString stringWithFormat:@"Score:%.0f",score];
         [labelScore setFrame:CGRectMake(self.view.bounds.size.width-200, self.view.bounds.size.height-20, 100, 20)];
@@ -369,7 +385,7 @@ CGPoint rocketManNewPosition;
         
 
         
-        
+    
 
     }
     return self;
@@ -609,17 +625,33 @@ CGPoint rocketManNewPosition;
 
     [self getFuel];
     
-    if ([self getRandomNumber:1 to:2] ==1) {
+    if (shieldOnButton.alpha == 1 && magnetOnButton.alpha != 1) {
         [self getElectroMagnet];
         [self getElectroShield];
     }
+    
+    else if (shieldOnButton.alpha != 1 && magnetOnButton.alpha == 1) {
+        [self getElectroShield];
+        [self getElectroMagnet];
+    }
+    
     else
     {
+    
+        if ([self getRandomNumber:1 to:2] ==1)
+        {
+        
+        [self getElectroMagnet];
+        [self getElectroShield];
+        }
+    
+        else
+        {
         [self getElectroShield];
         [self getElectroMagnet];
         
+        }
     }
-
    
     
     
@@ -659,11 +691,11 @@ CGPoint rocketManNewPosition;
         if ([self CheckifCoinGet:coins])
         {
             
-            NSLog(@"Coin Get");
+           
             
          
             [arrayOfCoins removeObject:coins];
-            NSLog(@"%d",[arrayOfCoins count]);
+           
 
             [coins removeFromSuperview];
             
@@ -682,15 +714,27 @@ CGPoint rocketManNewPosition;
     for (UIImageView *enemy in arrayOfEnemies)
     {
         
-        //Remove if hit and add score
-        if ([self CheckifEnemyHit:enemy])
+        //Remove if hit and remove life
+        if (shieldOn) {
+            if ([self CheckifEnemyHitShield:enemy])
+             {
+                [arrayOfEnemies removeObject:enemy];
+               
+                
+                [enemy removeFromSuperview];
+                 break;
+            }
+        }
+        
+        
+        
+       else if ([self CheckifEnemyHit:enemy])
         {
             
             
-            
-            
             [arrayOfEnemies removeObject:enemy];
-            NSLog(@"%d",[arrayOfEnemies count]);
+           
+        
             
             [enemy removeFromSuperview];
             
@@ -779,7 +823,7 @@ CGPoint rocketManNewPosition;
         //speed up gradually but much faster 
 		if(jumpSpeed > 0 && jumpSpeed <= jumpSpeedLimit)
         {
-			jumpSpeed *= 1 + jumpSpeedLimit/30;
+			jumpSpeed *= 1 + jumpSpeedLimit/50;
 		}
       
 
@@ -1128,6 +1172,18 @@ CGPoint rocketManNewPosition;
     return NO;
 }
 
+-(BOOL)CheckifEnemyHitShield:(UIImageView *)enemy
+{
+    if (CGRectIntersectsRect(electroShield.frame, enemy.frame)) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+
+
 
 
 -(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
@@ -1146,12 +1202,13 @@ CGPoint rocketManNewPosition;
     platformSpeedmove =1;
     
     if (!delayTime) {
+        
+        gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameTimeMethod) userInfo:nil repeats:YES];
         timerBounce = [NSTimer scheduledTimerWithTimeInterval:.07 target:self selector:@selector(jump) userInfo:nil repeats:YES];
         
         
         timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
-        
-    gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameTimeMethod) userInfo:nil repeats:YES];
+
         
         
         [timerdelay invalidate];
@@ -1212,6 +1269,44 @@ CGPoint rocketManNewPosition;
 
 -(void)resetPlatform:(UIImageView*)platform
 {
+    
+    
+    
+    
+    switch (platformsFinished) {
+        case 10:
+            level++;
+            NSLog(@"%d",level);
+            break;
+            
+        case 20:
+            level++;
+            NSLog(@"%d",level);
+            break;
+            
+        case 30:
+            level++;
+            NSLog(@"%d",level);
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    if (level == gameFinishLevel) {
+        
+        [self movetoGameFinishScene];
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    //Platform RESET
     CGSize stepRect = CGSizeMake(100, 35);
     NSUInteger index;
     
@@ -1291,11 +1386,15 @@ CGPoint rocketManNewPosition;
     ypos =0;
  
     
-    
-
 
     platform.center = CGPointMake (xpos,ypos);
 
+    
+    
+
+    
+    
+    
     
     
     
@@ -1430,12 +1529,35 @@ if (rocketDuration <=0)
 
 -(void)gameTimeMethod
 {
-    timeCounter ++;
+    timeCounter++;
 
+    switch (level)
+    {
+        case 1:
+            enemyRespawnTime =30;
+            break;
+            
+        case 2:
+            enemyRespawnTime =20;
+            break;
+        case 3:
+            enemyRespawnTime =10;
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    randomizeCoin = randomizeCoin *level;
+    
     [self checkMagnetDuration];
     [self checkShieldDuration];
     
-    NSLog(@"%d",timeCounter);
+   
+    
+  //  NSLog(@"%d",timeCounter);
 
    
     
@@ -1445,20 +1567,7 @@ if (rocketDuration <=0)
     
     
     
-    if (timeCounter %10 == 0)
-    {
-    
-        CGRect EnemyRect = CGRectMake(0, 0, 20, 20);
-        UIImageView  *enemyView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
-        [enemyView setFrame:EnemyRect];
-        
-        enemyView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
-        
-        [arrayOfEnemies addObject:enemyView];
-        
-        [self.view addSubview:enemyView];
-    }
-    
+
 
     
     
@@ -1515,6 +1624,41 @@ if (rocketDuration <=0)
 
 
 
+    if (timeCounter % (int)enemyRespawnTime == 0)
+    {
+        NSString *strEnemyStr;
+        CGRect EnemyRect = CGRectMake(0, 0, 30, 30);
+        
+        switch ([self getRandomNumber:1 to:4]) {
+            case 1:
+                strEnemyStr = @"BH2.png";
+                break;
+                
+            case 2:
+                strEnemyStr = @"ElectricOrb.png";
+                break;
+                
+            case 3:
+                strEnemyStr = @"homebutton.png";
+                break;
+                
+            case 4:
+                strEnemyStr = @"ElectricOrb.png";
+                break;
+            default:
+                break;
+        }
+        
+        
+        UIImageView  *enemyView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:strEnemyStr]];
+        [enemyView setFrame:EnemyRect];
+        
+        enemyView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+        
+        [arrayOfEnemies addObject:enemyView];
+        
+        [self.view addSubview:enemyView];
+    }
     
     
 }
@@ -1533,18 +1677,18 @@ if (rocketDuration <=0)
         if ([self CheckifOilGet:oil])
         {
             
-            NSLog(@"oil Get");
+           
             [numberOfGas setAlpha:1];
             [gasImage setAlpha:1];
             
             numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum = gasNum+1];
           
             [arrayOfOil removeObject:oil];
-            NSLog(@"%d",[arrayOfOil count]);
+           
             
             [oil removeFromSuperview];
             
-            NSLog(@"OIL");
+           
             break;
         }
     }
@@ -1561,18 +1705,18 @@ if (rocketDuration <=0)
         if ([self CheckifRefineryGet:ref])
         {
             
-            NSLog(@"refinery Get");
+           
             [numberOfRef setAlpha:1];
             [refineImage setAlpha:1];
             
             numberOfRef.text = [NSString stringWithFormat: @"%i", refNum = refNum + 1];
             
             [arrayOfRefinery removeObject:ref];
-            NSLog(@"%d",[arrayOfRefinery count]);
+           
             
             [ref removeFromSuperview];
             
-            NSLog(@"REFINERY");
+          
             break;
         }
     }
@@ -1619,17 +1763,17 @@ if (rocketDuration <=0)
         if ([self CheckifCoilGet:coil])
         {
             
-            NSLog(@"coil Get");
+          
             [numberOfCoil setAlpha:1];
             [coilImage setAlpha:1];
             numberOfCoil.text = [NSString stringWithFormat:@"%i", coilNum = coilNum+1];
             
             [arrayOfCoil removeObject:coil];
-            NSLog(@"%d",[arrayOfCoil count]);
+           
             
             [coil removeFromSuperview];
             
-            NSLog(@"COIL");
+           
             break;
         }
     }
@@ -1647,17 +1791,17 @@ if (rocketDuration <=0)
         if ([self CheckifBatteryGet:bat])
         {
             
-            NSLog(@"battery Get");
+           
             [numberOfbattery setAlpha:1];
             [batteryImage setAlpha:1];
             numberOfbattery.text = [NSString stringWithFormat: @"%i", batteryNum = batteryNum + 1];
             
             [arrayOfBattery removeObject:bat];
-            NSLog(@"%d",[arrayOfBattery count]);
+            
             
             [bat removeFromSuperview];
             
-            NSLog(@"BATTERY");
+         
             break;
         }
     }
@@ -1703,17 +1847,17 @@ if (rocketDuration <=0)
        if ([self CheckifTeslaGet:tesla])
        {
             
-            NSLog(@"tesla Get");
+           
             [numberOftesla setAlpha:1];
             [teslaImage setAlpha:1];
             numberOftesla.text = [NSString stringWithFormat:@"%i",teslaNum = teslaNum+1];
             
             [arrayOfTesla removeObject:tesla];
-            NSLog(@"%d",[arrayOfTesla count]);
+           
             
             [tesla removeFromSuperview];
             
-            NSLog(@"Tesla");
+            
             break;
        }
     }
@@ -1920,4 +2064,95 @@ if (rocketDuration <=0)
     gameOverScene.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentModalViewController:gameOverScene animated:YES];
 }
+
+
+
+
+
+
+
+
+-(void)movetoGameFinishScene
+{
+    
+    accelerometer.delegate = nil;
+    [timerdelay invalidate];
+    timerdelay = nil;
+    
+    [timerBounce invalidate];
+    timerBounce =nil;
+    
+    [timerMovePlatform invalidate];
+    timerMovePlatform = nil;
+    
+    [timerRocket invalidate];
+    timerRocket = nil;
+    
+    [timerdelay invalidate];
+    timerdelay = nil;
+    
+    [gameTimer invalidate];
+    gameTimer = nil;
+    
+    GameFinishedViewController *gamefinish = [[GameFinishedViewController  alloc] init];
+
+    [gamefinish finishedScore:score];
+    gamefinish.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentModalViewController:gamefinish animated:YES];
+}
+
+
+
+
+
+-(void)pauseGame
+{
+    NSLog(@"Pause");
+    
+    if (!pauseOn) {
+        pauseOn = YES;
+        
+
+        
+        [timerBounce invalidate];
+        timerBounce =nil;
+        
+        [timerMovePlatform invalidate];
+        timerMovePlatform = nil;
+        
+        [timerRocket invalidate];
+        timerRocket = nil;
+        
+        [gameTimer invalidate];
+        gameTimer =nil;
+    }
+
+
+else
+    {
+        
+        pauseOn = NO;
+        timerBounce = [NSTimer scheduledTimerWithTimeInterval:.07 target:self selector:@selector(jump) userInfo:nil repeats:YES];
+        
+        
+        timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
+        
+        gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameTimeMethod) userInfo:nil repeats:YES];
+    
+        if (rocketOn) {
+                timerRocket = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkRocketDuration) userInfo:nil repeats:YES];
+            
+            
+        }
+    
+    }
+    
+    
+}
+
+
+
+
+
+
 @end

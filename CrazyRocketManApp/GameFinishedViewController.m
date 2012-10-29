@@ -1,18 +1,20 @@
 //
-//  GameOverViewController.m
+//  GameFinishedViewController.m
 //  CrazyRocketManApp
 //
-//  Created by Regie G. Pinat on 10/25/12.
+//  Created by Regie G. Pinat on 10/29/12.
 //  Copyright (c) 2012 Regie G. Pinat. All rights reserved.
 //
 
-#import "GameOverViewController.h"
+#import "GameFinishedViewController.h"
 
-@interface GameOverViewController ()
+@interface GameFinishedViewController ()
 
 @end
 
-@implementation GameOverViewController
+@implementation GameFinishedViewController
+@synthesize scoreLabel;
+@synthesize finishLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,11 +28,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
+    [self setScoreLabel:nil];
+    [self setFinishLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -43,25 +61,33 @@
 
 
 
+
 -(void)finishedScore:(float)passedscore
 {
     score = passedscore;
     
     
+    
+    
     float highscore = [[NSUserDefaults standardUserDefaults] integerForKey: @"highScore"];
-
     
     
-      
+    
+    
     if (highscore< score)
     {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:score forKey:@"highScore"];
-    [defaults synchronize];
-
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setInteger:score forKey:@"highScore"];
+        [defaults synchronize];
+        
     }
+    
+    
+    
+    
     highscore = [[NSUserDefaults standardUserDefaults] integerForKey: @"highScore"];
     NSLog(@"%.0f",score);
     NSLog(@"%.0f",highscore);
 }
+
 @end
