@@ -10,6 +10,7 @@
 #import "Coins.h"
 #import "GameOverViewController.h"
 #import "GameFinishedViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 #define kNumOfPlatforms 8
@@ -26,6 +27,7 @@
     
     UIImageView *rocketMan;
     UIImageView *electroShield;
+    UIImageView *magnetized;
     
     UIAccelerometer *accelerometer;
     int timeCounter;
@@ -65,6 +67,12 @@
     UIImageView *rocketOnButtonBG;
     UIImageView *magnetOnButtonBG;
     UIImageView *shieldOnButtonBG;
+    
+    AVAudioPlayer *audioplayer;
+    AVAudioPlayer *audioplayer2;
+    AVAudioPlayer *audioplayer3;
+    
+    
 }
 
 @property (nonatomic,strong) NSMutableArray *arrayOfPlatforms;

@@ -7,12 +7,21 @@
 //
 
 #import "GameOverViewController.h"
+#import "MainViewController.h"
 
 @interface GameOverViewController ()
+{
+    UIViewController *mainview;
+}
+@property (weak, nonatomic) IBOutlet UIButton *homeButton;
+-(IBAction)home;
 
 @end
 
 @implementation GameOverViewController
+@synthesize homeButton;
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +40,7 @@
 
 - (void)viewDidUnload
 {
+    [self setHomeButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -50,7 +60,17 @@
     
     float highscore = [[NSUserDefaults standardUserDefaults] integerForKey: @"highScore"];
 
+
     
+    UILabel *highScoreLabel1= [[UILabel alloc]init];
+    highScoreLabel1.text = [NSString stringWithFormat:@"SCORE: %.0f", score];
+    [highScoreLabel1 setFrame:CGRectMake(self.view.center.x-100, self.view.center.y-30, 200, 100)];
+    [highScoreLabel1 setFont:[UIFont boldSystemFontOfSize:20]];
+    [highScoreLabel1 setTextColor:[UIColor blackColor]];
+    highScoreLabel1.textAlignment = UITextAlignmentCenter;
+    [highScoreLabel1 setBackgroundColor:[UIColor clearColor]];
+    [highScoreLabel1 setAlpha:.5];
+    [[self view] addSubview:highScoreLabel1];
     
       
     if (highscore< score)
@@ -63,5 +83,12 @@
     highscore = [[NSUserDefaults standardUserDefaults] integerForKey: @"highScore"];
     NSLog(@"%.0f",score);
     NSLog(@"%.0f",highscore);
+}
+-(IBAction) home
+{
+    mainview = [[MainViewController alloc] init];
+    
+    mainview.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentModalViewController: mainview animated:YES];
 }
 @end

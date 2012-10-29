@@ -7,12 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MainViewController : UIViewController
 {
     IBOutlet UIButton *startButton;
     IBOutlet UIButton *howToButton;
     IBOutlet UIButton *highscoreButton;
+    NSTimer *timer;
+    
+    
+     AVAudioPlayer *audioplayer;
 }
 @property (retain, nonatomic) IBOutlet UIButton *startButton;
 @property (retain, nonatomic) IBOutlet UIButton *howToButton;
@@ -22,4 +27,7 @@
 -(IBAction)clickStart:(UIButton *)start;
 -(IBAction)clickHowTo:(UIButton *)howTo;
 -(IBAction)clickHighScore:(UIButton *)highscore;
+-(void)callMusic;
+-(void)stopMusic;
+
 @end

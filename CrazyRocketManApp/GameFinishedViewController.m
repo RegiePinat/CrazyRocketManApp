@@ -7,12 +7,21 @@
 //
 
 #import "GameFinishedViewController.h"
+#import "MainViewController.h"
 
 @interface GameFinishedViewController ()
+{
+    
+    UIViewController *mainview;
+}
+@property (weak, nonatomic) IBOutlet UIButton *homeButton;
+
+-(IBAction)home;
 
 @end
 
 @implementation GameFinishedViewController
+@synthesize homeButton;
 @synthesize scoreLabel;
 @synthesize finishLabel;
 
@@ -33,7 +42,7 @@
     
     
     
-    
+    scoreLabel.text = [NSString stringWithFormat:@"Score:%.0f",score]; 
     
     
     
@@ -49,6 +58,7 @@
 {
     [self setScoreLabel:nil];
     [self setFinishLabel:nil];
+    [self setHomeButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -90,4 +100,11 @@
     NSLog(@"%.0f",highscore);
 }
 
+-(IBAction) home
+{
+    mainview = [[MainViewController alloc] init];
+    
+    mainview.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentModalViewController: mainview animated:YES];
+}
 @end

@@ -10,20 +10,29 @@
 #import "MainViewController.h"
 @interface HowToViewController ()
 {
-    UIViewController *howTo1;
-    UIViewController *howTo2;
-    UIViewController *howTo3;
+//    UIViewController *howTo1;
+//    UIViewController *howTo2;
+//    UIViewController *howTo3;
     
     MainViewController *mainview;
+    
+    int index;
 
 }
--(void) click1To2;
--(void) click2To3;
+@property (strong, nonatomic) IBOutlet UIButton *homeButton;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UIButton *goButton;
+@property (strong, nonatomic) NSArray *arrayOfHowTo;
 
--(void) home;
+-(IBAction) clickGo;
+-(IBAction) clickBack;
+-(IBAction) home;
+
 @end
 
 @implementation HowToViewController
+@synthesize viewImage;
+@synthesize homeButton, backButton, goButton, arrayOfHowTo;
     //iphone resolution 320x480
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,102 +40,73 @@
     if (self) {
         // Custom initialization
         
+    
+        
+        arrayOfHowTo = [NSArray arrayWithObjects:@"howTo1.png", @"howTo2.png", @"howTo3.png", @"howTo4.png", @"howTo5.png", nil];
+
+        index = 0;
+      
+      
         
 
     }
     return self;
 }
 
--(void) click1To2
+-(IBAction) clickGo
 {
-
-    howTo2 = [[UIViewController alloc] initWithNibName:(NSString *)nil bundle:(NSBundle *)nil];
-    [self.view addSubview:howTo2.view];
-    [howTo1.view removeFromSuperview];
-    [howTo3.view removeFromSuperview];
-
+    index++;
     
-    UIButton *buttonHowTo2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonHowTo2.frame = CGRectMake(230, 380, 80, 50);
-    buttonHowTo2.backgroundColor = [UIColor clearColor];
-    [buttonHowTo2 setBackgroundImage:[UIImage imageNamed:@"goarrow.png"] forState:UIControlStateNormal];
-    [buttonHowTo2 addTarget:self action:@selector(click2To3) forControlEvents:UIControlEventTouchUpInside];
-    [howTo2.view addSubview:buttonHowTo2];
+    NSString *str = [arrayOfHowTo objectAtIndex:index];
     
-    UIButton *buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(10, 380, 80, 50);
-    buttonBack.backgroundColor = [UIColor clearColor];
-    [buttonBack setBackgroundImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-    [buttonBack addTarget:self action:@selector(viewDidLoad) forControlEvents:UIControlEventTouchUpInside];
-    [howTo2.view addSubview:buttonBack];
+    [viewImage setImage:[UIImage imageNamed:str]];
     
-    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    homeButton.frame = CGRectMake(280, 0, 30, 30);
-    homeButton.backgroundColor = [UIColor clearColor];
-    [homeButton setBackgroundImage:[UIImage imageNamed:@"homebutton.png"] forState:UIControlStateNormal];
-    [homeButton addTarget:self action:@selector(home) forControlEvents:UIControlEventTouchUpInside];
-    [howTo2.view addSubview:homeButton];
-       
+    if (index == 4) {
+        [goButton setAlpha:0];
+    }
+    [backButton setAlpha:1];
 }
--(void) click2To3
+-(IBAction) clickBack
 {
-    howTo3 = [[UIViewController alloc] initWithNibName:(NSString *)nil bundle:(NSBundle *)nil];
-    [self.view addSubview:howTo3.view];
-    [howTo2.view removeFromSuperview];
-    [howTo1.view removeFromSuperview];
+    index--;
+    [viewImage setImage:[UIImage imageNamed:[arrayOfHowTo objectAtIndex:index]]];
     
-//    UIButton *buttonHowTo3 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    buttonHowTo3.frame = CGRectMake(230, 380, 80, 50);
-//    buttonHowTo3.backgroundColor = [UIColor clearColor];
-//    [buttonHowTo3 setBackgroundImage:[UIImage imageNamed:@"goarrow.png"] forState:UIControlStateNormal];
-//    [buttonHowTo3 addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
-//    [howTo3.view addSubview:buttonHowTo3];
+    if (index == 0) {
+        [backButton setAlpha:0];
+    }
     
-    UIButton *buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(10, 380, 80, 50);
-    buttonBack.backgroundColor = [UIColor clearColor];
-    [buttonBack setBackgroundImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-    [buttonBack addTarget:self action:@selector(click1To2) forControlEvents:UIControlEventTouchUpInside];
-    [howTo3.view addSubview:buttonBack];
-    
-    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    homeButton.frame = CGRectMake(280, 0, 30, 30);
-    homeButton.backgroundColor = [UIColor clearColor];
-    [homeButton setBackgroundImage:[UIImage imageNamed:@"homebutton.png"] forState:UIControlStateNormal];
-    [homeButton addTarget:self action:@selector(home) forControlEvents:UIControlEventTouchUpInside];
-    [howTo3.view addSubview:homeButton];
-    
-
-    
+    if (index <=3) {
+        [goButton setAlpha:1];
+    }
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+      [backButton setAlpha:0];
+//    howTo1 = [[UIViewController alloc] initWithNibName:(NSString *)nil bundle:(NSBundle *)nil];
+//    [self.view addSubview:howTo1.view];
+//    [howTo2.view removeFromSuperview];
+//    [howTo3.view removeFromSuperview];
+//    
+//    
+//    
+//    UIButton *buttonHowTo1 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    buttonHowTo1.frame = CGRectMake(230, 380, 80, 50);
+//    buttonHowTo1.backgroundColor = [UIColor clearColor];
+//    [buttonHowTo1 setBackgroundImage:[UIImage imageNamed:@"goarrow.png"] forState:UIControlStateNormal];
+//    [buttonHowTo1 addTarget:self action:@selector(click1To2) forControlEvents:UIControlEventTouchUpInside];
+//    [howTo1.view addSubview:buttonHowTo1];
     
-    howTo1 = [[UIViewController alloc] initWithNibName:(NSString *)nil bundle:(NSBundle *)nil];
-    [self.view addSubview:howTo1.view];
-    [howTo2.view removeFromSuperview];
-    [howTo3.view removeFromSuperview];
-    
-    
-    
-    UIButton *buttonHowTo1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonHowTo1.frame = CGRectMake(230, 380, 80, 50);
-    buttonHowTo1.backgroundColor = [UIColor clearColor];
-    [buttonHowTo1 setBackgroundImage:[UIImage imageNamed:@"goarrow.png"] forState:UIControlStateNormal];
-    [buttonHowTo1 addTarget:self action:@selector(click1To2) forControlEvents:UIControlEventTouchUpInside];
-    [howTo1.view addSubview:buttonHowTo1];
-    
-    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    homeButton.frame = CGRectMake(280, 0, 30, 30);
-    homeButton.backgroundColor = [UIColor clearColor];
-    [homeButton setBackgroundImage:[UIImage imageNamed:@"homebutton.png"] forState:UIControlStateNormal];
-    [homeButton addTarget:self action:@selector(home) forControlEvents:UIControlEventTouchUpInside];
-    [howTo1.view addSubview:homeButton];
+//    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    homeButton.frame = CGRectMake(280, 0, 30, 30);
+//    homeButton.backgroundColor = [UIColor clearColor];
+//    [homeButton setBackgroundImage:[UIImage imageNamed:@"homebutton.png"] forState:UIControlStateNormal];
+//    [homeButton addTarget:self action:@selector(home) forControlEvents:UIControlEventTouchUpInside];
+//    [howTo1.view addSubview:homeButton];
     // Do any additional setup after loading the view from its nib.
 }
 
--(void) home
+-(IBAction) home
 {
     mainview = [[MainViewController alloc] init];
     
@@ -135,6 +115,7 @@
 }
 - (void)viewDidUnload
 {
+    [self setViewImage:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

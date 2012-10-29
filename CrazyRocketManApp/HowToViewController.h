@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HowToViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIImageView *viewImage;
 
 @end

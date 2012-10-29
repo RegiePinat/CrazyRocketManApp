@@ -9,9 +9,15 @@
 /* Begin PBXBuildFile section */
 		DB142B3B1639158200B3E1F6 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB142B391639158200B3E1F6 /* GameOverViewController.m */; };
 		DB142B3C1639158200B3E1F6 /* GameOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */; };
-		DB142B47163924B000B3E1F6 /* tesla.png in Resources */ = {isa = PBXBuildFile; fileRef = DB142B46163924AF00B3E1F6 /* tesla.png */; };
 		DB27D9B3163E248B0016E277 /* GameFinishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB27D9B1163E248A0016E277 /* GameFinishedViewController.m */; };
 		DB27D9B4163E248B0016E277 /* GameFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9B2163E248B0016E277 /* GameFinishedViewController.xib */; };
+		DB27D9B7163E2CE40016E277 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB27D9B6163E2CE40016E277 /* AVFoundation.framework */; };
+		DB27D9B9163E2D210016E277 /* bouncingballsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9B8163E2D210016E277 /* bouncingballsound.mp3 */; };
+		DB27D9DB163E33CC0016E277 /* increase_agility.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9DA163E33CC0016E277 /* increase_agility.mp3 */; };
+		DB27D9DD163E33E30016E277 /* crazy_kart_intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9DC163E33E30016E277 /* crazy_kart_intro.mp3 */; };
+		DB27D9DF163E37B30016E277 /* magnetized.png in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9DE163E37B20016E277 /* magnetized.png */; };
+		DB27D9E5163E39F50016E277 /* buzz.png in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9E4163E39F50016E277 /* buzz.png */; };
+		DB27D9E7163E3A750016E277 /* rocketOn.png in Resources */ = {isa = PBXBuildFile; fileRef = DB27D9E6163E3A740016E277 /* rocketOn.png */; };
 		DB2CB155162FF04300A4BF8B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB154162FF04300A4BF8B /* UIKit.framework */; };
 		DB2CB157162FF04300A4BF8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB156162FF04300A4BF8B /* Foundation.framework */; };
 		DB2CB159162FF04300A4BF8B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2CB158162FF04300A4BF8B /* CoreGraphics.framework */; };
@@ -20,10 +26,7 @@
 		DB2CB165162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CB164162FF04300A4BF8B /* CrazyRocketManAppAppDelegate.m */; };
 		DB2CB16E162FF0A300A4BF8B /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CB16C162FF0A300A4BF8B /* GameViewController.m */; };
 		DB2CB16F162FF0A300A4BF8B /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */; };
-		DB41E50B1637791900C0B82D /* refinery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DB41E5071637791900C0B82D /* refinery.jpg */; };
 		DB41E50C1637791900C0B82D /* gas.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E5081637791900C0B82D /* gas.png */; };
-		DB41E50D1637791900C0B82D /* battery.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E5091637791900C0B82D /* battery.png */; };
-		DB41E50E1637791900C0B82D /* coil.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E50A1637791900C0B82D /* coil.png */; };
 		DB41E511163780CD00C0B82D /* crudeoil.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E510163780CD00C0B82D /* crudeoil.png */; };
 		DB41E5141637E1A800C0B82D /* Coins.m in Sources */ = {isa = PBXBuildFile; fileRef = DB41E5131637E1A800C0B82D /* Coins.m */; };
 		DB41E51B1637E5C600C0B82D /* silvercoin.png in Resources */ = {isa = PBXBuildFile; fileRef = DB41E51A1637E5C600C0B82D /* silvercoin.png */; };
@@ -31,6 +34,33 @@
 		DB48FAD616363DC800AD2C0B /* goldcoin.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FAD516363DC800AD2C0B /* goldcoin.png */; };
 		DB48FAD916363DFE00AD2C0B /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FAD816363DFE00AD2C0B /* platform.png */; };
 		DB48FADB16363E0B00AD2C0B /* BH2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB48FADA16363E0B00AD2C0B /* BH2.png */; };
+		DB4A9B76163E3BF2004B5CA0 /* battery.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9B75163E3BF1004B5CA0 /* battery.png */; };
+		DB4A9B79163E4B51004B5CA0 /* coil.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9B78163E4B50004B5CA0 /* coil.png */; };
+		DB4A9B7B163E4BE9004B5CA0 /* life.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9B7A163E4BE8004B5CA0 /* life.png */; };
+		DB4A9BA6163E4C53004B5CA0 /* asteroid2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BA5163E4C53004B5CA0 /* asteroid2.png */; };
+		DB4A9BA8163E4CFA004B5CA0 /* jetpack2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BA7163E4CFA004B5CA0 /* jetpack2.png */; };
+		DB4A9BAA163E4DF1004B5CA0 /* refinery.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BA9163E4DF0004B5CA0 /* refinery.png */; };
+		DB4A9BAC163E4EAF004B5CA0 /* tesla.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BAB163E4EAE004B5CA0 /* tesla.png */; };
+		DB4A9BB4163E5003004B5CA0 /* alien7.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BAD163E5000004B5CA0 /* alien7.png */; };
+		DB4A9BB5163E5003004B5CA0 /* alien6.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BAE163E5000004B5CA0 /* alien6.png */; };
+		DB4A9BB6163E5003004B5CA0 /* alien5.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BAF163E5001004B5CA0 /* alien5.png */; };
+		DB4A9BB7163E5003004B5CA0 /* alien4.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BB0163E5001004B5CA0 /* alien4.png */; };
+		DB4A9BB8163E5003004B5CA0 /* alien3.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BB1163E5002004B5CA0 /* alien3.png */; };
+		DB4A9BB9163E5003004B5CA0 /* alien2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BB2163E5002004B5CA0 /* alien2.png */; };
+		DB4A9BBA163E5003004B5CA0 /* alien1.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BB3163E5003004B5CA0 /* alien1.png */; };
+		DB4A9BBC163E5510004B5CA0 /* stars copy.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BBB163E550F004B5CA0 /* stars copy.png */; };
+		DB4A9BBE163E5774004B5CA0 /* electric_shock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BBD163E5773004B5CA0 /* electric_shock.mp3 */; };
+		DB4A9BC0163E5BA4004B5CA0 /* tuning_fork.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BBF163E5BA3004B5CA0 /* tuning_fork.mp3 */; };
+		DB4A9BC6163E5FF1004B5CA0 /* howTo5.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BC1163E5FE5004B5CA0 /* howTo5.png */; };
+		DB4A9BC7163E5FF1004B5CA0 /* howTo4.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BC2163E5FE6004B5CA0 /* howTo4.png */; };
+		DB4A9BC8163E5FF1004B5CA0 /* howTo3.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BC3163E5FE7004B5CA0 /* howTo3.png */; };
+		DB4A9BC9163E5FF1004B5CA0 /* howTo2.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BC4163E5FEB004B5CA0 /* howTo2.png */; };
+		DB4A9BCA163E5FF1004B5CA0 /* howTo1.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BC5163E5FEF004B5CA0 /* howTo1.png */; };
+		DB4A9BCC163E6681004B5CA0 /* mainview.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BCB163E6680004B5CA0 /* mainview.png */; };
+		DB4A9BCF163E6915004B5CA0 /* playpause.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BCD163E6912004B5CA0 /* playpause.png */; };
+		DB4A9BD0163E6915004B5CA0 /* highscoreview.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BCE163E6913004B5CA0 /* highscoreview.png */; };
+		DB4A9BD2163E7041004B5CA0 /* mainview-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BD1163E7040004B5CA0 /* mainview-1.png */; };
+		DB4A9BD4163E70A3004B5CA0 /* mainview-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BD3163E70A3004B5CA0 /* mainview-1.png */; };
 		DBB6111216393D06004ED475 /* HighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB6110916393D05004ED475 /* HighScoreViewController.m */; };
 		DBB6111316393D06004ED475 /* HighScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110A16393D05004ED475 /* HighScoreViewController.xib */; };
 		DBB6111416393D06004ED475 /* homebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110B16393D05004ED475 /* homebutton.png */; };
@@ -51,10 +81,16 @@
 		DB142B381639158200B3E1F6 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
 		DB142B391639158200B3E1F6 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
 		DB142B3A1639158200B3E1F6 /* GameOverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameOverViewController.xib; sourceTree = "<group>"; };
-		DB142B46163924AF00B3E1F6 /* tesla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tesla.png; sourceTree = "<group>"; };
 		DB27D9B0163E248A0016E277 /* GameFinishedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameFinishedViewController.h; sourceTree = "<group>"; };
 		DB27D9B1163E248A0016E277 /* GameFinishedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameFinishedViewController.m; sourceTree = "<group>"; };
 		DB27D9B2163E248B0016E277 /* GameFinishedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFinishedViewController.xib; sourceTree = "<group>"; };
+		DB27D9B6163E2CE40016E277 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DB27D9B8163E2D210016E277 /* bouncingballsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bouncingballsound.mp3; path = ../../../Downloads/bouncingballsound.mp3; sourceTree = "<group>"; };
+		DB27D9DA163E33CC0016E277 /* increase_agility.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = increase_agility.mp3; sourceTree = "<group>"; };
+		DB27D9DC163E33E30016E277 /* crazy_kart_intro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crazy_kart_intro.mp3; sourceTree = "<group>"; };
+		DB27D9DE163E37B20016E277 /* magnetized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnetized.png; sourceTree = "<group>"; };
+		DB27D9E4163E39F50016E277 /* buzz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buzz.png; sourceTree = "<group>"; };
+		DB27D9E6163E3A740016E277 /* rocketOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rocketOn.png; sourceTree = "<group>"; };
 		DB2CB150162FF04300A4BF8B /* CrazyRocketManApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrazyRocketManApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2CB154162FF04300A4BF8B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DB2CB156162FF04300A4BF8B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,10 +104,7 @@
 		DB2CB16B162FF0A300A4BF8B /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		DB2CB16C162FF0A300A4BF8B /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		DB2CB16D162FF0A300A4BF8B /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
-		DB41E5071637791900C0B82D /* refinery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = refinery.jpg; sourceTree = "<group>"; };
 		DB41E5081637791900C0B82D /* gas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas.png; sourceTree = "<group>"; };
-		DB41E5091637791900C0B82D /* battery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battery.png; sourceTree = "<group>"; };
-		DB41E50A1637791900C0B82D /* coil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coil.png; sourceTree = "<group>"; };
 		DB41E510163780CD00C0B82D /* crudeoil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crudeoil.png; sourceTree = "<group>"; };
 		DB41E5121637E1A800C0B82D /* Coins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coins.h; sourceTree = "<group>"; };
 		DB41E5131637E1A800C0B82D /* Coins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coins.m; sourceTree = "<group>"; };
@@ -80,6 +113,33 @@
 		DB48FAD516363DC800AD2C0B /* goldcoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldcoin.png; sourceTree = "<group>"; };
 		DB48FAD816363DFE00AD2C0B /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
 		DB48FADA16363E0B00AD2C0B /* BH2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BH2.png; sourceTree = "<group>"; };
+		DB4A9B75163E3BF1004B5CA0 /* battery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battery.png; sourceTree = "<group>"; };
+		DB4A9B78163E4B50004B5CA0 /* coil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coil.png; sourceTree = "<group>"; };
+		DB4A9B7A163E4BE8004B5CA0 /* life.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = life.png; sourceTree = "<group>"; };
+		DB4A9BA5163E4C53004B5CA0 /* asteroid2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroid2.png; sourceTree = "<group>"; };
+		DB4A9BA7163E4CFA004B5CA0 /* jetpack2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jetpack2.png; sourceTree = "<group>"; };
+		DB4A9BA9163E4DF0004B5CA0 /* refinery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refinery.png; sourceTree = "<group>"; };
+		DB4A9BAB163E4EAE004B5CA0 /* tesla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tesla.png; sourceTree = "<group>"; };
+		DB4A9BAD163E5000004B5CA0 /* alien7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien7.png; sourceTree = "<group>"; };
+		DB4A9BAE163E5000004B5CA0 /* alien6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien6.png; sourceTree = "<group>"; };
+		DB4A9BAF163E5001004B5CA0 /* alien5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien5.png; sourceTree = "<group>"; };
+		DB4A9BB0163E5001004B5CA0 /* alien4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien4.png; sourceTree = "<group>"; };
+		DB4A9BB1163E5002004B5CA0 /* alien3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien3.png; sourceTree = "<group>"; };
+		DB4A9BB2163E5002004B5CA0 /* alien2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien2.png; sourceTree = "<group>"; };
+		DB4A9BB3163E5003004B5CA0 /* alien1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alien1.png; sourceTree = "<group>"; };
+		DB4A9BBB163E550F004B5CA0 /* stars copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stars copy.png"; sourceTree = "<group>"; };
+		DB4A9BBD163E5773004B5CA0 /* electric_shock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = electric_shock.mp3; sourceTree = "<group>"; };
+		DB4A9BBF163E5BA3004B5CA0 /* tuning_fork.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tuning_fork.mp3; sourceTree = "<group>"; };
+		DB4A9BC1163E5FE5004B5CA0 /* howTo5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = howTo5.png; sourceTree = "<group>"; };
+		DB4A9BC2163E5FE6004B5CA0 /* howTo4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = howTo4.png; sourceTree = "<group>"; };
+		DB4A9BC3163E5FE7004B5CA0 /* howTo3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = howTo3.png; sourceTree = "<group>"; };
+		DB4A9BC4163E5FEB004B5CA0 /* howTo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = howTo2.png; sourceTree = "<group>"; };
+		DB4A9BC5163E5FEF004B5CA0 /* howTo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = howTo1.png; sourceTree = "<group>"; };
+		DB4A9BCB163E6680004B5CA0 /* mainview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainview.png; sourceTree = "<group>"; };
+		DB4A9BCD163E6912004B5CA0 /* playpause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playpause.png; sourceTree = "<group>"; };
+		DB4A9BCE163E6913004B5CA0 /* highscoreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscoreview.png; sourceTree = "<group>"; };
+		DB4A9BD1163E7040004B5CA0 /* mainview-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainview-1.png"; sourceTree = "<group>"; };
+		DB4A9BD3163E70A3004B5CA0 /* mainview-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainview-1.png"; sourceTree = "<group>"; };
 		DBB6110816393D05004ED475 /* HighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreViewController.h; sourceTree = "<group>"; };
 		DBB6110916393D05004ED475 /* HighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreViewController.m; sourceTree = "<group>"; };
 		DBB6110A16393D05004ED475 /* HighScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoreViewController.xib; sourceTree = "<group>"; };
@@ -107,6 +167,7 @@
 				DB2CB155162FF04300A4BF8B /* UIKit.framework in Frameworks */,
 				DB2CB157162FF04300A4BF8B /* Foundation.framework in Frameworks */,
 				DB2CB159162FF04300A4BF8B /* CoreGraphics.framework in Frameworks */,
+				DB27D9B7163E2CE40016E277 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,8 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				DBB6110816393D05004ED475 /* HighScoreViewController.h */,
-				DBB6110916393D05004ED475 /* HighScoreViewController.m */,
 				DBB6110A16393D05004ED475 /* HighScoreViewController.xib */,
+				DBB6110916393D05004ED475 /* HighScoreViewController.m */,
 			);
 			name = "High Score";
 			sourceTree = "<group>";
@@ -175,22 +236,50 @@
 		DB27D9AF163E227E0016E277 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DB4A9BD1163E7040004B5CA0 /* mainview-1.png */,
+				DB4A9BCD163E6912004B5CA0 /* playpause.png */,
+				DB4A9BCE163E6913004B5CA0 /* highscoreview.png */,
+				DB4A9BCB163E6680004B5CA0 /* mainview.png */,
 				DBB6110B16393D05004ED475 /* homebutton.png */,
 				DBB6112B16394C3B004ED475 /* ElectricOrb.png */,
 				DBB6110C16393D05004ED475 /* howtobutton.png */,
 				DBB6112716394180004ED475 /* backarrow.png */,
+				DB4A9BBD163E5773004B5CA0 /* electric_shock.mp3 */,
 				DBB6112816394180004ED475 /* goarrow.png */,
 				DBB6110D16393D05004ED475 /* iconbg.png */,
 				DBB61125163940DE004ED475 /* highscore.png */,
 				DBB6111116393D06004ED475 /* startbutton.png */,
-				DB41E5071637791900C0B82D /* refinery.jpg */,
 				DB41E51C1637E5DA00C0B82D /* bronzecoin.png */,
-				DB142B46163924AF00B3E1F6 /* tesla.png */,
+				DB4A9BA9163E4DF0004B5CA0 /* refinery.png */,
+				DB4A9BBF163E5BA3004B5CA0 /* tuning_fork.mp3 */,
+				DB27D9B8163E2D210016E277 /* bouncingballsound.mp3 */,
+				DB4A9B75163E3BF1004B5CA0 /* battery.png */,
+				DB4A9BA5163E4C53004B5CA0 /* asteroid2.png */,
+				DB27D9DA163E33CC0016E277 /* increase_agility.mp3 */,
 				DB48FAD516363DC800AD2C0B /* goldcoin.png */,
+				DB27D9DE163E37B20016E277 /* magnetized.png */,
+				DB27D9E6163E3A740016E277 /* rocketOn.png */,
+				DB4A9BBB163E550F004B5CA0 /* stars copy.png */,
+				DB27D9E4163E39F50016E277 /* buzz.png */,
+				DB4A9BA7163E4CFA004B5CA0 /* jetpack2.png */,
+				DB4A9BAD163E5000004B5CA0 /* alien7.png */,
+				DB4A9BAE163E5000004B5CA0 /* alien6.png */,
+				DB4A9BAF163E5001004B5CA0 /* alien5.png */,
+				DB4A9BC1163E5FE5004B5CA0 /* howTo5.png */,
+				DB4A9BC2163E5FE6004B5CA0 /* howTo4.png */,
+				DB4A9BC3163E5FE7004B5CA0 /* howTo3.png */,
+				DB4A9BC4163E5FEB004B5CA0 /* howTo2.png */,
+				DB4A9BC5163E5FEF004B5CA0 /* howTo1.png */,
+				DB4A9BB0163E5001004B5CA0 /* alien4.png */,
+				DB4A9BB1163E5002004B5CA0 /* alien3.png */,
+				DB4A9BB2163E5002004B5CA0 /* alien2.png */,
+				DB4A9BB3163E5003004B5CA0 /* alien1.png */,
+				DB4A9BAB163E4EAE004B5CA0 /* tesla.png */,
+				DB4A9B78163E4B50004B5CA0 /* coil.png */,
+				DB27D9DC163E33E30016E277 /* crazy_kart_intro.mp3 */,
+				DB4A9B7A163E4BE8004B5CA0 /* life.png */,
 				DB41E51A1637E5C600C0B82D /* silvercoin.png */,
 				DB41E5081637791900C0B82D /* gas.png */,
-				DB41E5091637791900C0B82D /* battery.png */,
-				DB41E50A1637791900C0B82D /* coil.png */,
 				DB41E510163780CD00C0B82D /* crudeoil.png */,
 				DB48FAD816363DFE00AD2C0B /* platform.png */,
 				DB48FADA16363E0B00AD2C0B /* BH2.png */,
@@ -211,6 +300,7 @@
 		DB2CB145162FF04300A4BF8B = {
 			isa = PBXGroup;
 			children = (
+				DB4A9BD3163E70A3004B5CA0 /* mainview-1.png */,
 				DB2CB15A162FF04300A4BF8B /* CrazyRocketManApp */,
 				DB2CB153162FF04300A4BF8B /* Frameworks */,
 				DB2CB151162FF04300A4BF8B /* Products */,
@@ -228,6 +318,7 @@
 		DB2CB153162FF04300A4BF8B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB27D9B6163E2CE40016E277 /* AVFoundation.framework */,
 				DB2CB154162FF04300A4BF8B /* UIKit.framework */,
 				DB2CB156162FF04300A4BF8B /* Foundation.framework */,
 				DB2CB158162FF04300A4BF8B /* CoreGraphics.framework */,
@@ -321,15 +412,11 @@
 				DB48FAD616363DC800AD2C0B /* goldcoin.png in Resources */,
 				DB48FAD916363DFE00AD2C0B /* platform.png in Resources */,
 				DB48FADB16363E0B00AD2C0B /* BH2.png in Resources */,
-				DB41E50B1637791900C0B82D /* refinery.jpg in Resources */,
 				DB41E50C1637791900C0B82D /* gas.png in Resources */,
-				DB41E50D1637791900C0B82D /* battery.png in Resources */,
-				DB41E50E1637791900C0B82D /* coil.png in Resources */,
 				DB41E511163780CD00C0B82D /* crudeoil.png in Resources */,
 				DB41E51B1637E5C600C0B82D /* silvercoin.png in Resources */,
 				DB41E51D1637E5DA00C0B82D /* bronzecoin.png in Resources */,
 				DB142B3C1639158200B3E1F6 /* GameOverViewController.xib in Resources */,
-				DB142B47163924B000B3E1F6 /* tesla.png in Resources */,
 				DBB6111316393D06004ED475 /* HighScoreViewController.xib in Resources */,
 				DBB6111416393D06004ED475 /* homebutton.png in Resources */,
 				DBB6111516393D06004ED475 /* howtobutton.png in Resources */,
@@ -342,6 +429,39 @@
 				DBB6112A16394181004ED475 /* goarrow.png in Resources */,
 				DBB6112C16394C3B004ED475 /* ElectricOrb.png in Resources */,
 				DB27D9B4163E248B0016E277 /* GameFinishedViewController.xib in Resources */,
+				DB27D9B9163E2D210016E277 /* bouncingballsound.mp3 in Resources */,
+				DB27D9DB163E33CC0016E277 /* increase_agility.mp3 in Resources */,
+				DB27D9DD163E33E30016E277 /* crazy_kart_intro.mp3 in Resources */,
+				DB27D9DF163E37B30016E277 /* magnetized.png in Resources */,
+				DB27D9E5163E39F50016E277 /* buzz.png in Resources */,
+				DB27D9E7163E3A750016E277 /* rocketOn.png in Resources */,
+				DB4A9B76163E3BF2004B5CA0 /* battery.png in Resources */,
+				DB4A9B79163E4B51004B5CA0 /* coil.png in Resources */,
+				DB4A9B7B163E4BE9004B5CA0 /* life.png in Resources */,
+				DB4A9BA6163E4C53004B5CA0 /* asteroid2.png in Resources */,
+				DB4A9BA8163E4CFA004B5CA0 /* jetpack2.png in Resources */,
+				DB4A9BAA163E4DF1004B5CA0 /* refinery.png in Resources */,
+				DB4A9BAC163E4EAF004B5CA0 /* tesla.png in Resources */,
+				DB4A9BB4163E5003004B5CA0 /* alien7.png in Resources */,
+				DB4A9BB5163E5003004B5CA0 /* alien6.png in Resources */,
+				DB4A9BB6163E5003004B5CA0 /* alien5.png in Resources */,
+				DB4A9BB7163E5003004B5CA0 /* alien4.png in Resources */,
+				DB4A9BB8163E5003004B5CA0 /* alien3.png in Resources */,
+				DB4A9BB9163E5003004B5CA0 /* alien2.png in Resources */,
+				DB4A9BBA163E5003004B5CA0 /* alien1.png in Resources */,
+				DB4A9BBC163E5510004B5CA0 /* stars copy.png in Resources */,
+				DB4A9BBE163E5774004B5CA0 /* electric_shock.mp3 in Resources */,
+				DB4A9BC0163E5BA4004B5CA0 /* tuning_fork.mp3 in Resources */,
+				DB4A9BC6163E5FF1004B5CA0 /* howTo5.png in Resources */,
+				DB4A9BC7163E5FF1004B5CA0 /* howTo4.png in Resources */,
+				DB4A9BC8163E5FF1004B5CA0 /* howTo3.png in Resources */,
+				DB4A9BC9163E5FF1004B5CA0 /* howTo2.png in Resources */,
+				DB4A9BCA163E5FF1004B5CA0 /* howTo1.png in Resources */,
+				DB4A9BCC163E6681004B5CA0 /* mainview.png in Resources */,
+				DB4A9BCF163E6915004B5CA0 /* playpause.png in Resources */,
+				DB4A9BD0163E6915004B5CA0 /* highscoreview.png in Resources */,
+				DB4A9BD2163E7041004B5CA0 /* mainview-1.png in Resources */,
+				DB4A9BD4163E70A3004B5CA0 /* mainview-1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

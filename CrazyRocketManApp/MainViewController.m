@@ -10,6 +10,8 @@
 #import "GameViewController.h"
 #import "HowToViewController.h"
 #import "HighScoreViewController.h"
+
+
 @interface MainViewController ()
 @end
 
@@ -32,6 +34,14 @@
         [startButton.titleLabel setFont:[UIFont fontWithName:@"robom" size:15]];
         [[self view]addSubview:startButton];
         
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"crazy_kart_intro" withExtension: @"mp3"];
+        
+        NSError *error;
+        audioplayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        [audioplayer setNumberOfLoops:-1];
+        [audioplayer prepareToPlay];
+        
+        
     }
     return self;
 }
@@ -39,6 +49,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(callMusic) userInfo:nil repeats:NO];
+
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -47,6 +60,9 @@
     [self setStartButton:nil];
     [self setHowToButton:nil];
     [self setHighscoreButton:nil];
+    [timer invalidate];
+    timer = nil;
+    
     [[self view] removeFromSuperview];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -67,7 +83,7 @@
     [mainvc.view removeFromSuperview];
     [howtovc.view removeFromSuperview];
     [hsvc.view removeFromSuperview];
-    
+    [self stopMusic];
 }
 -(IBAction)clickHowTo:(UIButton *)howTo
 {
@@ -78,7 +94,7 @@
     [mainvc.view removeFromSuperview];
     [gamevc.view removeFromSuperview];
     [hsvc.view removeFromSuperview];
-
+    [self stopMusic];
 }
 -(IBAction)clickHighScore:(UIButton *)highscore
 {
@@ -88,5 +104,20 @@
     [mainvc.view removeFromSuperview];
     [gamevc.view removeFromSuperview];
     [howtovc.view removeFromSuperview];
+        [self stopMusic];
 }
+
+-(void)callMusic
+{
+    [audioplayer play];
+
+}
+
+-(void)stopMusic
+{
+    
+    [audioplayer stop];
+    audioplayer = nil;
+}
+
 @end

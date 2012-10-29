@@ -184,7 +184,7 @@ CGPoint rocketManNewPosition;
            
            
            //Add image object to Array of platforms
-           [arrayOfPlatforms addObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"platform.png"]]];
+           [arrayOfPlatforms addObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"asteroid2.png"]]];
            //platform Object rect
            [[arrayOfPlatforms objectAtIndex:i] setFrame:CGRectMake(xpos, ypos, stepRect.width, stepRect.height)];
        
@@ -252,30 +252,30 @@ CGPoint rocketManNewPosition;
         
         
         
-        rocketOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-110, 390, 40, 60)];
-        [rocketOnButtonBG setImage:[UIImage imageNamed:@"gas.png"]];
+        rocketOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-80, 420, 30, 30)];
+        [rocketOnButtonBG setImage:[UIImage imageNamed:@"jetpack2.png"]];
         [rocketOnButtonBG setAlpha:0.3];
         [[self view] addSubview:rocketOnButtonBG];
         
         // 320x480
         rocketOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        rocketOnButton.frame =CGRectMake(270-110, 390, 40, 60
+        rocketOnButton.frame =CGRectMake(270-80, 420, 30, 30
                                          );
         rocketOnButton.backgroundColor = [UIColor clearColor];
-        [rocketOnButton setBackgroundImage:[UIImage imageNamed:@"gas.png"] forState:UIControlStateNormal];
-        [rocketOnButton setAlpha:0];
+        [rocketOnButton setBackgroundImage:[UIImage imageNamed:@"jetpack2.png"] forState:UIControlStateNormal];
+        [rocketOnButton setAlpha: 0];
         [rocketOnButton addTarget:self action:@selector(rocketOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:rocketOnButton];
         
         
         
-        magnetOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-50, 390, 40, 60)];
+        magnetOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-40, 420, 30, 30)];
         [magnetOnButtonBG setImage:[UIImage imageNamed:@"battery.png"]];
         [magnetOnButtonBG setAlpha:0.3];
         [[self view] addSubview:magnetOnButtonBG];
         // 320x480
         magnetOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        magnetOnButton.frame =CGRectMake(270-50, 390, 40, 60);
+        magnetOnButton.frame =CGRectMake(270-40, 420, 30, 30);
         magnetOnButton.backgroundColor = [UIColor clearColor];
         [magnetOnButton setBackgroundImage:[UIImage imageNamed:@"battery.png"] forState:UIControlStateNormal];
         [magnetOnButton setAlpha:0];
@@ -285,15 +285,15 @@ CGPoint rocketManNewPosition;
         
         
         
-        shieldOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270, 390, 40, 60)];
-        [shieldOnButtonBG setImage:[UIImage imageNamed:@"tesla.png"]];
+        shieldOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270, 420, 30, 30)];
+        [shieldOnButtonBG setImage:[UIImage imageNamed:@"ElectricOrb.png"]];
         [shieldOnButtonBG setAlpha:0.3];
         [[self view] addSubview:shieldOnButtonBG];
         // 320x480
         shieldOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        shieldOnButton.frame =CGRectMake(270, 390, 40, 60);
+        shieldOnButton.frame =CGRectMake(270, 420, 30, 30);
         shieldOnButton.backgroundColor = [UIColor clearColor];
-        [shieldOnButton setBackgroundImage:[UIImage imageNamed:@"tesla.png"] forState:UIControlStateNormal];
+        [shieldOnButton setBackgroundImage:[UIImage imageNamed:@"ElectricOrb.png"] forState:UIControlStateNormal];
         [shieldOnButton setAlpha:0];
         [shieldOnButton addTarget:self action:@selector(shieldOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:shieldOnButton];
@@ -303,18 +303,18 @@ CGPoint rocketManNewPosition;
         
         //Lives
         for (int i=0; i<life; i++) {
-            CGRect oilRect = CGRectMake(0, 0, 30, 30);
-            
-            UIImageView  *oilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
-            
-            [oilView setFrame:oilRect];
-            
-            oilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
+//            CGRect oilRect = CGRectMake(0, 0, 30, 30);
+//            
+//            UIImageView  *oilView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"crudeoil.png"]];
+//            
+//            [oilView setFrame:oilRect];
+//            
+//            oilView.center = CGPointMake(abs(arc4random()%300)+10 ,0);
             
             
              
             lives[i] = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-            [lives[i] setImage:[UIImage imageNamed:@"BH2.png"]];
+            [lives[i] setImage:[UIImage imageNamed:@"life.png"]];
             lives[i].center = CGPointMake(i*20+25,480-50);
             // every life is a subview - show it
             [[self view] addSubview:lives[i]];
@@ -328,37 +328,34 @@ CGPoint rocketManNewPosition;
       
     
         
-        //ADD Character & shield
+        //ADD Character & shield & magnetized
        electroShield = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ElectricOrb.png"]];
-       
+       magnetized = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"magnetized.png"]];
       
         
         
-        rocketMan = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BH2.png"]];
+        rocketMan = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"buzz.png"]];
+        [rocketMan  setFrame:CGRectMake(0, 0, 70, 70)];
         rocketMan.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
-         electroShield.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
-      
+         
+        
+        electroShield.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
+        magnetized.center = CGPointMake(first.center.x, first.frame.origin.y -rocketMan.bounds.size.height/2-5);
         
        rocketManNewPosition.x = rocketMan.center.x;
        rocketManNewPosition.y = rocketMan.center.y;
         
         [electroShield setAlpha:0];
+        [magnetized setAlpha:0];
+        
+        
        [[self view] addSubview:electroShield];
         [[self view] addSubview:rocketMan ];
-        
+         [[self view] addSubview:magnetized ];
         
        
         
         
-//        numberOfGas = [[UILabel alloc]init];
-//        numberOfGas.text = [NSString stringWithFormat:@"%i", gasNum];
-//        [numberOfGas setFrame:CGRectMake(30, 35, 10, 10)];
-//        [numberOfGas setFont: [UIFont boldSystemFontOfSize:10]];
-//        [numberOfGas setTextColor:[UIColor whiteColor]];
-//        numberOfGas.textAlignment = UITextAlignmentCenter;
-//        [numberOfGas setBackgroundColor:[UIColor blackColor]];
-//        [numberOfGas setAlpha:.5];
-//        [[self view] addSubview:numberOfGas];
 
         
         
@@ -377,7 +374,7 @@ CGPoint rocketManNewPosition;
         labelScore.text = [NSString stringWithFormat:@"Score:%.0f",score];
         [labelScore setFrame:CGRectMake(self.view.bounds.size.width-200, self.view.bounds.size.height-20, 100, 20)];
         [labelScore setFont: [UIFont boldSystemFontOfSize:14]];
-         [labelScore setTextColor:[UIColor blackColor]];
+         [labelScore setTextColor:[UIColor whiteColor]];
          labelScore.textAlignment = UITextAlignmentCenter;
         [labelScore setBackgroundColor:[UIColor clearColor]];
         [[self view] addSubview:labelScore];
@@ -387,6 +384,34 @@ CGPoint rocketManNewPosition;
         
     
 
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"increase_agility" withExtension: @"mp3"];
+ 
+        NSError *error;
+        audioplayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        
+        [audioplayer prepareToPlay];
+        
+        
+        
+        
+        NSURL *url2 = [[NSBundle mainBundle] URLForResource:@"electric_shock" withExtension: @"mp3"];
+        
+        NSError *error2;
+        audioplayer2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url2 error:&error2];
+        
+        [audioplayer2 prepareToPlay];
+        
+        
+        
+        NSURL *url3 = [[NSBundle mainBundle] URLForResource:@"tuning_fork" withExtension: @"mp3"];
+        
+        NSError *error3;
+        audioplayer3 = [[AVAudioPlayer alloc] initWithContentsOfURL:url3 error:&error3];
+        
+        [audioplayer3 prepareToPlay];
+        
+        
+        
     }
     return self;
 }
@@ -438,6 +463,17 @@ CGPoint rocketManNewPosition;
     [gameTimer invalidate];
     gameTimer =nil;
     
+    
+    [audioplayer stop];
+    audioplayer = nil;
+    
+    [audioplayer2 stop];
+    audioplayer2 = nil;
+    
+    
+    [audioplayer3 stop];
+    audioplayer3 = nil;
+    
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
   
@@ -477,9 +513,14 @@ CGPoint rocketManNewPosition;
     [gameTimer invalidate];
     gameTimer =nil;
     
-    
+    [audioplayer stop];
+    audioplayer = nil;
  
+    [audioplayer2 stop];
+    audioplayer2 = nil;
     
+    [audioplayer3 stop];
+    audioplayer3 = nil;
     
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
@@ -541,7 +582,7 @@ CGPoint rocketManNewPosition;
     [[self view] addSubview:numberOfGas];
     
     //refinery image
-    refineImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.jpg"]];
+    refineImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.png"]];
     [refineImage setFrame:CGRectMake(60, 10, 40, 35)];
     [refineImage setAlpha:.5];
     [[self view] addSubview:refineImage];
@@ -800,12 +841,13 @@ CGPoint rocketManNewPosition;
 		mainJumping = YES;
 		jumpSpeed = jumpSpeedLimit*-1;
 		rocketManNewPosition.y += jumpSpeed;
+            
         }
     
     
         else
         {
-            
+        
         //if  paakyat n
         if(jumpSpeed < 0)
         {
@@ -848,10 +890,10 @@ CGPoint rocketManNewPosition;
                 {
         
                     //speed up when
-                    if (rocketMan.center.y < self.view.bounds.size.height/2 - 70)
+                    if (rocketMan.center.y < self.view.bounds.size.height/2 + 30)
                     {
                         platformSpeedmove =4;
-                        rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y-4);
+                        rocketMan.center = CGPointMake(rocketMan.center.x, rocketMan.center.y- 4);
                     
                     }
                     
@@ -868,6 +910,7 @@ CGPoint rocketManNewPosition;
                               mainJumping = NO;
                               rocketManNewPosition.y = checkplatform.frame.origin.y - rocketMan.frame.size.height/2 +10;
                               rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
+                            
                           }
             
                   
@@ -908,6 +951,7 @@ CGPoint rocketManNewPosition;
     //move rocketman
      rocketMan.center = CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
     electroShield.center =CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
+    magnetized.center =CGPointMake(rocketManNewPosition.x, rocketManNewPosition.y);
 }
 
 
@@ -1274,17 +1318,17 @@ CGPoint rocketManNewPosition;
     
     
     switch (platformsFinished) {
-        case 10:
+        case 80:
             level++;
             NSLog(@"%d",level);
             break;
             
-        case 20:
+        case 300:
             level++;
             NSLog(@"%d",level);
             break;
             
-        case 30:
+        case 1000:
             level++;
             NSLog(@"%d",level);
             break;
@@ -1401,7 +1445,8 @@ CGPoint rocketManNewPosition;
     
     //CREATE COINS
     
-    if (platformsFinished < 20) {
+    if (platformsFinished < 20)
+    {
         coinsCounts = 1;
     }
     else if (platformsFinished < 50)
@@ -1424,8 +1469,8 @@ CGPoint rocketManNewPosition;
     
     
     
-    if ([arrayOfCoins count]< coinsCounts) {
-        if ((arc4random() %3)+1 == 1)
+    if ([arrayOfCoins count] < coinsCounts) {
+        if ((arc4random() % 3)+1 == 1)
         {
             
             CGRect coinsRect = CGRectMake(0, 0, 20, 20);
@@ -1447,7 +1492,7 @@ CGPoint rocketManNewPosition;
                 case 4:
                 case 5:
                     imageStr =@"silvercoin.png";
-                    [coinsView setValue:200];
+                    [coinsView setValue:300];
                     
                     break;
                 case 6:
@@ -1461,7 +1506,7 @@ CGPoint rocketManNewPosition;
             
 
             coinsView.image = [UIImage imageNamed:imageStr];
-            coinsView.center = CGPointMake(xpos,platform.frame.origin.y-3);
+            coinsView.center = CGPointMake(xpos,platform.frame.origin.y-5);
             
             [arrayOfCoins addObject:coinsView];
             
@@ -1485,11 +1530,15 @@ CGPoint rocketManNewPosition;
 {
 if (rocketDuration <=0)
     {
+    [audioplayer stop];
     [timerRocket invalidate];
     timerRocket = nil;
     rocketOn = NO;
     platformSpeedmove = 1;
+    rocketMan.image = [UIImage imageNamed:@"buzz.png"];
+
     }
+    
     rocketDuration--;
 }
 
@@ -1511,8 +1560,11 @@ if (rocketDuration <=0)
     
     rocketDuration =10;
     rocketOn = YES;
-    timerRocket = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkRocketDuration) userInfo:nil repeats:YES];
+        rocketMan.image = [UIImage imageNamed:@"rocketOn.png"];
         
+         [audioplayer play];
+    timerRocket = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkRocketDuration) userInfo:nil repeats:YES];
+      
     platformSpeedmove = 5;
         
     }
@@ -1550,7 +1602,7 @@ if (rocketDuration <=0)
     
     
     
-    randomizeCoin = randomizeCoin *level;
+    randomizeCoin = 1 *level;
     
     [self checkMagnetDuration];
     [self checkShieldDuration];
@@ -1629,21 +1681,30 @@ if (rocketDuration <=0)
         NSString *strEnemyStr;
         CGRect EnemyRect = CGRectMake(0, 0, 30, 30);
         
-        switch ([self getRandomNumber:1 to:4]) {
+        switch ([self getRandomNumber:1 to:7]) {
             case 1:
-                strEnemyStr = @"BH2.png";
+                strEnemyStr = @"alien1.png";
                 break;
                 
             case 2:
-                strEnemyStr = @"ElectricOrb.png";
+                strEnemyStr = @"alien2.png";
                 break;
                 
             case 3:
-                strEnemyStr = @"homebutton.png";
+                strEnemyStr = @"alien3.png";
                 break;
                 
             case 4:
-                strEnemyStr = @"ElectricOrb.png";
+                strEnemyStr = @"alien4.png";
+                break;
+            case 5:
+                strEnemyStr = @"alien5.png";
+                break;
+            case 6:
+                strEnemyStr = @"alien6.png";
+                break;
+            case 7:
+                strEnemyStr = @"alien7.png";
                 break;
             default:
                 break;
@@ -1914,7 +1975,7 @@ if (rocketDuration <=0)
     //add refinery
     CGRect refRect = CGRectMake(0, 0, 35, 30);
     
-    UIImageView  *refView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.jpg"]];
+    UIImageView  *refView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"refinery.png"]];
     
     [refView setFrame:refRect];
     
@@ -1982,7 +2043,8 @@ if (rocketDuration <=0)
     {
  
         magnetOn= NO;
-     
+        [audioplayer3 stop];
+      [magnetized setAlpha:0];
     }
     magnetDuration--;
     
@@ -1990,11 +2052,15 @@ if (rocketDuration <=0)
 
 -(void)magnetOnMode
 {
+    
+    
     if (!magnetOn)
     {
         magnetOn = YES;
         magnetDuration=10;
+        [audioplayer3 play];
         [magnetOnButton setAlpha:0];
+        [magnetized setAlpha:1];
     }
     
     else
@@ -2012,6 +2078,7 @@ if (rocketDuration <=0)
     {
         
         shieldOn= NO;
+        [audioplayer2 stop];
         [electroShield setAlpha:0];
     }
     shieldDuration--;
@@ -2024,6 +2091,7 @@ if (rocketDuration <=0)
     {
         shieldOn = YES;
         shieldDuration=10;
+        [audioplayer2 play];
         [shieldOnButton setAlpha:0];
         [electroShield setAlpha:1];
     }
@@ -2058,6 +2126,17 @@ if (rocketDuration <=0)
     
     [gameTimer invalidate];
     gameTimer = nil;
+    
+    
+    [audioplayer stop];
+    audioplayer = nil;
+    
+    [audioplayer2 stop];
+    audioplayer2 = nil;
+    
+    
+    [audioplayer3 stop];
+    audioplayer3 = nil;
     
     GameOverViewController *gameOverScene = [[GameOverViewController alloc] init];
     [gameOverScene finishedScore:score];
@@ -2094,6 +2173,16 @@ if (rocketDuration <=0)
     [gameTimer invalidate];
     gameTimer = nil;
     
+    
+    [audioplayer stop];
+    audioplayer = nil;
+    
+    [audioplayer2 stop];
+    audioplayer2 = nil;
+    
+    [audioplayer3 stop];
+    audioplayer3 = nil;
+    
     GameFinishedViewController *gamefinish = [[GameFinishedViewController  alloc] init];
 
     [gamefinish finishedScore:score];
@@ -2125,6 +2214,15 @@ if (rocketDuration <=0)
         
         [gameTimer invalidate];
         gameTimer =nil;
+        
+        [audioplayer stop];
+        audioplayer = nil;
+        
+        [audioplayer2 stop];
+        audioplayer2 = nil;
+        
+        [audioplayer3 stop];
+        audioplayer3 = nil;
     }
 
 
