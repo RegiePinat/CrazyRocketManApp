@@ -27,8 +27,8 @@
 
 
 
-
-
+UIView  *viewPause;
+UILabel *labelPause;
 UIImageView *lives[3];
 
 //G vars
@@ -356,8 +356,20 @@ CGPoint rocketManNewPosition;
        
         
         
+        viewPause = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [self view].frame.size.width, [self view].frame.size.height)];
+       viewPause.alpha = 0;
+        viewPause.backgroundColor = [UIColor  blackColor];
+        viewPause.layer.zPosition = 3;
+        [[self view]addSubview:viewPause];
 
-        
+        labelPause = [[UILabel alloc]init];
+        labelPause .text = [NSString stringWithFormat:@"Game Paused"];
+        [labelPause setFrame:CGRectMake(self.view.bounds.size.width/2-100, self.view.bounds.size.height/2,200, 20)];
+        [labelPause setFont: [UIFont boldSystemFontOfSize:17]];
+        [labelPause setTextColor:[UIColor whiteColor]];
+        labelPause.textAlignment = UITextAlignmentCenter;
+        [labelPause setBackgroundColor:[UIColor grayColor]];
+        [viewPause addSubview:labelPause];
         
         
         pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -365,6 +377,7 @@ CGPoint rocketManNewPosition;
         pauseButton.backgroundColor = [UIColor clearColor];
         [pauseButton setBackgroundImage:[UIImage imageNamed:@"playpause.png"] forState:UIControlStateNormal];
         [pauseButton setAlpha:1];
+        pauseButton.layer.zPosition = 5;
         [pauseButton addTarget:self action:@selector(pauseGame) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:pauseButton];
         
@@ -2268,6 +2281,8 @@ if (rocketDuration <=0)
         audioplayer3 = nil;
         [audioplayer4 stop];
         audioplayer4 = nil;
+        
+        viewPause.alpha = 0.7;
     }
 
 
@@ -2275,6 +2290,9 @@ else
     {
         
         pauseOn = NO;
+        
+        viewPause.alpha = 0;
+        
         timerBounce = [NSTimer scheduledTimerWithTimeInterval:.07 target:self selector:@selector(jump) userInfo:nil repeats:YES];
         
         
