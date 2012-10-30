@@ -24,6 +24,8 @@
     NSTimer *timerdelay;
     NSTimer *timerMovePlatform;
     
+    NSTimer *timerBGmusic;
+    
     
     UIImageView *rocketMan;
     UIImageView *electroShield;
@@ -71,7 +73,7 @@
     AVAudioPlayer *audioplayer;
     AVAudioPlayer *audioplayer2;
     AVAudioPlayer *audioplayer3;
-    
+    AVAudioPlayer *audioplayer4;
     
 }
 
@@ -111,7 +113,7 @@
 
 
 
-
+-(void)bgmusicplay;
 
 
 -(void)rocketOnMode;

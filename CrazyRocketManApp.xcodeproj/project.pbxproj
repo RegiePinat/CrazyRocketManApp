@@ -61,6 +61,12 @@
 		DB4A9BD0163E6915004B5CA0 /* highscoreview.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BCE163E6913004B5CA0 /* highscoreview.png */; };
 		DB4A9BD2163E7041004B5CA0 /* mainview-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BD1163E7040004B5CA0 /* mainview-1.png */; };
 		DB4A9BD4163E70A3004B5CA0 /* mainview-1.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BD3163E70A3004B5CA0 /* mainview-1.png */; };
+		DB4A9BE4163E71DD004B5CA0 /* fuel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BDF163E71A2004B5CA0 /* fuel.mp3 */; };
+		DB4A9BE5163E71DD004B5CA0 /* fast_beat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BE0163E71A6004B5CA0 /* fast_beat.mp3 */; };
+		DB4A9BE6163E71DD004B5CA0 /* fast_beat-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BE1163E71AE004B5CA0 /* fast_beat-2.mp3 */; };
+		DB4A9BE7163E71DD004B5CA0 /* fire_beat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BE2163E71B9004B5CA0 /* fire_beat.mp3 */; };
+		DB4A9BE8163E71DD004B5CA0 /* crazy_kart_song_wait.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BE3163E71C6004B5CA0 /* crazy_kart_song_wait.mp3 */; };
+		DB4A9BF3163E8FC0004B5CA0 /* magnet.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4A9BF2163E8FC0004B5CA0 /* magnet.png */; };
 		DBB6111216393D06004ED475 /* HighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB6110916393D05004ED475 /* HighScoreViewController.m */; };
 		DBB6111316393D06004ED475 /* HighScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110A16393D05004ED475 /* HighScoreViewController.xib */; };
 		DBB6111416393D06004ED475 /* homebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = DBB6110B16393D05004ED475 /* homebutton.png */; };
@@ -140,6 +146,12 @@
 		DB4A9BCE163E6913004B5CA0 /* highscoreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscoreview.png; sourceTree = "<group>"; };
 		DB4A9BD1163E7040004B5CA0 /* mainview-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainview-1.png"; sourceTree = "<group>"; };
 		DB4A9BD3163E70A3004B5CA0 /* mainview-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainview-1.png"; sourceTree = "<group>"; };
+		DB4A9BDF163E71A2004B5CA0 /* fuel.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fuel.mp3; sourceTree = "<group>"; };
+		DB4A9BE0163E71A6004B5CA0 /* fast_beat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fast_beat.mp3; sourceTree = "<group>"; };
+		DB4A9BE1163E71AE004B5CA0 /* fast_beat-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fast_beat-2.mp3"; sourceTree = "<group>"; };
+		DB4A9BE2163E71B9004B5CA0 /* fire_beat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire_beat.mp3; sourceTree = "<group>"; };
+		DB4A9BE3163E71C6004B5CA0 /* crazy_kart_song_wait.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crazy_kart_song_wait.mp3; sourceTree = "<group>"; };
+		DB4A9BF2163E8FC0004B5CA0 /* magnet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnet.png; sourceTree = "<group>"; };
 		DBB6110816393D05004ED475 /* HighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreViewController.h; sourceTree = "<group>"; };
 		DBB6110916393D05004ED475 /* HighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreViewController.m; sourceTree = "<group>"; };
 		DBB6110A16393D05004ED475 /* HighScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoreViewController.xib; sourceTree = "<group>"; };
@@ -267,6 +279,11 @@
 				DB4A9BAF163E5001004B5CA0 /* alien5.png */,
 				DB4A9BC1163E5FE5004B5CA0 /* howTo5.png */,
 				DB4A9BC2163E5FE6004B5CA0 /* howTo4.png */,
+				DB4A9BDF163E71A2004B5CA0 /* fuel.mp3 */,
+				DB4A9BE0163E71A6004B5CA0 /* fast_beat.mp3 */,
+				DB4A9BE1163E71AE004B5CA0 /* fast_beat-2.mp3 */,
+				DB4A9BE2163E71B9004B5CA0 /* fire_beat.mp3 */,
+				DB4A9BE3163E71C6004B5CA0 /* crazy_kart_song_wait.mp3 */,
 				DB4A9BC3163E5FE7004B5CA0 /* howTo3.png */,
 				DB4A9BC4163E5FEB004B5CA0 /* howTo2.png */,
 				DB4A9BC5163E5FEF004B5CA0 /* howTo1.png */,
@@ -278,6 +295,7 @@
 				DB4A9B78163E4B50004B5CA0 /* coil.png */,
 				DB27D9DC163E33E30016E277 /* crazy_kart_intro.mp3 */,
 				DB4A9B7A163E4BE8004B5CA0 /* life.png */,
+				DB4A9BF2163E8FC0004B5CA0 /* magnet.png */,
 				DB41E51A1637E5C600C0B82D /* silvercoin.png */,
 				DB41E5081637791900C0B82D /* gas.png */,
 				DB41E510163780CD00C0B82D /* crudeoil.png */,
@@ -462,6 +480,12 @@
 				DB4A9BD0163E6915004B5CA0 /* highscoreview.png in Resources */,
 				DB4A9BD2163E7041004B5CA0 /* mainview-1.png in Resources */,
 				DB4A9BD4163E70A3004B5CA0 /* mainview-1.png in Resources */,
+				DB4A9BE4163E71DD004B5CA0 /* fuel.mp3 in Resources */,
+				DB4A9BE5163E71DD004B5CA0 /* fast_beat.mp3 in Resources */,
+				DB4A9BE6163E71DD004B5CA0 /* fast_beat-2.mp3 in Resources */,
+				DB4A9BE7163E71DD004B5CA0 /* fire_beat.mp3 in Resources */,
+				DB4A9BE8163E71DD004B5CA0 /* crazy_kart_song_wait.mp3 in Resources */,
+				DB4A9BF3163E8FC0004B5CA0 /* magnet.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,7 +530,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rio Ohmori (GU37ZJ94M4)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -521,6 +545,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B27B5188-18B7-4C97-8033-9C5EBCE90155";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -533,7 +558,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rio Ohmori (GU37ZJ94M4)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -542,6 +568,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B27B5188-18B7-4C97-8033-9C5EBCE90155";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -561,10 +588,12 @@
 		DB2CB16A162FF04300A4BF8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rio Ohmori (GU37ZJ94M4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CrazyRocketManApp/CrazyRocketManApp-Prefix.pch";
 				INFOPLIST_FILE = "CrazyRocketManApp/CrazyRocketManApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B27B5188-18B7-4C97-8033-9C5EBCE90155";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

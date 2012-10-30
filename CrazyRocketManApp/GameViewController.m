@@ -270,14 +270,14 @@ CGPoint rocketManNewPosition;
         
         
         magnetOnButtonBG = [[UIImageView alloc]initWithFrame:CGRectMake(270-40, 420, 30, 30)];
-        [magnetOnButtonBG setImage:[UIImage imageNamed:@"battery.png"]];
+        [magnetOnButtonBG setImage:[UIImage imageNamed:@"magnet.png"]];
         [magnetOnButtonBG setAlpha:0.3];
         [[self view] addSubview:magnetOnButtonBG];
         // 320x480
         magnetOnButton = [UIButton buttonWithType:UIButtonTypeCustom];
         magnetOnButton.frame =CGRectMake(270-40, 420, 30, 30);
         magnetOnButton.backgroundColor = [UIColor clearColor];
-        [magnetOnButton setBackgroundImage:[UIImage imageNamed:@"battery.png"] forState:UIControlStateNormal];
+        [magnetOnButton setBackgroundImage:[UIImage imageNamed:@"magnet.png"] forState:UIControlStateNormal];
         [magnetOnButton setAlpha:0];
         [magnetOnButton addTarget:self action:@selector(magnetOnMode) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:magnetOnButton];
@@ -361,9 +361,9 @@ CGPoint rocketManNewPosition;
         
         
         pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        pauseButton.frame =CGRectMake(290, 0, 40, 60);
+        pauseButton.frame =CGRectMake(270, 10, 25, 25);
         pauseButton.backgroundColor = [UIColor clearColor];
-        [pauseButton setBackgroundImage:[UIImage imageNamed:@"homebutton.png"] forState:UIControlStateNormal];
+        [pauseButton setBackgroundImage:[UIImage imageNamed:@"playpause.png"] forState:UIControlStateNormal];
         [pauseButton setAlpha:1];
         [pauseButton addTarget:self action:@selector(pauseGame) forControlEvents:UIControlEventTouchUpInside];
         [[self view]addSubview:pauseButton];
@@ -381,15 +381,22 @@ CGPoint rocketManNewPosition;
 
         
 
+        NSURL *url4 = [[NSBundle mainBundle] URLForResource:@"crazy_kart_song_wait" withExtension: @"mp3"];
         
+        NSError *error4;
+        audioplayer4 = [[AVAudioPlayer alloc] initWithContentsOfURL:url4 error:&error4];
     
+        
+        
+        
+        
 
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"increase_agility" withExtension: @"mp3"];
  
         NSError *error;
         audioplayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         
-        [audioplayer prepareToPlay];
+      
         
         
         
@@ -399,7 +406,7 @@ CGPoint rocketManNewPosition;
         NSError *error2;
         audioplayer2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url2 error:&error2];
         
-        [audioplayer2 prepareToPlay];
+       
         
         
         
@@ -408,8 +415,16 @@ CGPoint rocketManNewPosition;
         NSError *error3;
         audioplayer3 = [[AVAudioPlayer alloc] initWithContentsOfURL:url3 error:&error3];
         
-        [audioplayer3 prepareToPlay];
         
+        
+            [audioplayer4 setNumberOfLoops:-1];
+
+        
+         [audioplayer4 prepareToPlay];
+        [audioplayer prepareToPlay];
+       [audioplayer2 prepareToPlay];
+        [audioplayer3 prepareToPlay];
+       
         
         
     }
@@ -464,6 +479,9 @@ CGPoint rocketManNewPosition;
     gameTimer =nil;
     
     
+    [timerBGmusic invalidate];
+    timerBGmusic = nil;
+    
     [audioplayer stop];
     audioplayer = nil;
     
@@ -473,6 +491,10 @@ CGPoint rocketManNewPosition;
     
     [audioplayer3 stop];
     audioplayer3 = nil;
+    
+    
+    [audioplayer4 stop];
+    audioplayer4 = nil;
     
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
@@ -513,6 +535,9 @@ CGPoint rocketManNewPosition;
     [gameTimer invalidate];
     gameTimer =nil;
     
+    [timerBGmusic invalidate];
+    timerBGmusic = nil;
+    
     [audioplayer stop];
     audioplayer = nil;
  
@@ -521,6 +546,9 @@ CGPoint rocketManNewPosition;
     
     [audioplayer3 stop];
     audioplayer3 = nil;
+    
+    [audioplayer4 stop];
+    audioplayer4 = nil;
     
     [self setArrayOfPlatforms:nil];
     [self setArrayOfCoins:nil];
@@ -1245,6 +1273,7 @@ CGPoint rocketManNewPosition;
 {
     platformSpeedmove =1;
     
+    
     if (!delayTime) {
         
         gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameTimeMethod) userInfo:nil repeats:YES];
@@ -1253,7 +1282,7 @@ CGPoint rocketManNewPosition;
         
         timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
 
-        
+        timerBGmusic = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(bgmusicplay) userInfo:nil repeats:NO];
         
         [timerdelay invalidate];
         timerdelay = nil;
@@ -1262,6 +1291,7 @@ CGPoint rocketManNewPosition;
 
     else
     {
+        
         delayTime = NO;
     }
 }
@@ -1328,10 +1358,10 @@ CGPoint rocketManNewPosition;
             NSLog(@"%d",level);
             break;
             
-        case 1000:
-            level++;
-            NSLog(@"%d",level);
-            break;
+//        case 1000:
+//            level++;
+//            NSLog(@"%d",level);
+//            break;
             
         default:
             break;
@@ -2127,6 +2157,8 @@ if (rocketDuration <=0)
     [gameTimer invalidate];
     gameTimer = nil;
     
+    [timerBGmusic invalidate];
+    timerBGmusic = nil;
     
     [audioplayer stop];
     audioplayer = nil;
@@ -2137,6 +2169,9 @@ if (rocketDuration <=0)
     
     [audioplayer3 stop];
     audioplayer3 = nil;
+    
+    [audioplayer4 stop];
+    audioplayer4 = nil;
     
     GameOverViewController *gameOverScene = [[GameOverViewController alloc] init];
     [gameOverScene finishedScore:score];
@@ -2173,6 +2208,8 @@ if (rocketDuration <=0)
     [gameTimer invalidate];
     gameTimer = nil;
     
+    [timerBGmusic invalidate];
+    timerBGmusic = nil;
     
     [audioplayer stop];
     audioplayer = nil;
@@ -2182,6 +2219,9 @@ if (rocketDuration <=0)
     
     [audioplayer3 stop];
     audioplayer3 = nil;
+    
+    [audioplayer4 stop];
+    audioplayer4 = nil;
     
     GameFinishedViewController *gamefinish = [[GameFinishedViewController  alloc] init];
 
@@ -2215,6 +2255,9 @@ if (rocketDuration <=0)
         [gameTimer invalidate];
         gameTimer =nil;
         
+        [timerBGmusic invalidate];
+        timerBGmusic = nil;
+        
         [audioplayer stop];
         audioplayer = nil;
         
@@ -2223,6 +2266,8 @@ if (rocketDuration <=0)
         
         [audioplayer3 stop];
         audioplayer3 = nil;
+        [audioplayer4 stop];
+        audioplayer4 = nil;
     }
 
 
@@ -2236,6 +2281,8 @@ else
         timerMovePlatform = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(movePlatforms) userInfo:nil repeats:YES];
         
         gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(gameTimeMethod) userInfo:nil repeats:YES];
+        
+        timerBGmusic = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(bgmusicplay) userInfo:nil repeats:NO];
     
         if (rocketOn) {
                 timerRocket = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkRocketDuration) userInfo:nil repeats:YES];
@@ -2249,6 +2296,13 @@ else
 }
 
 
+
+-(void)bgmusicplay
+{
+    
+
+[audioplayer4 play];
+}
 
 
 
